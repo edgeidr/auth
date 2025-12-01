@@ -2,7 +2,7 @@
 	"plugins": ["prettier-plugin-tailwindcss"],
 	"trailingComma": "all",
 	"tabWidth": 4,
-	"printWidth": 120,
+	"printWidth": 100,
 	"vueIndentScriptAndStyle": true,
 	"bracketSameLine": true,
 	"useTabs": true,
