@@ -1,5 +1,5 @@
 {
-	"name": "with-vue-nuxt",
+	"name": "auth",
 	"private": true,
 	"scripts": {
 		"build": "turbo run build",
