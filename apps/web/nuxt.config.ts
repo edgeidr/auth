@@ -1,9 +1,16 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
+import tailwindcss from "@tailwindcss/vite";
+
 export default defineNuxtConfig({
 	compatibilityDate: "2025-07-15",
 	devtools: { enabled: true },
-	modules: ["@nuxt/fonts", "@nuxt/icon", "@nuxt/image"],
+	modules: ["@nuxt/fonts", "@nuxt/icon", "@nuxt/image", "@primevue/nuxt-module"],
 	ssr: false,
+	css: ["~/assets/css/main.css"],
+	vite: {
+		plugins: [tailwindcss()],
+	},
 	app: {
 		head: {
 			title: process.env.NUXT_APP_NAME,
@@ -20,11 +27,19 @@ export default defineNuxtConfig({
 	},
 	components: [
 		{
-			path: "~/components",
+			path: "@/components",
 			pathPrefix: false,
 		},
 	],
 	fonts: {
 		families: [{ name: "Inter" }],
+	},
+	primevue: {
+		importTheme: { from: "@/primevue/theme", as: "globalTheme" },
+		importPT: { from: "@/primevue/passthrough", as: "globalPassthrough" },
+		options: {
+			ptOptions: { mergeProps: true },
+			ripple: true,
+		},
 	},
 });

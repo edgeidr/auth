@@ -1,0 +1,10 @@
+@import "tailwindcss";
+@import "tailwindcss-primeui";
+
+:root {
+	@apply bg-surface-200 text-surface-700 font-[Inter] text-[14px];
+}
+
+.iconify {
+	@apply aspect-square;
+}
