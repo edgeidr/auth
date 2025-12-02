@@ -25,6 +25,9 @@ export default defineNuxtConfig({
 			googleClientId: process.env.NUXT_GOOGLE_CLIENT_ID || "",
 		},
 	},
+	pages: {
+		pattern: ["**/*.vue", "!**/_components/**"],
+	},
 	components: [
 		{
 			path: "@/components",
