@@ -43,6 +43,7 @@ export default defineNuxtConfig({
 		options: {
 			ptOptions: { mergeProps: true },
 			ripple: true,
+			inputVariant: "filled",
 		},
 	},
 });
