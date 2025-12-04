@@ -16,6 +16,7 @@
 		"@nuxtjs/i18n": "10.2.1",
 		"@primeuix/themes": "^2.0.1",
 		"@repo/i18n": "workspace:*",
+		"@repo/assets": "workspace:*",
 		"@tailwindcss/vite": "^4.1.17",
 		"nuxt": "^4.2.1",
 		"primevue": "^4.5.0",
