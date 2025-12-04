@@ -1,0 +1,6 @@
+{
+	"name": "@repo/i18n",
+	"version": "1.0.0",
+	"main": "./index.ts",
+	"type": "module"
+}

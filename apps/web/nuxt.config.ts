@@ -5,7 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
 	compatibilityDate: "2025-07-15",
 	devtools: { enabled: true },
-	modules: ["@nuxt/fonts", "@nuxt/icon", "@nuxt/image", "@primevue/nuxt-module"],
+	modules: ["@nuxt/fonts", "@nuxt/icon", "@nuxt/image", "@primevue/nuxt-module", "@nuxtjs/i18n"],
 	ssr: false,
 	css: ["~/assets/css/main.css"],
 	vite: {
@@ -46,5 +46,11 @@ export default defineNuxtConfig({
 			ripple: true,
 			inputVariant: "filled",
 		},
+	},
+	i18n: {
+		locales: [{ code: "en", language: "en-US", file: "en.json" }],
+		defaultLocale: "en",
+		restructureDir: "",
+		langDir: "../../packages/i18n/src/locales",
 	},
 });
