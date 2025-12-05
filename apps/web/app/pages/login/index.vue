@@ -76,7 +76,7 @@
 						:label="$t('login.actions.signUp.link')"
 						class="p-0!"
 						:as="NuxtLink"
-						to="/login" />
+						:to="{ name: 'register' }" />
 				</template>
 			</I18nT>
 		</template>

@@ -1,4 +1,16 @@
 {
+	"common": {
+		"termsOfService": "Terms of Service",
+		"privacyPolicy": "Privacy Policy",
+		"passwordRules": {
+			"feedbackLabel": "Must contain:",
+			"requireUppercase": "an uppercase letter",
+			"requireLowercase": "a lowercase letter",
+			"requireNumber": "a number",
+			"requireSymbol": "a special character",
+			"requireMinCharacters": "at least 8 characters"
+		}
+	},
 	"login": {
 		"header": {
 			"title": "Welcome Back!",
@@ -28,6 +40,32 @@
 			"intro": "By signing in, you agree to our",
 			"terms": "Terms of Service",
 			"privacy": "Privacy Policy"
+		}
+	},
+	"register": {
+		"header": {
+			"title": "Create an account",
+			"subtitle": "Enter your details to get started"
+		},
+		"form": {
+			"firstName": "First Name",
+			"lastName": "Last Name",
+			"email": "Email",
+			"password": "Password",
+			"confirmPassword": "Confirm Password",
+			"agreement": "I agree to the {terms} and {privacy}"
+		},
+		"actions": {
+			"signUp": "Create Account",
+			"signIn": {
+				"full": "Already have an account? {link}",
+				"link": "Sign In"
+			}
+		},
+		"social": {
+			"divider": "or continue with",
+			"google": "Google",
+			"github": "GitHub"
 		}
 	}
 }
