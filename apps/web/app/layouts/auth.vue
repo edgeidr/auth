@@ -1,6 +1,6 @@
 <template>
 	<div class="flex min-h-screen items-center justify-center">
-		<div class="container max-w-md py-8">
+		<div class="container max-w-lg py-8">
 			<div class="mb-4 flex items-center justify-center">
 				<img :src="Images.TransparentLogo" alt="logo" class="max-w-20" />
 			</div>
