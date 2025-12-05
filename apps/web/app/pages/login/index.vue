@@ -33,7 +33,7 @@
 							to="/login" />
 					</div>
 
-					<Button label="Sign In" fluid />
+					<Button :label="$t('login.actions.signIn')" fluid />
 				</div>
 			</form>
 
