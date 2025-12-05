@@ -7,5 +7,8 @@
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.formatOnSave": true,
 	"vue.suggest.propNameCasing": "alwaysCamelCase",
-	"vue.suggest.componentNameCasing": "alwaysPascalCase"
+	"vue.suggest.componentNameCasing": "alwaysPascalCase",
+	"i18n-ally.enabledFrameworks": ["vue"],
+	"i18n-ally.localesPaths": ["packages/i18n/src"],
+	"i18n-ally.keystyle": "nested"
 }
