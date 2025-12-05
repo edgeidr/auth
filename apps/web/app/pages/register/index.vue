@@ -89,12 +89,12 @@
 			</form>
 
 			<Divider>
-				<p class="text-muted-color">{{ $t("register.social.divider") }}</p>
+				<p class="text-muted-color">{{ $t("common.social.divider") }}</p>
 			</Divider>
 
 			<div class="flex items-center gap-4">
 				<Button
-					:label="$t('register.social.google')"
+					:label="$t('common.social.google')"
 					variant="outlined"
 					severity="secondary"
 					fluid>
@@ -104,7 +104,7 @@
 				</Button>
 
 				<Button
-					:label="$t('register.social.github')"
+					:label="$t('common.social.github')"
 					variant="outlined"
 					severity="secondary"
 					fluid>

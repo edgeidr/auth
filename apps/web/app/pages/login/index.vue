@@ -38,12 +38,12 @@
 			</form>
 
 			<Divider>
-				<p class="text-muted-color">{{ $t("login.social.divider") }}</p>
+				<p class="text-muted-color">{{ $t("common.social.divider") }}</p>
 			</Divider>
 
 			<div class="flex items-center gap-4">
 				<Button
-					:label="$t('login.social.google')"
+					:label="$t('common.social.google')"
 					variant="outlined"
 					severity="secondary"
 					fluid>
@@ -53,7 +53,7 @@
 				</Button>
 
 				<Button
-					:label="$t('login.social.github')"
+					:label="$t('common.social.github')"
 					variant="outlined"
 					severity="secondary"
 					fluid>
@@ -68,8 +68,6 @@
 				tag="p"
 				scope="global"
 				class="mt-4 text-center">
-				<template #intro>{{ $t("login.actions.signUp.intro") }}</template>
-
 				<template #link>
 					<Button
 						variant="link"
@@ -88,15 +86,11 @@
 		</template>
 
 		<template #terms>
-			<Button :label="$t('login.agreement.terms')" size="small" variant="link" class="p-0!" />
+			<Button :label="$t('common.termsOfService')" size="small" variant="link" class="p-0!" />
 		</template>
 
 		<template #privacy>
-			<Button
-				:label="$t('login.agreement.privacy')"
-				size="small"
-				variant="link"
-				class="p-0!" />
+			<Button :label="$t('common.privacyPolicy')" size="small" variant="link" class="p-0!" />
 		</template>
 	</I18nT>
 </template>
