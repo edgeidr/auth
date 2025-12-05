@@ -51,6 +51,7 @@ export default defineNuxtConfig({
 		locales: [{ code: "en", language: "en-US", file: "en.json" }],
 		defaultLocale: "en",
 		restructureDir: "",
+		strategy: "no_prefix",
 		langDir: "../../packages/i18n/src/locales",
 	},
 });
