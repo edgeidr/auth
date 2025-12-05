@@ -59,5 +59,18 @@
 				"link": "Sign In"
 			}
 		}
+	},
+	"forgotPassword": {
+		"header": {
+			"title": "Forgot Password?",
+			"subtitle": "Enter your email and we'll send you a reset link"
+		},
+		"form": {
+			"email": "Email Address"
+		},
+		"actions": {
+			"send": "Send Reset Link",
+			"login": "Back to Login"
+		}
 	}
 }

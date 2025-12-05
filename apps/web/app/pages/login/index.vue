@@ -30,7 +30,7 @@
 							:label="$t('login.actions.forgotPassword')"
 							class="p-0!"
 							:as="NuxtLink"
-							to="/login" />
+							:to="{ name: 'forgot-password' }" />
 					</div>
 
 					<Button :label="$t('login.actions.signIn')" fluid />

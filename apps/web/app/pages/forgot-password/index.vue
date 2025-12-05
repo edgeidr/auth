@@ -1,0 +1,40 @@
+<template>
+	<Card>
+		<template #title>{{ $t("forgotPassword.header.title") }}</template>
+
+		<template #subtitle>{{ $t("forgotPassword.header.subtitle") }}</template>
+
+		<template #content>
+			<form class="mt-4">
+				<div class="space-y-4">
+					<FloatLabel variant="in">
+						<InputText id="email" v-model="form.email" type="email" fluid />
+						<label for="email">{{ $t("forgotPassword.form.email") }}</label>
+					</FloatLabel>
+
+					<Button :label="$t('forgotPassword.actions.send')" fluid />
+				</div>
+			</form>
+
+			<div class="mt-2 text-center">
+				<Button
+					:label="$t('forgotPassword.actions.login')"
+					variant="link"
+					:as="NuxtLink"
+					:to="{ name: 'login' }" />
+			</div>
+		</template>
+	</Card>
+</template>
+
+<script setup lang="ts">
+	import { NuxtLink } from "#components";
+
+	definePageMeta({
+		layout: "auth",
+	});
+
+	const form = reactive({
+		email: "",
+	});
+</script>
