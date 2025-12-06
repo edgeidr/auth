@@ -62,14 +62,16 @@
 	});
 
 	const { t } = useI18n();
-	const forgotPasswordEmail = useState("forgotPasswordEmail");
+	const forgotPasswordEmail = useState<string | null>("forgotPasswordEmail");
 	const codeExpiry = ref<Date | null>(null);
 	const resendExpiry = ref<Date | null>(null);
 	const OTP_LENGTH = 6;
 	const RESEND_DURATION = 30;
 	const codeTimer = useCountdownTimer(codeExpiry, "mm:ss");
 	const resendTimer = useCountdownTimer(resendExpiry, "s");
-	const form = reactive({
+	const form = reactive<{
+		code: string;
+	}>({
 		code: "",
 	});
 

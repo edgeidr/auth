@@ -140,7 +140,14 @@
 	});
 
 	const { t } = useI18n();
-	const form = reactive({
+	const form = reactive<{
+		firstName: string;
+		lastName: string;
+		email: string;
+		password: string;
+		confirmPassword: string;
+		agreement: boolean;
+	}>({
 		firstName: "",
 		lastName: "",
 		email: "",

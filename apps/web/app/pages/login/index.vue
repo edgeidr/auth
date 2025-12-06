@@ -102,7 +102,11 @@
 		layout: "auth",
 	});
 
-	const form = reactive({
+	const form = reactive<{
+		email: string;
+		password: string;
+		rememberMe: boolean;
+	}>({
 		email: "",
 		password: "",
 		rememberMe: false,

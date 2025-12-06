@@ -40,8 +40,10 @@
 		layout: "auth",
 	});
 
-	const forgotPasswordEmail = useState("forgotPasswordEmail");
-	const form = reactive({
+	const forgotPasswordEmail = useState<string | null>("forgotPasswordEmail");
+	const form = reactive<{
+		email: string;
+	}>({
 		email: "",
 	});
 
