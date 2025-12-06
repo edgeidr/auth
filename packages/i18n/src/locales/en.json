@@ -72,5 +72,22 @@
 			"send": "Send Verification Code",
 			"login": "Back to Login"
 		}
+	},
+	"forgotPasswordVerify": {
+		"header": {
+			"title": "Enter OTP",
+			"subtitle": "We've sent a 6-digit code to {email}"
+		},
+		"code": {
+			"expiresIn": "Expires in {expiry}",
+			"expired": "Code Expired"
+		},
+		"help": {
+			"full": "Didn't receive the code? {resend}",
+			"resend": "Resend {timer}"
+		},
+		"actions": {
+			"login": "Back to Login"
+		}
 	}
 }

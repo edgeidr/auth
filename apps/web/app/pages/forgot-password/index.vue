@@ -5,14 +5,14 @@
 		<template #subtitle>{{ $t("forgotPassword.header.subtitle") }}</template>
 
 		<template #content>
-			<form class="mt-4">
+			<form @submit.prevent="onSubmit" class="mt-4">
 				<div class="space-y-4">
 					<FloatLabel variant="in">
 						<InputText id="email" v-model="form.email" type="email" fluid />
 						<label for="email">{{ $t("forgotPassword.form.email") }}</label>
 					</FloatLabel>
 
-					<Button :label="$t('forgotPassword.actions.send')" fluid />
+					<Button type="submit" :label="$t('forgotPassword.actions.send')" fluid />
 				</div>
 			</form>
 
@@ -40,7 +40,13 @@
 		layout: "auth",
 	});
 
+	const forgotPasswordEmail = useState("forgotPasswordEmail");
 	const form = reactive({
 		email: "",
 	});
+
+	const onSubmit = () => {
+		forgotPasswordEmail.value = form.email;
+		navigateTo({ name: "forgot-password-verify" });
+	};
 </script>

@@ -5,7 +5,14 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
 	compatibilityDate: "2025-07-15",
 	devtools: { enabled: true },
-	modules: ["@nuxt/fonts", "@nuxt/icon", "@nuxt/image", "@primevue/nuxt-module", "@nuxtjs/i18n"],
+	modules: [
+		"@nuxt/fonts",
+		"@nuxt/icon",
+		"@nuxt/image",
+		"@primevue/nuxt-module",
+		"@nuxtjs/i18n",
+		"@vueuse/nuxt",
+	],
 	ssr: false,
 	css: ["~/assets/css/main.css"],
 	vite: {
@@ -23,6 +30,7 @@ export default defineNuxtConfig({
 			brandName: process.env.NUXT_BRAND_NAME || "",
 			apiBaseUrl: process.env.NUXT_API_BASE_URL || "",
 			toastLife: Number(process.env.NUXT_TOAST_LIFE) || 5000,
+			otpDuration: Number(process.env.NUXT_OTP_DURATION) || 300,
 			googleClientId: process.env.NUXT_GOOGLE_CLIENT_ID || "",
 		},
 	},
