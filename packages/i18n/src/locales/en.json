@@ -63,13 +63,13 @@
 	"forgotPassword": {
 		"header": {
 			"title": "Forgot Password?",
-			"subtitle": "Enter your email and we'll send you a reset link"
+			"subtitle": "Enter your email and we'll send you a verification code"
 		},
 		"form": {
 			"email": "Email Address"
 		},
 		"actions": {
-			"send": "Send Reset Link",
+			"send": "Send Verification Code",
 			"login": "Back to Login"
 		}
 	}

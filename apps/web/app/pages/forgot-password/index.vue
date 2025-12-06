@@ -22,7 +22,11 @@
 					variant="link"
 					:as="NuxtLink"
 					:to="{ name: 'login' }"
-					class="p-0!" />
+					class="p-0!">
+					<template #icon="slotProps">
+						<Icon :name="Icons.left" :class="slotProps.class" />
+					</template>
+				</Button>
 			</div>
 		</template>
 	</Card>
@@ -30,6 +34,7 @@
 
 <script setup lang="ts">
 	import { NuxtLink } from "#components";
+	import { Icons } from "@repo/assets";
 
 	definePageMeta({
 		layout: "auth",

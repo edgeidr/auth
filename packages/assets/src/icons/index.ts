@@ -1,1 +1,3 @@
-export const Icons = {};
+export const Icons = {
+	left: "hugeicons:arrow-left-02",
+};
