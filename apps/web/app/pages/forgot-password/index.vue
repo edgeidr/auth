@@ -16,12 +16,13 @@
 				</div>
 			</form>
 
-			<div class="mt-2 text-center">
+			<div class="mt-4 text-center">
 				<Button
 					:label="$t('forgotPassword.actions.login')"
 					variant="link"
 					:as="NuxtLink"
-					:to="{ name: 'login' }" />
+					:to="{ name: 'login' }"
+					class="p-0!" />
 			</div>
 		</template>
 	</Card>
