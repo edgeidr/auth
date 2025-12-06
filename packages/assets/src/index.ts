@@ -5,3 +5,5 @@ export const Images = {
 	Logo,
 	TransparentLogo,
 } as const;
+
+export { Icons } from "./icons";
