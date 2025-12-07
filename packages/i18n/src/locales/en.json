@@ -89,5 +89,19 @@
 		"actions": {
 			"login": "Back to Login"
 		}
+	},
+	"resetPassword": {
+		"header": {
+			"title": "Reset your password",
+			"subtitle": "Create a new password to secure your account"
+		},
+		"form": {
+			"password": "New Password",
+			"confirmPassword": "Confirm New Password"
+		},
+		"actions": {
+			"reset": "Reset Password",
+			"login": "Back to Login"
+		}
 	}
 }

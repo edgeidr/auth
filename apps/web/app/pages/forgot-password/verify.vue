@@ -63,6 +63,8 @@
 
 	const { t } = useI18n();
 	const forgotPasswordEmail = useState<string | null>("forgotPasswordEmail");
+	const resetPasswordEmail = useState<string | null>("resetPasswordEmail");
+	const resetPasswordToken = useState<string | null>("resetPasswordToken");
 	const codeExpiry = ref<Date | null>(null);
 	const resendExpiry = ref<Date | null>(null);
 	const OTP_LENGTH = 6;
@@ -96,6 +98,12 @@
 		resetCodeTimer();
 	};
 
+	const onSubmit = () => {
+		resetPasswordEmail.value = forgotPasswordEmail.value;
+		resetPasswordToken.value = "abc123";
+		navigateTo({ name: "reset-password" });
+	};
+
 	onMounted(() => {
 		resetCodeTimer();
 	});
@@ -103,4 +111,13 @@
 	onUnmounted(() => {
 		forgotPasswordEmail.value = null;
 	});
+
+	watch(
+		() => form.code,
+		(code) => {
+			if (code.length === OTP_LENGTH) {
+				onSubmit();
+			}
+		},
+	);
 </script>
