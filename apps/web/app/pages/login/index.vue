@@ -86,11 +86,23 @@
 		</template>
 
 		<template #terms>
-			<Button :label="$t('common.termsOfService')" size="small" variant="link" class="p-0!" />
+			<Button
+				:as="NuxtLink"
+				:to="{ name: 'terms-of-service' }"
+				:label="$t('common.termsOfService')"
+				size="small"
+				variant="link"
+				class="p-0!" />
 		</template>
 
 		<template #privacy>
-			<Button :label="$t('common.privacyPolicy')" size="small" variant="link" class="p-0!" />
+			<Button
+				:as="NuxtLink"
+				:to="{ name: 'privacy-policy' }"
+				:label="$t('common.privacyPolicy')"
+				size="small"
+				variant="link"
+				class="p-0!" />
 		</template>
 	</I18nT>
 </template>

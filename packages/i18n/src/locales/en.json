@@ -103,5 +103,23 @@
 			"reset": "Reset Password",
 			"login": "Back to Login"
 		}
+	},
+	"termsOfService": {
+		"header": {
+			"title": "Terms of Service"
+		},
+		"actions": {
+			"login": "Back to Login",
+			"privacyPolicy": "Privacy Policy"
+		}
+	},
+	"privacyPolicy": {
+		"header": {
+			"title": "Privacy Policy"
+		},
+		"actions": {
+			"login": "Back to Login",
+			"termsOfService": "Terms of Service"
+		}
 	}
 }

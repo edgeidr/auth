@@ -69,6 +69,8 @@
 							<I18nT keypath="register.form.agreement" tag="p" scope="global">
 								<template #terms>
 									<Button
+										:as="NuxtLink"
+										:to="{ name: 'terms-of-service' }"
 										:label="$t('common.termsOfService')"
 										variant="link"
 										class="p-0!" />
@@ -76,6 +78,8 @@
 
 								<template #privacy>
 									<Button
+										:as="NuxtLink"
+										:to="{ name: 'privacy-policy' }"
 										:label="$t('common.privacyPolicy')"
 										variant="link"
 										class="p-0!" />
