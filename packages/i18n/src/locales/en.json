@@ -14,6 +14,13 @@
 			"divider": "or continue with",
 			"google": "Google",
 			"github": "GitHub"
+		},
+		"pages": {
+			"termsOfService": "Terms of Service",
+			"privacyPolicy": "Privacy Policy",
+			"profile": "Profile",
+			"security": "Security",
+			"notifications": "Notifications"
 		}
 	},
 	"login": {
@@ -120,6 +127,129 @@
 		"actions": {
 			"login": "Back to Login",
 			"termsOfService": "Terms of Service"
+		}
+	},
+	"header": {
+		"profileMenu": {
+			"profile": "Profile",
+			"settings": "Settings",
+			"logout": "Logout"
+		}
+	},
+	"sidebar": {
+		"profileDescription": "Personal information",
+		"securityDescription": "Password & Sessions",
+		"notificationsDescription": "Email & alerts"
+	},
+	"account": {
+		"profile": {
+			"personalInformation": {
+				"title": "Personal Information",
+				"subtitle": "Update your personal details and contact information",
+				"form": {
+					"firstName": "First Name",
+					"lastName": "Last Name",
+					"email": "Email",
+					"phone": "Phone Number",
+					"location": "Location"
+				},
+				"actions": {
+					"save": "Save Changes",
+					"cancel": "Cancel"
+				}
+			},
+			"accountInformation": {
+				"title": "Account Information",
+				"subtitle": "Your account details and status",
+				"labels": {
+					"accountId": "Account ID",
+					"createdAt": "Member Since",
+					"status": "Account Status"
+				},
+				"actions": {
+					"save": "Save Changes",
+					"cancel": "Cancel"
+				}
+			}
+		},
+		"security": {
+			"changePassword": {
+				"title": "Change Password",
+				"subtitle": "Update your password regulary to keep your account secure",
+				"form": {
+					"currentPassword": "Current Password",
+					"newPassword": "New Password",
+					"confirmNewPassword": "Confirm New Password"
+				},
+				"actions": {
+					"update": "Update Password"
+				}
+			},
+			"activeSessions": {
+				"title": "Active Sessions",
+				"subtitle": "Manage your active sessions across all devices",
+				"currentSession": "Current Session",
+				"actions": {
+					"revoke": "Revoke",
+					"signOutAll": "Sign Out All Other Devices"
+				}
+			},
+			"recentActivity": {
+				"title": "Recent Security Activity",
+				"subtitle": "Montior recent security events on your account"
+			}
+		},
+		"notifications": {
+			"communicationChannels": {
+				"title": "Communication Channels",
+				"subtitle": "Choose how you want to receive notifications",
+				"options": {
+					"email": {
+						"title": "Email Notifications",
+						"subtitle": "Receive updates and alerts via email"
+					},
+					"push": {
+						"title": "Push Notifications",
+						"subtitle": "Get push notifications on your devices"
+					},
+					"sms": {
+						"title": "SMS Notifications",
+						"subtitle": "Receive important alerts via SMS"
+					}
+				}
+			},
+			"securityAlerts": {
+				"title": "Security Alerts",
+				"subtitle": "Stay informed about security events on your account",
+				"options": {
+					"login": {
+						"title": "New Login",
+						"subtitle": "Alert when someone logs into your account"
+					},
+					"password": {
+						"title": "Password Changed",
+						"subtitle": "Notify when your password is changed"
+					},
+					"newDeviceLogin": {
+						"title": "New Device Login",
+						"subtitle": "Alert when logging in from a new device"
+					}
+				}
+			},
+			"accountActivity": {
+				"title": "Account Activity",
+				"subtitle": "Get notified about changes to your account",
+				"options": {
+					"profile": {
+						"title": "Profile Updated",
+						"subtitle": "Notify when profile information changes"
+					},
+					"email": {
+						"title": "Email Address Changed",
+						"subtitle": "Alert when your email address is updated"
+					}
+				}
+			}
 		}
 	}
 }
