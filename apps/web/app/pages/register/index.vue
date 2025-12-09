@@ -71,7 +71,7 @@
 									<Button
 										:as="NuxtLink"
 										:to="{ name: 'terms-of-service' }"
-										:label="$t('common.termsOfService')"
+										:label="$t('common.pages.termsOfService')"
 										variant="link"
 										class="p-0!" />
 								</template>
@@ -80,7 +80,7 @@
 									<Button
 										:as="NuxtLink"
 										:to="{ name: 'privacy-policy' }"
-										:label="$t('common.privacyPolicy')"
+										:label="$t('common.pages.privacyPolicy')"
 										variant="link"
 										class="p-0!" />
 								</template>

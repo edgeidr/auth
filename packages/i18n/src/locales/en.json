@@ -1,7 +1,5 @@
 {
 	"common": {
-		"termsOfService": "Terms of Service",
-		"privacyPolicy": "Privacy Policy",
 		"passwordRules": {
 			"feedbackLabel": "Must contain:",
 			"requireUppercase": "an uppercase letter",

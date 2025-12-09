@@ -80,12 +80,12 @@
 			separator: true,
 		},
 		{
-			label: t("common.termsOfService"),
+			label: t("common.pages.termsOfService"),
 			route: { name: "terms-of-service" },
 			icon: Icons.file,
 		},
 		{
-			label: t("common.privacyPolicy"),
+			label: t("common.pages.privacyPolicy"),
 			route: { name: "privacy-policy" },
 			icon: Icons.lock,
 		},
