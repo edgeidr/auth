@@ -7,7 +7,7 @@
 		</template>
 
 		<template #content>
-			<div class="mt-4 space-y-4 text-center">
+			<div class="space-y-4 text-center">
 				<div class="bg-primary-50 mx-auto flex w-fit rounded-full p-4 text-2xl">
 					<Icon :name="Icons.key" />
 				</div>

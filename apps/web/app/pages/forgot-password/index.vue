@@ -5,7 +5,7 @@
 		<template #subtitle>{{ $t("forgotPassword.header.subtitle") }}</template>
 
 		<template #content>
-			<form @submit.prevent="onSubmit" class="mt-4">
+			<form @submit.prevent="onSubmit">
 				<div class="space-y-4">
 					<FloatLabel variant="in">
 						<InputText id="email" v-model="form.email" type="email" fluid />

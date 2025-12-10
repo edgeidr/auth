@@ -5,7 +5,7 @@
 		<template #subtitle>{{ $t("login.header.subtitle") }}</template>
 
 		<template #content>
-			<form @submit.prevent="" class="mt-4">
+			<form @submit.prevent="">
 				<div class="space-y-4">
 					<FloatLabel variant="in">
 						<InputText id="email" fluid />

@@ -5,7 +5,7 @@
 		<template #subtitle>{{ $t("register.header.subtitle") }}</template>
 
 		<template #content>
-			<form class="mt-4">
+			<form>
 				<div class="space-y-4">
 					<FloatLabel variant="in">
 						<InputText id="firstName" v-model="form.firstName" fluid />

@@ -5,7 +5,7 @@
 		<template #subtitle>{{ $t("resetPassword.header.subtitle") }}</template>
 
 		<template #content>
-			<form @submit.prevent="onSubmit" class="mt-4">
+			<form @submit.prevent="onSubmit">
 				<div class="space-y-4">
 					<FloatLabel variant="in">
 						<Password
