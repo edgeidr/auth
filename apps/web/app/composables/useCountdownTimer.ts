@@ -1,4 +1,7 @@
-export const useCountdownTimer = (targetTime: Ref<Date | null>, format?: "mm:ss" | "mm" | "m" | "ss" | "s"): ComputedRef<string> => {
+export const useCountdownTimer = (
+	targetTime: Ref<Date | null>,
+	format?: "mm:ss" | "mm" | "m" | "ss" | "s",
+): ComputedRef<string> => {
 	const now = useNow({ interval: 1000 });
 
 	return computed(() => {

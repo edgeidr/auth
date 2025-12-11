@@ -6,6 +6,7 @@
 	"vueIndentScriptAndStyle": true,
 	"bracketSameLine": true,
 	"useTabs": true,
+	"endOfLine": "lf",
 	"overrides": [
 		{
 			"files": "**/*.hbs",
