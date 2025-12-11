@@ -106,6 +106,7 @@ model UserAction {
     action Action @relation(fields: [actionId], references: [id])
 
     @@id([userId, actionId])
+    @@map("user_actions")
 }
 
 model Session {
