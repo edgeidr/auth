@@ -11,3 +11,35 @@ generator client {
 datasource db {
     provider = "postgresql"
 }
+
+model User {
+    id        String    @id @default(cuid())
+    profileId Int?      @unique
+    email     String
+    password  String?
+    googleSub String?   @unique
+    githubId  String?   @unique
+    slug      String
+    isActive  Boolean   @default(true)
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    deletedAt DateTime?
+
+    profile UserProfile? @relation(fields: [profileId], references: [id])
+
+    @@map("users")
+}
+
+model UserProfile {
+    id        Int       @id
+    firstName String
+    lastName  String
+    photoUrl  String?
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    deletedAt DateTime?
+
+    user User?
+
+    @@map("user_profiles")
+}
