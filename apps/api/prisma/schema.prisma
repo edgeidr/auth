@@ -12,6 +12,11 @@ datasource db {
     provider = "postgresql"
 }
 
+enum ActionScope {
+    OWN
+    ANY
+}
+
 model User {
     id        String    @id @default(cuid())
     profileId Int?      @unique
@@ -42,4 +47,62 @@ model UserProfile {
     user User?
 
     @@map("user_profiles")
+}
+
+model Role {
+    id        Int      @id @default(autoincrement())
+    name      String   @unique
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    deletedAt DateTime
+
+    roleActions RoleAction[]
+    userRoles   UserRole[]
+
+    @@map("roles")
+}
+
+model Action {
+    id        Int      @id @default(autoincrement())
+    name      String   @unique
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    deletedAt DateTime
+
+    roleActions RoleAction[]
+    userActions UserAction[]
+
+    @@map("actions")
+}
+
+model RoleAction {
+    roleId       Int
+    actionId     Int
+    defaultScope ActionScope @default(OWN)
+
+    role   Role   @relation(fields: [roleId], references: [id])
+    action Action @relation(fields: [actionId], references: [id])
+
+    @@id([roleId, actionId])
+    @@map("role_actions")
+}
+
+model UserRole {
+    userId String
+    roleId Int
+
+    role Role @relation(fields: [roleId], references: [id])
+
+    @@id([userId, roleId])
+    @@map("user_roles")
+}
+
+model UserAction {
+    userId   String
+    actionId Int
+    scope    ActionScope
+
+    action Action @relation(fields: [actionId], references: [id])
+
+    @@id([userId, actionId])
 }
