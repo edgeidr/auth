@@ -3,6 +3,7 @@ import { ConfigService } from "@nestjs/config";
 import { PassportStrategy } from "@nestjs/passport";
 import { Request } from "express";
 import { Strategy } from "passport-jwt";
+import { TokenService } from "../token/token.service";
 
 @Injectable()
 export class JwtAccessStrategy extends PassportStrategy(Strategy, "jwt-access") {
@@ -16,12 +17,16 @@ export class JwtAccessStrategy extends PassportStrategy(Strategy, "jwt-access") 
 	validate(payload: { sub: string; userId: string }) {
 		if (!payload.sub || !payload.userId) throw new UnauthorizedException();
 
-		return { id: payload.userId };
+		return { userId: payload.userId };
 	}
 }
 
+@Injectable()
 export class JwtRefreshStrategy extends PassportStrategy(Strategy, "jwt-refresh") {
-	constructor(private readonly configService: ConfigService) {
+	constructor(
+		private readonly configService: ConfigService,
+		private readonly tokenService: TokenService,
+	) {
 		super({
 			jwtFromRequest: (req: Request) => <string>req.cookies["refreshToken"] || null,
 			secretOrKey: configService.get<string>("JWT_REFRESH_TOKEN_SECRET")!,
@@ -29,8 +34,18 @@ export class JwtRefreshStrategy extends PassportStrategy(Strategy, "jwt-refresh"
 		});
 	}
 
-	validate(request: Request, payload: { sub: string; userId: string }) {
+	async validate(request: Request, payload: { sub: string; userId: string }) {
 		const sessionId = <string>request.cookies["sessionId"];
 		const refreshToken = <string>request.cookies["refreshToken"];
+
+		const session = await this.tokenService.findSession({
+			sessionId,
+			userId: payload.userId,
+			refreshToken,
+		});
+
+		if (!session) throw new UnauthorizedException("messages.tokenExpired");
+
+		return { userId: payload.userId };
 	}
 }
