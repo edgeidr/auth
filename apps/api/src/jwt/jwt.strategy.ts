@@ -3,7 +3,6 @@ import { ConfigService } from "@nestjs/config";
 import { PassportStrategy } from "@nestjs/passport";
 import { Request } from "express";
 import { Strategy } from "passport-jwt";
-import { PrismaService } from "../prisma/prisma.service";
 
 @Injectable()
 export class JwtAccessStrategy extends PassportStrategy(Strategy, "jwt-access") {
@@ -22,10 +21,7 @@ export class JwtAccessStrategy extends PassportStrategy(Strategy, "jwt-access") 
 }
 
 export class JwtRefreshStrategy extends PassportStrategy(Strategy, "jwt-refresh") {
-	constructor(
-		private readonly configService: ConfigService,
-		private readonly prismaService: PrismaService,
-	) {
+	constructor(private readonly configService: ConfigService) {
 		super({
 			jwtFromRequest: (req: Request) => <string>req.cookies["refreshToken"] || null,
 			secretOrKey: configService.get<string>("JWT_REFRESH_TOKEN_SECRET")!,
