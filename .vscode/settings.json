@@ -10,5 +10,6 @@
 	"vue.suggest.componentNameCasing": "alwaysPascalCase",
 	"i18n-ally.enabledFrameworks": ["vue"],
 	"i18n-ally.localesPaths": ["packages/i18n/src"],
-	"i18n-ally.keystyle": "nested"
+	"i18n-ally.keystyle": "nested",
+	"files.eol": "\n"
 }
