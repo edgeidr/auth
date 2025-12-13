@@ -3,14 +3,14 @@
 		<template #title>
 			<div class="flex items-center">
 				<Icon :name="Icons.lock" class="mr-2" />
-				{{ $t("privacyPolicy.header.title") }}
+				{{ $t("common.pages.privacy") }}
 			</div>
 		</template>
 	</Card>
 
 	<div class="mt-4 flex items-center justify-between gap-4">
 		<Button
-			:label="$t('privacyPolicy.actions.login')"
+			:label="$t('common.actions.backToLogin')"
 			variant="text"
 			:as="NuxtLink"
 			:to="{ name: 'login' }">
@@ -20,7 +20,7 @@
 		</Button>
 
 		<Button
-			:label="$t('privacyPolicy.actions.termsOfService')"
+			:label="$t('common.pages.terms')"
 			variant="text"
 			iconPos="right"
 			:as="NuxtLink"

@@ -14,11 +14,57 @@
 			"github": "GitHub"
 		},
 		"pages": {
-			"termsOfService": "Terms of Service",
-			"privacyPolicy": "Privacy Policy",
+			"terms": "Terms of Service",
+			"privacy": "Privacy Policy",
 			"profile": "Profile",
 			"security": "Security",
 			"notifications": "Notifications"
+		},
+		"inputs": {
+			"rememberMe": "Remember Me",
+			"email": "Email",
+			"password": "Password",
+			"confirmPassword": "Confirm Password",
+			"newPassword": "New Password",
+			"confirmNewPassword": "Confirm New Password",
+			"currentPassword": "Current Password",
+			"firstName": "First Name",
+			"lastName": "Last Name",
+			"phone": "Phone Number",
+			"location": "Location"
+		},
+		"actions": {
+			"cancel": "Cancel",
+			"save": "Save Changes",
+			"logout": "Logout",
+			"backToLogin": "Back to Login",
+			"signIn": "Sign In",
+			"signUp": "Sign Up",
+			"createAccount": "Create Account",
+			"forgotPassword": "Forgot Password?",
+			"resetPassword": "Reset Password",
+			"resend": "Resend {timer}",
+			"sendCode": "Send Code",
+			"revoke": "Revoke",
+			"signOutOtherDevices": "Sign out all other devices"
+		}
+	},
+	"layout": {
+		"header": {
+			"profileMenu": {
+				"settings": "Settings"
+			}
+		},
+		"sidebar": {
+			"profile": {
+				"description": "Personal information"
+			},
+			"security": {
+				"description": "Password & Sessions"
+			},
+			"notifications": {
+				"description": "Email & alerts"
+			}
 		}
 	},
 	"login": {
@@ -26,56 +72,21 @@
 			"title": "Welcome Back!",
 			"subtitle": "Enter your credentials to access your account"
 		},
-		"form": {
-			"email": "Email",
-			"password": "Password",
-			"rememberMe": "Remember Me"
-		},
-		"actions": {
-			"signIn": "Sign In",
-			"forgotPassword": "Forgot Password?",
-			"signUp": {
-				"full": "Don't have an account? {link}",
-				"link": "Sign Up"
-			}
-		},
-		"agreement": {
-			"full": "{intro} {terms} and {privacy}",
-			"intro": "By signing in, you agree to our"
-		}
+		"signUpPrompt": "Don't have an account? {signUp}",
+		"agreementPrompt": "By signing in, you agree to our {terms} and {privacy}"
 	},
 	"register": {
 		"header": {
 			"title": "Create an account",
 			"subtitle": "Enter your details to get started"
 		},
-		"form": {
-			"firstName": "First Name",
-			"lastName": "Last Name",
-			"email": "Email",
-			"password": "Password",
-			"confirmPassword": "Confirm Password",
-			"agreement": "I agree to the {terms} and {privacy}"
-		},
-		"actions": {
-			"signUp": "Create Account",
-			"signIn": {
-				"full": "Already have an account? {link}",
-				"link": "Sign In"
-			}
-		}
+		"agreementPrompt": "I agree to the {terms} and {privacy}",
+		"signInPrompt": "Already have an account? {signIn}"
 	},
 	"forgotPassword": {
 		"header": {
 			"title": "Forgot Password?",
 			"subtitle": "Enter your email and we'll send you a verification code"
-		},
-		"form": {
-			"email": "Email Address"
-		},
-		"actions": {
-			"send": "Send Verification Code",
-			"login": "Back to Login"
 		}
 	},
 	"forgotPasswordVerify": {
@@ -88,73 +99,20 @@
 			"expired": "Code Expired"
 		},
 		"help": {
-			"full": "Didn't receive the code? {resend}",
-			"resend": "Resend {timer}"
-		},
-		"actions": {
-			"login": "Back to Login"
+			"full": "Didn't receive the code? {resend}"
 		}
 	},
 	"resetPassword": {
 		"header": {
 			"title": "Reset your password",
 			"subtitle": "Create a new password to secure your account"
-		},
-		"form": {
-			"password": "New Password",
-			"confirmPassword": "Confirm New Password"
-		},
-		"actions": {
-			"reset": "Reset Password",
-			"login": "Back to Login"
 		}
-	},
-	"termsOfService": {
-		"header": {
-			"title": "Terms of Service"
-		},
-		"actions": {
-			"login": "Back to Login",
-			"privacyPolicy": "Privacy Policy"
-		}
-	},
-	"privacyPolicy": {
-		"header": {
-			"title": "Privacy Policy"
-		},
-		"actions": {
-			"login": "Back to Login",
-			"termsOfService": "Terms of Service"
-		}
-	},
-	"header": {
-		"profileMenu": {
-			"profile": "Profile",
-			"settings": "Settings",
-			"logout": "Logout"
-		}
-	},
-	"sidebar": {
-		"profileDescription": "Personal information",
-		"securityDescription": "Password & Sessions",
-		"notificationsDescription": "Email & alerts"
 	},
 	"account": {
 		"profile": {
 			"personalInformation": {
 				"title": "Personal Information",
-				"subtitle": "Update your personal details and contact information",
-				"form": {
-					"firstName": "First Name",
-					"lastName": "Last Name",
-					"email": "Email",
-					"phone": "Phone Number",
-					"location": "Location"
-				},
-				"actions": {
-					"save": "Save Changes",
-					"cancel": "Cancel"
-				}
+				"subtitle": "Update your personal details and contact information"
 			},
 			"accountInformation": {
 				"title": "Account Information",
@@ -163,34 +121,18 @@
 					"accountId": "Account ID",
 					"createdAt": "Member Since",
 					"status": "Account Status"
-				},
-				"actions": {
-					"save": "Save Changes",
-					"cancel": "Cancel"
 				}
 			}
 		},
 		"security": {
 			"changePassword": {
 				"title": "Change Password",
-				"subtitle": "Update your password regulary to keep your account secure",
-				"form": {
-					"currentPassword": "Current Password",
-					"newPassword": "New Password",
-					"confirmNewPassword": "Confirm New Password"
-				},
-				"actions": {
-					"update": "Update Password"
-				}
+				"subtitle": "Update your password regulary to keep your account secure"
 			},
 			"activeSessions": {
 				"title": "Active Sessions",
 				"subtitle": "Manage your active sessions across all devices",
-				"currentSession": "Current Session",
-				"actions": {
-					"revoke": "Revoke",
-					"signOutAll": "Sign Out All Other Devices"
-				}
+				"currentSession": "Current Session"
 			},
 			"recentActivity": {
 				"title": "Recent Security Activity",

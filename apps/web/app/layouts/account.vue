@@ -78,19 +78,19 @@
 	}[] = [
 		{
 			label: t("common.pages.profile"),
-			description: t("sidebar.profileDescription"),
+			description: t("layout.sidebar.profile.description"),
 			icon: Icons.user,
 			routeName: "account-profile",
 		},
 		{
 			label: t("common.pages.security"),
-			description: t("sidebar.securityDescription"),
+			description: t("layout.sidebar.security.description"),
 			icon: Icons.security,
 			routeName: "account-security",
 		},
 		{
 			label: t("common.pages.notifications"),
-			description: t("sidebar.notificationsDescription"),
+			description: t("layout.sidebar.notifications.description"),
 			icon: Icons.notifications,
 			routeName: "account-notifications",
 		},

@@ -13,7 +13,7 @@
 						:feedback="false"
 						fluid />
 					<label for="currentPassword">
-						{{ $t("account.security.changePassword.form.currentPassword") }}
+						{{ $t("common.inputs.currentPassword") }}
 					</label>
 				</FloatLabel>
 
@@ -45,7 +45,7 @@
 						</template>
 					</Password>
 					<label for="newPassword">
-						{{ $t("account.security.changePassword.form.newPassword") }}
+						{{ $t("common.inputs.newPassword") }}
 					</label>
 				</FloatLabel>
 
@@ -56,7 +56,7 @@
 						:feedback="false"
 						fluid />
 					<label for="confirmNewPassword">
-						{{ $t("account.security.changePassword.form.confirmNewPassword") }}
+						{{ $t("common.inputs.confirmNewPassword") }}
 					</label>
 				</FloatLabel>
 			</form>
@@ -67,7 +67,7 @@
 				<Button
 					type="submit"
 					form="personalInformation"
-					:label="$t('account.security.changePassword.actions.update')" />
+					:label="$t('common.actions.save')" />
 			</div>
 		</template>
 	</Card>

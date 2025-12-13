@@ -9,17 +9,17 @@
 				<div class="space-y-4">
 					<FloatLabel variant="in">
 						<InputText id="firstName" v-model="form.firstName" fluid />
-						<label for="firstName">{{ $t("register.form.firstName") }}</label>
+						<label for="firstName">{{ $t("common.inputs.firstName") }}</label>
 					</FloatLabel>
 
 					<FloatLabel variant="in">
 						<InputText id="lastName" v-model="form.lastName" fluid />
-						<label for="lastName">{{ $t("register.form.lastName") }}</label>
+						<label for="lastName">{{ $t("common.inputs.lastName") }}</label>
 					</FloatLabel>
 
 					<FloatLabel variant="in">
 						<InputText id="email" v-model="form.email" type="email" fluid />
-						<label for="email">{{ $t("register.form.email") }}</label>
+						<label for="email">{{ $t("common.inputs.email") }}</label>
 					</FloatLabel>
 
 					<FloatLabel variant="in">
@@ -49,7 +49,7 @@
 								</ul>
 							</template>
 						</Password>
-						<label for="password">{{ $t("register.form.password") }}</label>
+						<label for="password">{{ $t("common.inputs.password") }}</label>
 					</FloatLabel>
 
 					<FloatLabel variant="in">
@@ -59,19 +59,19 @@
 							:feedback="false"
 							fluid />
 						<label for="confirmPassword">
-							{{ $t("register.form.confirmPassword") }}
+							{{ $t("common.inputs.confirmPassword") }}
 						</label>
 					</FloatLabel>
 
 					<div class="flex items-center">
 						<Checkbox inputId="agreement" v-model="form.agreement" binary />
 						<label for="agreement" class="cursor-pointer pl-2">
-							<I18nT keypath="register.form.agreement" tag="p" scope="global">
+							<I18nT keypath="register.agreementPrompt" tag="p" scope="global">
 								<template #terms>
 									<Button
 										:as="NuxtLink"
 										:to="{ name: 'terms-of-service' }"
-										:label="$t('common.pages.termsOfService')"
+										:label="$t('common.pages.terms')"
 										variant="link"
 										class="p-0!" />
 								</template>
@@ -80,7 +80,7 @@
 									<Button
 										:as="NuxtLink"
 										:to="{ name: 'privacy-policy' }"
-										:label="$t('common.pages.privacyPolicy')"
+										:label="$t('common.pages.privacy')"
 										variant="link"
 										class="p-0!" />
 								</template>
@@ -88,7 +88,7 @@
 						</label>
 					</div>
 
-					<Button :label="$t('register.actions.signUp')" fluid />
+					<Button :label="$t('common.actions.signUp')" fluid />
 				</div>
 			</form>
 
@@ -118,15 +118,11 @@
 				</Button>
 			</div>
 
-			<I18nT
-				keypath="register.actions.signIn.full"
-				tag="p"
-				scope="global"
-				class="mt-4 text-center">
-				<template #link>
+			<I18nT keypath="register.signInPrompt" tag="p" scope="global" class="mt-4 text-center">
+				<template #signIn>
 					<Button
 						variant="link"
-						:label="$t('register.actions.signIn.link')"
+						:label="$t('common.actions.signIn')"
 						class="p-0!"
 						:as="NuxtLink"
 						:to="{ name: 'login' }" />

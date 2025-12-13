@@ -9,31 +9,31 @@
 				<div class="space-y-4">
 					<FloatLabel variant="in">
 						<InputText id="email" fluid />
-						<label for="email">{{ $t("login.form.email") }}</label>
+						<label for="email">{{ $t("common.inputs.email") }}</label>
 					</FloatLabel>
 
 					<FloatLabel variant="in">
 						<Password id="password" :feedback="false" toggleMask fluid />
-						<label for="password">{{ $t("login.form.password") }}</label>
+						<label for="password">{{ $t("common.inputs.password") }}</label>
 					</FloatLabel>
 
 					<div class="flex items-center justify-between gap-4">
 						<div class="flex items-center">
 							<Checkbox inputId="rememberMe" v-model="form.rememberMe" binary />
 							<label for="rememberMe" class="cursor-pointer pl-2">
-								{{ $t("login.form.rememberMe") }}
+								{{ $t("common.inputs.rememberMe") }}
 							</label>
 						</div>
 
 						<Button
 							variant="link"
-							:label="$t('login.actions.forgotPassword')"
+							:label="$t('common.actions.forgotPassword')"
 							class="p-0!"
 							:as="NuxtLink"
 							:to="{ name: 'forgot-password' }" />
 					</div>
 
-					<Button :label="$t('login.actions.signIn')" fluid />
+					<Button :label="$t('common.actions.signIn')" fluid />
 				</div>
 			</form>
 
@@ -63,15 +63,11 @@
 				</Button>
 			</div>
 
-			<I18nT
-				keypath="login.actions.signUp.full"
-				tag="p"
-				scope="global"
-				class="mt-4 text-center">
-				<template #link>
+			<I18nT keypath="login.signUpPrompt" tag="p" scope="global" class="mt-4 text-center">
+				<template #signUp>
 					<Button
 						variant="link"
-						:label="$t('login.actions.signUp.link')"
+						:label="$t('common.actions.signUp')"
 						class="p-0!"
 						:as="NuxtLink"
 						:to="{ name: 'register' }" />
@@ -80,16 +76,12 @@
 		</template>
 	</Card>
 
-	<I18nT keypath="login.agreement.full" tag="p" scope="global" class="mt-4 text-center text-sm">
-		<template #intro>
-			<span class="block">{{ $t("login.agreement.intro") }}</span>
-		</template>
-
+	<I18nT keypath="login.agreementPrompt" tag="p" scope="global" class="mt-4 text-center text-sm">
 		<template #terms>
 			<Button
 				:as="NuxtLink"
 				:to="{ name: 'terms-of-service' }"
-				:label="$t('common.pages.termsOfService')"
+				:label="$t('common.pages.terms')"
 				size="small"
 				variant="link"
 				class="p-0!" />
@@ -99,7 +91,7 @@
 			<Button
 				:as="NuxtLink"
 				:to="{ name: 'privacy-policy' }"
-				:label="$t('common.pages.privacyPolicy')"
+				:label="$t('common.pages.privacy')"
 				size="small"
 				variant="link"
 				class="p-0!" />

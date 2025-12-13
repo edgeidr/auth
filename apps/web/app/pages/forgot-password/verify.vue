@@ -38,7 +38,7 @@
 
 			<div class="mt-4 text-center">
 				<Button
-					:label="$t('forgotPasswordVerify.actions.login')"
+					:label="$t('common.actions.backToLogin')"
 					variant="link"
 					:as="NuxtLink"
 					:to="{ name: 'login' }"
@@ -86,7 +86,7 @@
 	const resendLabel = computed(() => {
 		const timer = resendTimer.value ? `(${resendTimer.value}s)` : null;
 
-		return t("forgotPasswordVerify.help.resend", { timer });
+		return t("common.actions.resend", { timer });
 	});
 
 	const resetCodeTimer = () => {

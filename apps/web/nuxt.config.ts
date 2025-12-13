@@ -60,6 +60,6 @@ export default defineNuxtConfig({
 		defaultLocale: "en",
 		restructureDir: "",
 		strategy: "no_prefix",
-		langDir: "../../packages/i18n/src/locales",
+		langDir: "../../packages/i18n/locales",
 	},
 });

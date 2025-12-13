@@ -67,12 +67,12 @@
 			separator: true,
 		},
 		{
-			label: t("header.profileMenu.profile"),
+			label: t("common.pages.profile"),
 			route: { name: "account-profile" },
 			icon: Icons.user,
 		},
 		{
-			label: t("header.profileMenu.settings"),
+			label: t("layout.header.profileMenu.settings"),
 			route: { name: "account-security" },
 			icon: Icons.settings,
 		},
@@ -80,12 +80,12 @@
 			separator: true,
 		},
 		{
-			label: t("common.pages.termsOfService"),
+			label: t("common.pages.terms"),
 			route: { name: "terms-of-service" },
 			icon: Icons.file,
 		},
 		{
-			label: t("common.pages.privacyPolicy"),
+			label: t("common.pages.privacy"),
 			route: { name: "privacy-policy" },
 			icon: Icons.lock,
 		},
@@ -93,7 +93,7 @@
 			separator: true,
 		},
 		{
-			label: t("header.profileMenu.logout"),
+			label: t("common.actions.logout"),
 			icon: Icons.logout,
 		},
 	]);

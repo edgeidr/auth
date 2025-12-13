@@ -32,7 +32,7 @@
 							<div>
 								<Button
 									v-if="!session.isCurrent"
-									:label="$t('account.security.activeSessions.actions.revoke')"
+									:label="$t('common.actions.revoke')"
 									variant="outlined"
 									severity="secondary" />
 							</div>
@@ -43,9 +43,7 @@
 		</template>
 
 		<template #footer>
-			<Button
-				:label="$t('account.security.activeSessions.actions.signOutAll')"
-				severity="danger">
+			<Button :label="$t('common.actions.signOutOtherDevices')" severity="danger">
 				<template #icon>
 					<Icon :name="Icons.logout" />
 				</template>

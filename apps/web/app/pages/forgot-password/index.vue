@@ -9,16 +9,16 @@
 				<div class="space-y-4">
 					<FloatLabel variant="in">
 						<InputText id="email" v-model="form.email" type="email" fluid />
-						<label for="email">{{ $t("forgotPassword.form.email") }}</label>
+						<label for="email">{{ $t("common.inputs.email") }}</label>
 					</FloatLabel>
 
-					<Button type="submit" :label="$t('forgotPassword.actions.send')" fluid />
+					<Button type="submit" :label="$t('common.actions.sendCode')" fluid />
 				</div>
 			</form>
 
 			<div class="mt-4 text-center">
 				<Button
-					:label="$t('forgotPassword.actions.login')"
+					:label="$t('common.actions.backToLogin')"
 					variant="link"
 					:as="NuxtLink"
 					:to="{ name: 'login' }"

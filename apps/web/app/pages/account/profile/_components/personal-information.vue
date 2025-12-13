@@ -9,21 +9,21 @@
 				<FloatLabel variant="in">
 					<InputText name="firstName" fluid />
 					<label for="firstName">
-						{{ $t("account.profile.personalInformation.form.firstName") }}
+						{{ $t("common.inputs.firstName") }}
 					</label>
 				</FloatLabel>
 
 				<FloatLabel variant="in">
 					<InputText name="lastName" fluid />
 					<label for="lastName">
-						{{ $t("account.profile.personalInformation.form.lastName") }}
+						{{ $t("common.inputs.lastName") }}
 					</label>
 				</FloatLabel>
 
 				<FloatLabel variant="in">
 					<InputText name="email" type="email" fluid />
 					<label for="email">
-						{{ $t("account.profile.personalInformation.form.email") }}
+						{{ $t("common.inputs.email") }}
 					</label>
 				</FloatLabel>
 
@@ -34,7 +34,7 @@
 						placeholder="____-____-___"
 						fluid />
 					<label for="phone">
-						{{ $t("account.profile.personalInformation.form.phone") }}
+						{{ $t("common.inputs.phone") }}
 					</label>
 				</FloatLabel>
 			</form>
@@ -45,10 +45,8 @@
 				<Button
 					type="submit"
 					form="personalInformation"
-					:label="$t('account.profile.personalInformation.actions.save')" />
-				<Button
-					:label="$t('account.profile.personalInformation.actions.cancel')"
-					severity="secondary" />
+					:label="$t('common.actions.save')" />
+				<Button :label="$t('common.actions.cancel')" severity="secondary" />
 			</div>
 		</template>
 	</Card>

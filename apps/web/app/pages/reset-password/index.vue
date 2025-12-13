@@ -34,7 +34,7 @@
 								</ul>
 							</template>
 						</Password>
-						<label for="password">{{ $t("resetPassword.form.password") }}</label>
+						<label for="password">{{ $t("common.inputs.newPassword") }}</label>
 					</FloatLabel>
 
 					<FloatLabel variant="in">
@@ -44,17 +44,17 @@
 							:feedback="false"
 							fluid />
 						<label for="confirmPassword">
-							{{ $t("resetPassword.form.confirmPassword") }}
+							{{ $t("common.inputs.confirmNewPassword") }}
 						</label>
 					</FloatLabel>
 
-					<Button type="submit" :label="$t('resetPassword.actions.reset')" fluid />
+					<Button type="submit" :label="$t('common.actions.resetPassword')" fluid />
 				</div>
 			</form>
 
 			<div class="mt-4 text-center">
 				<Button
-					:label="$t('resetPassword.actions.login')"
+					:label="$t('common.actions.backToLogin')"
 					variant="link"
 					:as="NuxtLink"
 					:to="{ name: 'login' }"
