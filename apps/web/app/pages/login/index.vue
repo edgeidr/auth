@@ -63,7 +63,7 @@
 				</Button>
 			</div>
 
-			<I18nT keypath="login.signUpPrompt" tag="p" scope="global" class="mt-4 text-center">
+			<i18n-t keypath="login.signUpPrompt" tag="p" scope="global" class="mt-4 text-center">
 				<template #signUp>
 					<Button
 						variant="link"
@@ -72,11 +72,11 @@
 						:as="NuxtLink"
 						:to="{ name: 'register' }" />
 				</template>
-			</I18nT>
+			</i18n-t>
 		</template>
 	</Card>
 
-	<I18nT keypath="login.agreementPrompt" tag="p" scope="global" class="mt-4 text-center text-sm">
+	<i18n-t keypath="login.agreementPrompt" tag="p" scope="global" class="mt-4 text-center text-sm">
 		<template #terms>
 			<Button
 				:as="NuxtLink"
@@ -96,7 +96,7 @@
 				variant="link"
 				class="p-0!" />
 		</template>
-	</I18nT>
+	</i18n-t>
 </template>
 
 <script setup lang="ts">

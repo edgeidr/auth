@@ -66,7 +66,7 @@
 					<div class="flex items-center">
 						<Checkbox inputId="agreement" v-model="form.agreement" binary />
 						<label for="agreement" class="cursor-pointer pl-2">
-							<I18nT keypath="register.agreementPrompt" tag="p" scope="global">
+							<i18n-t keypath="register.agreementPrompt" tag="p" scope="global">
 								<template #terms>
 									<Button
 										:as="NuxtLink"
@@ -84,7 +84,7 @@
 										variant="link"
 										class="p-0!" />
 								</template>
-							</I18nT>
+							</i18n-t>
 						</label>
 					</div>
 
@@ -118,7 +118,7 @@
 				</Button>
 			</div>
 
-			<I18nT keypath="register.signInPrompt" tag="p" scope="global" class="mt-4 text-center">
+			<i18n-t keypath="register.signInPrompt" tag="p" scope="global" class="mt-4 text-center">
 				<template #signIn>
 					<Button
 						variant="link"
@@ -127,7 +127,7 @@
 						:as="NuxtLink"
 						:to="{ name: 'login' }" />
 				</template>
-			</I18nT>
+			</i18n-t>
 		</template>
 	</Card>
 </template>

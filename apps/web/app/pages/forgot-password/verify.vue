@@ -20,7 +20,7 @@
 					</div>
 				</form>
 
-				<I18nT
+				<i18n-t
 					keypath="forgotPasswordVerify.help.full"
 					tag="p"
 					class="mt-4 text-center"
@@ -33,7 +33,7 @@
 							:disabled="!!resendTimer"
 							variant="link" />
 					</template>
-				</I18nT>
+				</i18n-t>
 			</div>
 
 			<div class="mt-4 text-center">
