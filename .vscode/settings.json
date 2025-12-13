@@ -11,5 +11,6 @@
 	"i18n-ally.enabledFrameworks": ["vue"],
 	"i18n-ally.localesPaths": ["packages/i18n"],
 	"i18n-ally.keystyle": "nested",
+	"i18n-ally.regex.usageMatchAppend": ["\"((messages|validations)\\.[^\"]+)\""],
 	"files.eol": "\n"
 }
