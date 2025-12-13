@@ -1,4 +1,14 @@
 {
+	"messages": {
+		"tokenExpired": "Session expired. Please re-login.",
+		"invalidCredentials": "Incorrect Email or Password.",
+		"socialOnlyAccount": "This account is linked to a social login. Please sign in with it.",
+		"loginFailed": "Login Failed. Please try again."
+	},
+	"validations": {
+		"required": "Required",
+		"invalidEmail": "Invalid email address"
+	},
 	"common": {
 		"passwordRules": {
 			"feedbackLabel": "Must contain:",

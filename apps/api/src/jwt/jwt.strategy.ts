@@ -3,7 +3,7 @@ import { ConfigService } from "@nestjs/config";
 import { PassportStrategy } from "@nestjs/passport";
 import { Request } from "express";
 import { Strategy } from "passport-jwt";
-import { TokenService } from "../token/token.service";
+import { SessionService } from "../session/session.service";
 
 @Injectable()
 export class JwtAccessStrategy extends PassportStrategy(Strategy, "jwt-access") {
@@ -25,7 +25,7 @@ export class JwtAccessStrategy extends PassportStrategy(Strategy, "jwt-access") 
 export class JwtRefreshStrategy extends PassportStrategy(Strategy, "jwt-refresh") {
 	constructor(
 		private readonly configService: ConfigService,
-		private readonly tokenService: TokenService,
+		private readonly sessionService: SessionService,
 	) {
 		super({
 			jwtFromRequest: (req: Request) => <string>req.cookies["refreshToken"] || null,
@@ -38,7 +38,7 @@ export class JwtRefreshStrategy extends PassportStrategy(Strategy, "jwt-refresh"
 		const sessionId = <string>request.cookies["sessionId"];
 		const refreshToken = <string>request.cookies["refreshToken"];
 
-		const session = await this.tokenService.findSession({
+		const session = await this.sessionService.findOne({
 			sessionId,
 			userId: payload.userId,
 			refreshToken,
