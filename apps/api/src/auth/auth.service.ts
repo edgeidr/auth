@@ -1,8 +1,9 @@
-import { Injectable } from "@nestjs/common";
+import { ConflictException, Injectable, InternalServerErrorException } from "@nestjs/common";
 import { LoginInput } from "./inputs/login.input";
 import { UserService } from "../user/user.service";
 import { SessionService } from "../session/session.service";
 import { TokenService } from "../token/token.service";
+import { RegisterInput } from "./inputs/register.input";
 
 @Injectable()
 export class AuthService {
@@ -32,5 +33,28 @@ export class AuthService {
 		});
 
 		return { accessToken, refreshToken, sessionId: session.id };
+	}
+
+	async register(input: RegisterInput) {
+		const userExists = await this.userService.findOneByEmail(input.email, {
+			includeInactive: true,
+		});
+
+		if (userExists) {
+			throw new ConflictException({
+				message: [{ field: "email", error: ["validations.emailTaken"] }],
+			});
+		}
+
+		const user = await this.userService.create({
+			email: input.email,
+			password: input.password,
+			firstName: input.firstName,
+			lastName: input.lastName,
+		});
+
+		if (!user) throw new InternalServerErrorException("messages.tryAgain");
+
+		return { message: "messages.registrationSuccess" };
 	}
 }

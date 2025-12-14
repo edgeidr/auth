@@ -2,8 +2,9 @@ import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { ValidateCredentialsInput } from "./inputs/validate-credentials.input";
 import { FindUserOptions } from "./types/find-user-options";
 import { PrismaService } from "../prisma/prisma.service";
-import { verify } from "argon2";
+import { hash, verify } from "argon2";
 import { UserAuthStateService } from "../user-auth-state/user-auth-state.service";
+import { CreateUserInput } from "./inputs/create-user.input";
 
 @Injectable()
 export class UserService {
@@ -12,11 +13,26 @@ export class UserService {
 		private readonly userAuthStateService: UserAuthStateService,
 	) {}
 
+	async create(input: CreateUserInput) {
+		return this.prismaService.user.create({
+			data: {
+				email: input.email,
+				password: await hash(input.password),
+				userProfile: {
+					create: {
+						firstName: input.firstName,
+						lastName: input.lastName,
+					},
+				},
+			},
+		});
+	}
+
 	async findOneByEmail(email: string, options: FindUserOptions = {}) {
 		const user = await this.prismaService.user.findFirst({
 			where: {
 				email,
-				isActive: true,
+				isActive: options.includeInactive ? undefined : true,
 			},
 			omit: { password: !options.includePassword },
 		});

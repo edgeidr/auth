@@ -250,12 +250,12 @@ export type UserWhereUniqueInput = Prisma.AtLeast<
 		id?: string;
 		googleSub?: string;
 		githubId?: string;
+		slug?: string;
 		AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[];
 		OR?: Prisma.UserWhereInput[];
 		NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[];
 		email?: Prisma.StringFilter<"User"> | string;
 		password?: Prisma.StringNullableFilter<"User"> | string | null;
-		slug?: Prisma.StringFilter<"User"> | string;
 		isActive?: Prisma.BoolFilter<"User"> | boolean;
 		createdAt?: Prisma.DateTimeFilter<"User"> | Date | string;
 		updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string;
@@ -270,7 +270,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<
 		> | null;
 		sessions?: Prisma.SessionListRelationFilter;
 	},
-	"id" | "googleSub" | "githubId"
+	"id" | "googleSub" | "githubId" | "slug"
 >;
 
 export type UserOrderByWithAggregationInput = {
@@ -311,7 +311,7 @@ export type UserCreateInput = {
 	password?: string | null;
 	googleSub?: string | null;
 	githubId?: string | null;
-	slug: string;
+	slug?: string;
 	isActive?: boolean;
 	createdAt?: Date | string;
 	updatedAt?: Date | string;
@@ -327,7 +327,7 @@ export type UserUncheckedCreateInput = {
 	password?: string | null;
 	googleSub?: string | null;
 	githubId?: string | null;
-	slug: string;
+	slug?: string;
 	isActive?: boolean;
 	createdAt?: Date | string;
 	updatedAt?: Date | string;
@@ -375,7 +375,7 @@ export type UserCreateManyInput = {
 	password?: string | null;
 	googleSub?: string | null;
 	githubId?: string | null;
-	slug: string;
+	slug?: string;
 	isActive?: boolean;
 	createdAt?: Date | string;
 	updatedAt?: Date | string;
@@ -556,7 +556,7 @@ export type UserCreateWithoutUserProfileInput = {
 	password?: string | null;
 	googleSub?: string | null;
 	githubId?: string | null;
-	slug: string;
+	slug?: string;
 	isActive?: boolean;
 	createdAt?: Date | string;
 	updatedAt?: Date | string;
@@ -571,7 +571,7 @@ export type UserUncheckedCreateWithoutUserProfileInput = {
 	password?: string | null;
 	googleSub?: string | null;
 	githubId?: string | null;
-	slug: string;
+	slug?: string;
 	isActive?: boolean;
 	createdAt?: Date | string;
 	updatedAt?: Date | string;
@@ -644,7 +644,7 @@ export type UserCreateWithoutSessionsInput = {
 	password?: string | null;
 	googleSub?: string | null;
 	githubId?: string | null;
-	slug: string;
+	slug?: string;
 	isActive?: boolean;
 	createdAt?: Date | string;
 	updatedAt?: Date | string;
@@ -659,7 +659,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
 	password?: string | null;
 	googleSub?: string | null;
 	githubId?: string | null;
-	slug: string;
+	slug?: string;
 	isActive?: boolean;
 	createdAt?: Date | string;
 	updatedAt?: Date | string;
@@ -732,7 +732,7 @@ export type UserCreateWithoutUserAuthStatesInput = {
 	password?: string | null;
 	googleSub?: string | null;
 	githubId?: string | null;
-	slug: string;
+	slug?: string;
 	isActive?: boolean;
 	createdAt?: Date | string;
 	updatedAt?: Date | string;
@@ -747,7 +747,7 @@ export type UserUncheckedCreateWithoutUserAuthStatesInput = {
 	password?: string | null;
 	googleSub?: string | null;
 	githubId?: string | null;
-	slug: string;
+	slug?: string;
 	isActive?: boolean;
 	createdAt?: Date | string;
 	updatedAt?: Date | string;

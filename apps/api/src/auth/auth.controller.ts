@@ -4,6 +4,8 @@ import { LoginDto } from "./dto/login.dto";
 import { CookieOptions, Response } from "express";
 import { LoginInput } from "./inputs/login.input";
 import { ConfigService } from "@nestjs/config";
+import { RegisterInput } from "./inputs/register.input";
+import { RegisterDto } from "./dto/register.dto";
 
 @Controller("auth")
 export class AuthController {
@@ -56,5 +58,18 @@ export class AuthController {
 			path: "/",
 			maxAge: options.maxAge,
 		};
+	}
+
+	@HttpCode(HttpStatus.CREATED)
+	@Post("register")
+	register(@Body() registerDto: RegisterDto) {
+		const payload: RegisterInput = {
+			firstName: registerDto.firstName,
+			lastName: registerDto.lastName,
+			email: registerDto.email,
+			password: registerDto.password,
+		};
+
+		return this.authService.register(payload);
 	}
 }

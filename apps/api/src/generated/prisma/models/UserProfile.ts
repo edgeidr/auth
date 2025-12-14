@@ -19,22 +19,11 @@ export type UserProfileModel = runtime.Types.Result.DefaultSelection<Prisma.$Use
 
 export type AggregateUserProfile = {
 	_count: UserProfileCountAggregateOutputType | null;
-	_avg: UserProfileAvgAggregateOutputType | null;
-	_sum: UserProfileSumAggregateOutputType | null;
 	_min: UserProfileMinAggregateOutputType | null;
 	_max: UserProfileMaxAggregateOutputType | null;
 };
 
-export type UserProfileAvgAggregateOutputType = {
-	id: number | null;
-};
-
-export type UserProfileSumAggregateOutputType = {
-	id: number | null;
-};
-
 export type UserProfileMinAggregateOutputType = {
-	id: number | null;
 	userId: string | null;
 	firstName: string | null;
 	lastName: string | null;
@@ -45,7 +34,6 @@ export type UserProfileMinAggregateOutputType = {
 };
 
 export type UserProfileMaxAggregateOutputType = {
-	id: number | null;
 	userId: string | null;
 	firstName: string | null;
 	lastName: string | null;
@@ -56,7 +44,6 @@ export type UserProfileMaxAggregateOutputType = {
 };
 
 export type UserProfileCountAggregateOutputType = {
-	id: number;
 	userId: number;
 	firstName: number;
 	lastName: number;
@@ -67,16 +54,7 @@ export type UserProfileCountAggregateOutputType = {
 	_all: number;
 };
 
-export type UserProfileAvgAggregateInputType = {
-	id?: true;
-};
-
-export type UserProfileSumAggregateInputType = {
-	id?: true;
-};
-
 export type UserProfileMinAggregateInputType = {
-	id?: true;
 	userId?: true;
 	firstName?: true;
 	lastName?: true;
@@ -87,7 +65,6 @@ export type UserProfileMinAggregateInputType = {
 };
 
 export type UserProfileMaxAggregateInputType = {
-	id?: true;
 	userId?: true;
 	firstName?: true;
 	lastName?: true;
@@ -98,7 +75,6 @@ export type UserProfileMaxAggregateInputType = {
 };
 
 export type UserProfileCountAggregateInputType = {
-	id?: true;
 	userId?: true;
 	firstName?: true;
 	lastName?: true;
@@ -151,18 +127,6 @@ export type UserProfileAggregateArgs<
 	/**
 	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
 	 *
-	 * Select which fields to average
-	 **/
-	_avg?: UserProfileAvgAggregateInputType;
-	/**
-	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-	 *
-	 * Select which fields to sum
-	 **/
-	_sum?: UserProfileSumAggregateInputType;
-	/**
-	 * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-	 *
 	 * Select which fields to find the minimum value
 	 **/
 	_min?: UserProfileMinAggregateInputType;
@@ -194,14 +158,11 @@ export type UserProfileGroupByArgs<
 	take?: number;
 	skip?: number;
 	_count?: UserProfileCountAggregateInputType | true;
-	_avg?: UserProfileAvgAggregateInputType;
-	_sum?: UserProfileSumAggregateInputType;
 	_min?: UserProfileMinAggregateInputType;
 	_max?: UserProfileMaxAggregateInputType;
 };
 
 export type UserProfileGroupByOutputType = {
-	id: number;
 	userId: string;
 	firstName: string;
 	lastName: string;
@@ -210,8 +171,6 @@ export type UserProfileGroupByOutputType = {
 	updatedAt: Date;
 	deletedAt: Date | null;
 	_count: UserProfileCountAggregateOutputType | null;
-	_avg: UserProfileAvgAggregateOutputType | null;
-	_sum: UserProfileSumAggregateOutputType | null;
 	_min: UserProfileMinAggregateOutputType | null;
 	_max: UserProfileMaxAggregateOutputType | null;
 };
@@ -232,7 +191,6 @@ export type UserProfileWhereInput = {
 	AND?: Prisma.UserProfileWhereInput | Prisma.UserProfileWhereInput[];
 	OR?: Prisma.UserProfileWhereInput[];
 	NOT?: Prisma.UserProfileWhereInput | Prisma.UserProfileWhereInput[];
-	id?: Prisma.IntFilter<"UserProfile"> | number;
 	userId?: Prisma.StringFilter<"UserProfile"> | string;
 	firstName?: Prisma.StringFilter<"UserProfile"> | string;
 	lastName?: Prisma.StringFilter<"UserProfile"> | string;
@@ -244,7 +202,6 @@ export type UserProfileWhereInput = {
 };
 
 export type UserProfileOrderByWithRelationInput = {
-	id?: Prisma.SortOrder;
 	userId?: Prisma.SortOrder;
 	firstName?: Prisma.SortOrder;
 	lastName?: Prisma.SortOrder;
@@ -257,7 +214,6 @@ export type UserProfileOrderByWithRelationInput = {
 
 export type UserProfileWhereUniqueInput = Prisma.AtLeast<
 	{
-		id?: number;
 		userId?: string;
 		AND?: Prisma.UserProfileWhereInput | Prisma.UserProfileWhereInput[];
 		OR?: Prisma.UserProfileWhereInput[];
@@ -270,11 +226,10 @@ export type UserProfileWhereUniqueInput = Prisma.AtLeast<
 		deletedAt?: Prisma.DateTimeNullableFilter<"UserProfile"> | Date | string | null;
 		user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
 	},
-	"id" | "userId"
+	"userId"
 >;
 
 export type UserProfileOrderByWithAggregationInput = {
-	id?: Prisma.SortOrder;
 	userId?: Prisma.SortOrder;
 	firstName?: Prisma.SortOrder;
 	lastName?: Prisma.SortOrder;
@@ -283,10 +238,8 @@ export type UserProfileOrderByWithAggregationInput = {
 	updatedAt?: Prisma.SortOrder;
 	deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder;
 	_count?: Prisma.UserProfileCountOrderByAggregateInput;
-	_avg?: Prisma.UserProfileAvgOrderByAggregateInput;
 	_max?: Prisma.UserProfileMaxOrderByAggregateInput;
 	_min?: Prisma.UserProfileMinOrderByAggregateInput;
-	_sum?: Prisma.UserProfileSumOrderByAggregateInput;
 };
 
 export type UserProfileScalarWhereWithAggregatesInput = {
@@ -297,7 +250,6 @@ export type UserProfileScalarWhereWithAggregatesInput = {
 	NOT?:
 		| Prisma.UserProfileScalarWhereWithAggregatesInput
 		| Prisma.UserProfileScalarWhereWithAggregatesInput[];
-	id?: Prisma.IntWithAggregatesFilter<"UserProfile"> | number;
 	userId?: Prisma.StringWithAggregatesFilter<"UserProfile"> | string;
 	firstName?: Prisma.StringWithAggregatesFilter<"UserProfile"> | string;
 	lastName?: Prisma.StringWithAggregatesFilter<"UserProfile"> | string;
@@ -308,7 +260,6 @@ export type UserProfileScalarWhereWithAggregatesInput = {
 };
 
 export type UserProfileCreateInput = {
-	id: number;
 	firstName: string;
 	lastName: string;
 	photoUrl?: string | null;
@@ -319,7 +270,6 @@ export type UserProfileCreateInput = {
 };
 
 export type UserProfileUncheckedCreateInput = {
-	id: number;
 	userId: string;
 	firstName: string;
 	lastName: string;
@@ -330,7 +280,6 @@ export type UserProfileUncheckedCreateInput = {
 };
 
 export type UserProfileUpdateInput = {
-	id?: Prisma.IntFieldUpdateOperationsInput | number;
 	firstName?: Prisma.StringFieldUpdateOperationsInput | string;
 	lastName?: Prisma.StringFieldUpdateOperationsInput | string;
 	photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -341,7 +290,6 @@ export type UserProfileUpdateInput = {
 };
 
 export type UserProfileUncheckedUpdateInput = {
-	id?: Prisma.IntFieldUpdateOperationsInput | number;
 	userId?: Prisma.StringFieldUpdateOperationsInput | string;
 	firstName?: Prisma.StringFieldUpdateOperationsInput | string;
 	lastName?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -352,7 +300,6 @@ export type UserProfileUncheckedUpdateInput = {
 };
 
 export type UserProfileCreateManyInput = {
-	id: number;
 	userId: string;
 	firstName: string;
 	lastName: string;
@@ -363,7 +310,6 @@ export type UserProfileCreateManyInput = {
 };
 
 export type UserProfileUpdateManyMutationInput = {
-	id?: Prisma.IntFieldUpdateOperationsInput | number;
 	firstName?: Prisma.StringFieldUpdateOperationsInput | string;
 	lastName?: Prisma.StringFieldUpdateOperationsInput | string;
 	photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -373,7 +319,6 @@ export type UserProfileUpdateManyMutationInput = {
 };
 
 export type UserProfileUncheckedUpdateManyInput = {
-	id?: Prisma.IntFieldUpdateOperationsInput | number;
 	userId?: Prisma.StringFieldUpdateOperationsInput | string;
 	firstName?: Prisma.StringFieldUpdateOperationsInput | string;
 	lastName?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -389,7 +334,6 @@ export type UserProfileNullableScalarRelationFilter = {
 };
 
 export type UserProfileCountOrderByAggregateInput = {
-	id?: Prisma.SortOrder;
 	userId?: Prisma.SortOrder;
 	firstName?: Prisma.SortOrder;
 	lastName?: Prisma.SortOrder;
@@ -399,12 +343,7 @@ export type UserProfileCountOrderByAggregateInput = {
 	deletedAt?: Prisma.SortOrder;
 };
 
-export type UserProfileAvgOrderByAggregateInput = {
-	id?: Prisma.SortOrder;
-};
-
 export type UserProfileMaxOrderByAggregateInput = {
-	id?: Prisma.SortOrder;
 	userId?: Prisma.SortOrder;
 	firstName?: Prisma.SortOrder;
 	lastName?: Prisma.SortOrder;
@@ -415,7 +354,6 @@ export type UserProfileMaxOrderByAggregateInput = {
 };
 
 export type UserProfileMinOrderByAggregateInput = {
-	id?: Prisma.SortOrder;
 	userId?: Prisma.SortOrder;
 	firstName?: Prisma.SortOrder;
 	lastName?: Prisma.SortOrder;
@@ -423,10 +361,6 @@ export type UserProfileMinOrderByAggregateInput = {
 	createdAt?: Prisma.SortOrder;
 	updatedAt?: Prisma.SortOrder;
 	deletedAt?: Prisma.SortOrder;
-};
-
-export type UserProfileSumOrderByAggregateInput = {
-	id?: Prisma.SortOrder;
 };
 
 export type UserProfileCreateNestedOneWithoutUserInput = {
@@ -485,16 +419,7 @@ export type UserProfileUncheckedUpdateOneWithoutUserNestedInput = {
 	>;
 };
 
-export type IntFieldUpdateOperationsInput = {
-	set?: number;
-	increment?: number;
-	decrement?: number;
-	multiply?: number;
-	divide?: number;
-};
-
 export type UserProfileCreateWithoutUserInput = {
-	id: number;
 	firstName: string;
 	lastName: string;
 	photoUrl?: string | null;
@@ -504,7 +429,6 @@ export type UserProfileCreateWithoutUserInput = {
 };
 
 export type UserProfileUncheckedCreateWithoutUserInput = {
-	id: number;
 	firstName: string;
 	lastName: string;
 	photoUrl?: string | null;
@@ -542,7 +466,6 @@ export type UserProfileUpdateToOneWithWhereWithoutUserInput = {
 };
 
 export type UserProfileUpdateWithoutUserInput = {
-	id?: Prisma.IntFieldUpdateOperationsInput | number;
 	firstName?: Prisma.StringFieldUpdateOperationsInput | string;
 	lastName?: Prisma.StringFieldUpdateOperationsInput | string;
 	photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -552,7 +475,6 @@ export type UserProfileUpdateWithoutUserInput = {
 };
 
 export type UserProfileUncheckedUpdateWithoutUserInput = {
-	id?: Prisma.IntFieldUpdateOperationsInput | number;
 	firstName?: Prisma.StringFieldUpdateOperationsInput | string;
 	lastName?: Prisma.StringFieldUpdateOperationsInput | string;
 	photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -565,7 +487,6 @@ export type UserProfileSelect<
 	ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetSelect<
 	{
-		id?: boolean;
 		userId?: boolean;
 		firstName?: boolean;
 		lastName?: boolean;
@@ -582,7 +503,6 @@ export type UserProfileSelectCreateManyAndReturn<
 	ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetSelect<
 	{
-		id?: boolean;
 		userId?: boolean;
 		firstName?: boolean;
 		lastName?: boolean;
@@ -599,7 +519,6 @@ export type UserProfileSelectUpdateManyAndReturn<
 	ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetSelect<
 	{
-		id?: boolean;
 		userId?: boolean;
 		firstName?: boolean;
 		lastName?: boolean;
@@ -613,7 +532,6 @@ export type UserProfileSelectUpdateManyAndReturn<
 >;
 
 export type UserProfileSelectScalar = {
-	id?: boolean;
 	userId?: boolean;
 	firstName?: boolean;
 	lastName?: boolean;
@@ -626,14 +544,7 @@ export type UserProfileSelectScalar = {
 export type UserProfileOmit<
 	ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetOmit<
-	| "id"
-	| "userId"
-	| "firstName"
-	| "lastName"
-	| "photoUrl"
-	| "createdAt"
-	| "updatedAt"
-	| "deletedAt",
+	"userId" | "firstName" | "lastName" | "photoUrl" | "createdAt" | "updatedAt" | "deletedAt",
 	ExtArgs["result"]["userProfile"]
 >;
 export type UserProfileInclude<
@@ -661,7 +572,6 @@ export type $UserProfilePayload<
 	};
 	scalars: runtime.Types.Extensions.GetPayloadResult<
 		{
-			id: number;
 			userId: string;
 			firstName: string;
 			lastName: string;
@@ -810,8 +720,8 @@ export interface UserProfileDelegate<
 	 * // Get first 10 UserProfiles
 	 * const userProfiles = await prisma.userProfile.findMany({ take: 10 })
 	 *
-	 * // Only select the `id`
-	 * const userProfileWithIdOnly = await prisma.userProfile.findMany({ select: { id: true } })
+	 * // Only select the `userId`
+	 * const userProfileWithUserIdOnly = await prisma.userProfile.findMany({ select: { userId: true } })
 	 *
 	 */
 	findMany<T extends UserProfileFindManyArgs>(
@@ -878,9 +788,9 @@ export interface UserProfileDelegate<
 	 *   ]
 	 * })
 	 *
-	 * // Create many UserProfiles and only return the `id`
-	 * const userProfileWithIdOnly = await prisma.userProfile.createManyAndReturn({
-	 *   select: { id: true },
+	 * // Create many UserProfiles and only return the `userId`
+	 * const userProfileWithUserIdOnly = await prisma.userProfile.createManyAndReturn({
+	 *   select: { userId: true },
 	 *   data: [
 	 *     // ... provide data here
 	 *   ]
@@ -1006,9 +916,9 @@ export interface UserProfileDelegate<
 	 *   ]
 	 * })
 	 *
-	 * // Update zero or more UserProfiles and only return the `id`
-	 * const userProfileWithIdOnly = await prisma.userProfile.updateManyAndReturn({
-	 *   select: { id: true },
+	 * // Update zero or more UserProfiles and only return the `userId`
+	 * const userProfileWithUserIdOnly = await prisma.userProfile.updateManyAndReturn({
+	 *   select: { userId: true },
 	 *   where: {
 	 *     // ... provide filter here
 	 *   },
@@ -1252,7 +1162,6 @@ export interface Prisma__UserProfileClient<
  * Fields of the UserProfile model
  */
 export interface UserProfileFieldRefs {
-	readonly id: Prisma.FieldRef<"UserProfile", "Int">;
 	readonly userId: Prisma.FieldRef<"UserProfile", "String">;
 	readonly firstName: Prisma.FieldRef<"UserProfile", "String">;
 	readonly lastName: Prisma.FieldRef<"UserProfile", "String">;
