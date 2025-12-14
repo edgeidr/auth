@@ -222,6 +222,10 @@ export type UserWhereInput = {
 		Prisma.UserProfileNullableScalarRelationFilter,
 		Prisma.UserProfileWhereInput
 	> | null;
+	userAuthStates?: Prisma.XOR<
+		Prisma.UserAuthStateNullableScalarRelationFilter,
+		Prisma.UserAuthStateWhereInput
+	> | null;
 	sessions?: Prisma.SessionListRelationFilter;
 };
 
@@ -237,6 +241,7 @@ export type UserOrderByWithRelationInput = {
 	updatedAt?: Prisma.SortOrder;
 	deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder;
 	userProfile?: Prisma.UserProfileOrderByWithRelationInput;
+	userAuthStates?: Prisma.UserAuthStateOrderByWithRelationInput;
 	sessions?: Prisma.SessionOrderByRelationAggregateInput;
 };
 
@@ -258,6 +263,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<
 		userProfile?: Prisma.XOR<
 			Prisma.UserProfileNullableScalarRelationFilter,
 			Prisma.UserProfileWhereInput
+		> | null;
+		userAuthStates?: Prisma.XOR<
+			Prisma.UserAuthStateNullableScalarRelationFilter,
+			Prisma.UserAuthStateWhereInput
 		> | null;
 		sessions?: Prisma.SessionListRelationFilter;
 	},
@@ -308,6 +317,7 @@ export type UserCreateInput = {
 	updatedAt?: Date | string;
 	deletedAt?: Date | string | null;
 	userProfile?: Prisma.UserProfileCreateNestedOneWithoutUserInput;
+	userAuthStates?: Prisma.UserAuthStateCreateNestedOneWithoutUserInput;
 	sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
 };
 
@@ -323,6 +333,7 @@ export type UserUncheckedCreateInput = {
 	updatedAt?: Date | string;
 	deletedAt?: Date | string | null;
 	userProfile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput;
+	userAuthStates?: Prisma.UserAuthStateUncheckedCreateNestedOneWithoutUserInput;
 	sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
 };
 
@@ -338,6 +349,7 @@ export type UserUpdateInput = {
 	updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 	deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
 	userProfile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput;
+	userAuthStates?: Prisma.UserAuthStateUpdateOneWithoutUserNestedInput;
 	sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
 };
 
@@ -353,6 +365,7 @@ export type UserUncheckedUpdateInput = {
 	updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 	deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
 	userProfile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput;
+	userAuthStates?: Prisma.UserAuthStateUncheckedUpdateOneWithoutUserNestedInput;
 	sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
 };
 
@@ -511,6 +524,32 @@ export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
 	>;
 };
 
+export type UserCreateNestedOneWithoutUserAuthStatesInput = {
+	create?: Prisma.XOR<
+		Prisma.UserCreateWithoutUserAuthStatesInput,
+		Prisma.UserUncheckedCreateWithoutUserAuthStatesInput
+	>;
+	connectOrCreate?: Prisma.UserCreateOrConnectWithoutUserAuthStatesInput;
+	connect?: Prisma.UserWhereUniqueInput;
+};
+
+export type UserUpdateOneRequiredWithoutUserAuthStatesNestedInput = {
+	create?: Prisma.XOR<
+		Prisma.UserCreateWithoutUserAuthStatesInput,
+		Prisma.UserUncheckedCreateWithoutUserAuthStatesInput
+	>;
+	connectOrCreate?: Prisma.UserCreateOrConnectWithoutUserAuthStatesInput;
+	upsert?: Prisma.UserUpsertWithoutUserAuthStatesInput;
+	connect?: Prisma.UserWhereUniqueInput;
+	update?: Prisma.XOR<
+		Prisma.XOR<
+			Prisma.UserUpdateToOneWithWhereWithoutUserAuthStatesInput,
+			Prisma.UserUpdateWithoutUserAuthStatesInput
+		>,
+		Prisma.UserUncheckedUpdateWithoutUserAuthStatesInput
+	>;
+};
+
 export type UserCreateWithoutUserProfileInput = {
 	id?: string;
 	email: string;
@@ -522,6 +561,7 @@ export type UserCreateWithoutUserProfileInput = {
 	createdAt?: Date | string;
 	updatedAt?: Date | string;
 	deletedAt?: Date | string | null;
+	userAuthStates?: Prisma.UserAuthStateCreateNestedOneWithoutUserInput;
 	sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
 };
 
@@ -536,6 +576,7 @@ export type UserUncheckedCreateWithoutUserProfileInput = {
 	createdAt?: Date | string;
 	updatedAt?: Date | string;
 	deletedAt?: Date | string | null;
+	userAuthStates?: Prisma.UserAuthStateUncheckedCreateNestedOneWithoutUserInput;
 	sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
 };
 
@@ -578,6 +619,7 @@ export type UserUpdateWithoutUserProfileInput = {
 	createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 	updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 	deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+	userAuthStates?: Prisma.UserAuthStateUpdateOneWithoutUserNestedInput;
 	sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
 };
 
@@ -592,6 +634,7 @@ export type UserUncheckedUpdateWithoutUserProfileInput = {
 	createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 	updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 	deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+	userAuthStates?: Prisma.UserAuthStateUncheckedUpdateOneWithoutUserNestedInput;
 	sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
 };
 
@@ -607,6 +650,7 @@ export type UserCreateWithoutSessionsInput = {
 	updatedAt?: Date | string;
 	deletedAt?: Date | string | null;
 	userProfile?: Prisma.UserProfileCreateNestedOneWithoutUserInput;
+	userAuthStates?: Prisma.UserAuthStateCreateNestedOneWithoutUserInput;
 };
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -621,6 +665,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
 	updatedAt?: Date | string;
 	deletedAt?: Date | string | null;
 	userProfile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput;
+	userAuthStates?: Prisma.UserAuthStateUncheckedCreateNestedOneWithoutUserInput;
 };
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -663,6 +708,7 @@ export type UserUpdateWithoutSessionsInput = {
 	updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 	deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
 	userProfile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput;
+	userAuthStates?: Prisma.UserAuthStateUpdateOneWithoutUserNestedInput;
 };
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -677,6 +723,95 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
 	updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 	deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
 	userProfile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput;
+	userAuthStates?: Prisma.UserAuthStateUncheckedUpdateOneWithoutUserNestedInput;
+};
+
+export type UserCreateWithoutUserAuthStatesInput = {
+	id?: string;
+	email: string;
+	password?: string | null;
+	googleSub?: string | null;
+	githubId?: string | null;
+	slug: string;
+	isActive?: boolean;
+	createdAt?: Date | string;
+	updatedAt?: Date | string;
+	deletedAt?: Date | string | null;
+	userProfile?: Prisma.UserProfileCreateNestedOneWithoutUserInput;
+	sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+};
+
+export type UserUncheckedCreateWithoutUserAuthStatesInput = {
+	id?: string;
+	email: string;
+	password?: string | null;
+	googleSub?: string | null;
+	githubId?: string | null;
+	slug: string;
+	isActive?: boolean;
+	createdAt?: Date | string;
+	updatedAt?: Date | string;
+	deletedAt?: Date | string | null;
+	userProfile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput;
+	sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+};
+
+export type UserCreateOrConnectWithoutUserAuthStatesInput = {
+	where: Prisma.UserWhereUniqueInput;
+	create: Prisma.XOR<
+		Prisma.UserCreateWithoutUserAuthStatesInput,
+		Prisma.UserUncheckedCreateWithoutUserAuthStatesInput
+	>;
+};
+
+export type UserUpsertWithoutUserAuthStatesInput = {
+	update: Prisma.XOR<
+		Prisma.UserUpdateWithoutUserAuthStatesInput,
+		Prisma.UserUncheckedUpdateWithoutUserAuthStatesInput
+	>;
+	create: Prisma.XOR<
+		Prisma.UserCreateWithoutUserAuthStatesInput,
+		Prisma.UserUncheckedCreateWithoutUserAuthStatesInput
+	>;
+	where?: Prisma.UserWhereInput;
+};
+
+export type UserUpdateToOneWithWhereWithoutUserAuthStatesInput = {
+	where?: Prisma.UserWhereInput;
+	data: Prisma.XOR<
+		Prisma.UserUpdateWithoutUserAuthStatesInput,
+		Prisma.UserUncheckedUpdateWithoutUserAuthStatesInput
+	>;
+};
+
+export type UserUpdateWithoutUserAuthStatesInput = {
+	id?: Prisma.StringFieldUpdateOperationsInput | string;
+	email?: Prisma.StringFieldUpdateOperationsInput | string;
+	password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	slug?: Prisma.StringFieldUpdateOperationsInput | string;
+	isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+	createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+	updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+	deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+	userProfile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput;
+	sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+};
+
+export type UserUncheckedUpdateWithoutUserAuthStatesInput = {
+	id?: Prisma.StringFieldUpdateOperationsInput | string;
+	email?: Prisma.StringFieldUpdateOperationsInput | string;
+	password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	slug?: Prisma.StringFieldUpdateOperationsInput | string;
+	isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+	createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+	updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+	deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+	userProfile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput;
+	sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
 };
 
 /**
@@ -729,6 +864,7 @@ export type UserSelect<
 		updatedAt?: boolean;
 		deletedAt?: boolean;
 		userProfile?: boolean | Prisma.User$userProfileArgs<ExtArgs>;
+		userAuthStates?: boolean | Prisma.User$userAuthStatesArgs<ExtArgs>;
 		sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>;
 		_count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 	},
@@ -803,6 +939,7 @@ export type UserInclude<
 	ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
 	userProfile?: boolean | Prisma.User$userProfileArgs<ExtArgs>;
+	userAuthStates?: boolean | Prisma.User$userAuthStatesArgs<ExtArgs>;
 	sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>;
 	_count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 };
@@ -819,6 +956,7 @@ export type $UserPayload<
 	name: "User";
 	objects: {
 		userProfile: Prisma.$UserProfilePayload<ExtArgs> | null;
+		userAuthStates: Prisma.$UserAuthStatePayload<ExtArgs> | null;
 		sessions: Prisma.$SessionPayload<ExtArgs>[];
 	};
 	scalars: runtime.Types.Extensions.GetPayloadResult<
@@ -1381,6 +1519,19 @@ export interface Prisma__UserClient<
 		ExtArgs,
 		GlobalOmitOptions
 	>;
+	userAuthStates<T extends Prisma.User$userAuthStatesArgs<ExtArgs> = {}>(
+		args?: Prisma.Subset<T, Prisma.User$userAuthStatesArgs<ExtArgs>>,
+	): Prisma.Prisma__UserAuthStateClient<
+		runtime.Types.Result.GetResult<
+			Prisma.$UserAuthStatePayload<ExtArgs>,
+			T,
+			"findUniqueOrThrow",
+			GlobalOmitOptions
+		> | null,
+		null,
+		ExtArgs,
+		GlobalOmitOptions
+	>;
 	sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(
 		args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>,
 	): Prisma.PrismaPromise<
@@ -1866,6 +2017,27 @@ export type User$userProfileArgs<
 	 */
 	include?: Prisma.UserProfileInclude<ExtArgs> | null;
 	where?: Prisma.UserProfileWhereInput;
+};
+
+/**
+ * User.userAuthStates
+ */
+export type User$userAuthStatesArgs<
+	ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+	/**
+	 * Select specific fields to fetch from the UserAuthState
+	 */
+	select?: Prisma.UserAuthStateSelect<ExtArgs> | null;
+	/**
+	 * Omit specific fields from the UserAuthState
+	 */
+	omit?: Prisma.UserAuthStateOmit<ExtArgs> | null;
+	/**
+	 * Choose, which related nodes to fetch as well
+	 */
+	include?: Prisma.UserAuthStateInclude<ExtArgs> | null;
+	where?: Prisma.UserAuthStateWhereInput;
 };
 
 /**

@@ -61,3 +61,8 @@ export type Session = Prisma.SessionModel;
  *
  */
 export type RefreshToken = Prisma.RefreshTokenModel;
+/**
+ * Model UserAuthState
+ *
+ */
+export type UserAuthState = Prisma.UserAuthStateModel;

@@ -57,6 +57,7 @@ export const ModelName = {
 	UserAction: "UserAction",
 	Session: "Session",
 	RefreshToken: "RefreshToken",
+	UserAuthState: "UserAuthState",
 } as const;
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
@@ -172,6 +173,17 @@ export const RefreshTokenScalarFieldEnum = {
 
 export type RefreshTokenScalarFieldEnum =
 	(typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum];
+
+export const UserAuthStateScalarFieldEnum = {
+	userId: "userId",
+	failedLoginAttempts: "failedLoginAttempts",
+	lockedUntil: "lockedUntil",
+	createdAt: "createdAt",
+	updatedAt: "updatedAt",
+} as const;
+
+export type UserAuthStateScalarFieldEnum =
+	(typeof UserAuthStateScalarFieldEnum)[keyof typeof UserAuthStateScalarFieldEnum];
 
 export const SortOrder = {
 	asc: "asc",

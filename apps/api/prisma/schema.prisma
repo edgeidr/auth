@@ -20,19 +20,21 @@ enum ActionScope {
 }
 
 model User {
-    id        String    @id @default(cuid())
+    id        String  @id @default(cuid())
     email     String
     password  String?
-    googleSub String?   @unique
-    githubId  String?   @unique
+    googleSub String? @unique
+    githubId  String? @unique
     slug      String
-    isActive  Boolean   @default(true)
+    isActive  Boolean @default(true)
+
     createdAt DateTime  @default(now())
     updatedAt DateTime  @updatedAt
     deletedAt DateTime?
 
-    userProfile UserProfile?
-    sessions    Session[]
+    userProfile    UserProfile?
+    userAuthStates UserAuthState?
+    sessions       Session[]
 
     @@map("users")
 }
@@ -134,4 +136,16 @@ model RefreshToken {
     session Session @relation(fields: [sessionId], references: [id])
 
     @@map("refresh_tokens")
+}
+
+model UserAuthState {
+    userId              String    @id
+    failedLoginAttempts Int       @default(0)
+    lockedUntil         DateTime?
+    createdAt           DateTime  @default(now())
+    updatedAt           DateTime  @updatedAt
+
+    user User @relation(fields: [userId], references: [id])
+
+    @@map("user_auth_states")
 }

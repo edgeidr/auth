@@ -3,10 +3,14 @@ import { ValidateCredentialsInput } from "./inputs/validate-credentials.input";
 import { FindUserOptions } from "./types/find-user-options";
 import { PrismaService } from "../prisma/prisma.service";
 import { verify } from "argon2";
+import { UserAuthStateService } from "../user-auth-state/user-auth-state.service";
 
 @Injectable()
 export class UserService {
-	constructor(private readonly prismaService: PrismaService) {}
+	constructor(
+		private readonly prismaService: PrismaService,
+		private readonly userAuthStateService: UserAuthStateService,
+	) {}
 
 	async findOneByEmail(email: string, options: FindUserOptions = {}) {
 		const user = await this.prismaService.user.findFirst({
@@ -22,7 +26,6 @@ export class UserService {
 
 	async validateCredentials(input: ValidateCredentialsInput) {
 		const user = await this.findOneByEmail(input.email, { includePassword: true });
-
 		if (!user) throw new UnauthorizedException("messages.invalidCredentials");
 
 		if (!user.password) {
@@ -33,9 +36,17 @@ export class UserService {
 			}
 		}
 
+		const isAccountLocked = await this.userAuthStateService.isAccountLocked(user.id);
+		if (isAccountLocked) throw new UnauthorizedException("messages.accountLocked");
+
 		const passwordMatches = await verify(user.password, input.password);
 
-		if (!passwordMatches) throw new UnauthorizedException("messages.invalidCredentials");
+		if (!passwordMatches) {
+			await this.userAuthStateService.incrementFailedLoginAttempts(user.id);
+			throw new UnauthorizedException("messages.invalidCredentials");
+		}
+
+		await this.userAuthStateService.resetFailedLoginAttempts(user.id);
 
 		const { password: _, ...safeUser } = user;
 

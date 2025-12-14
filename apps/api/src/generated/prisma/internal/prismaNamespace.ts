@@ -384,6 +384,7 @@ export const ModelName = {
 	UserAction: "UserAction",
 	Session: "Session",
 	RefreshToken: "RefreshToken",
+	UserAuthState: "UserAuthState",
 } as const;
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
@@ -412,7 +413,8 @@ export type TypeMap<
 			| "userRole"
 			| "userAction"
 			| "session"
-			| "refreshToken";
+			| "refreshToken"
+			| "userAuthState";
 		txIsolationLevel: TransactionIsolationLevel;
 	};
 	model: {
@@ -1100,6 +1102,82 @@ export type TypeMap<
 				};
 			};
 		};
+		UserAuthState: {
+			payload: Prisma.$UserAuthStatePayload<ExtArgs>;
+			fields: Prisma.UserAuthStateFieldRefs;
+			operations: {
+				findUnique: {
+					args: Prisma.UserAuthStateFindUniqueArgs<ExtArgs>;
+					result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAuthStatePayload> | null;
+				};
+				findUniqueOrThrow: {
+					args: Prisma.UserAuthStateFindUniqueOrThrowArgs<ExtArgs>;
+					result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAuthStatePayload>;
+				};
+				findFirst: {
+					args: Prisma.UserAuthStateFindFirstArgs<ExtArgs>;
+					result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAuthStatePayload> | null;
+				};
+				findFirstOrThrow: {
+					args: Prisma.UserAuthStateFindFirstOrThrowArgs<ExtArgs>;
+					result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAuthStatePayload>;
+				};
+				findMany: {
+					args: Prisma.UserAuthStateFindManyArgs<ExtArgs>;
+					result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAuthStatePayload>[];
+				};
+				create: {
+					args: Prisma.UserAuthStateCreateArgs<ExtArgs>;
+					result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAuthStatePayload>;
+				};
+				createMany: {
+					args: Prisma.UserAuthStateCreateManyArgs<ExtArgs>;
+					result: BatchPayload;
+				};
+				createManyAndReturn: {
+					args: Prisma.UserAuthStateCreateManyAndReturnArgs<ExtArgs>;
+					result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAuthStatePayload>[];
+				};
+				delete: {
+					args: Prisma.UserAuthStateDeleteArgs<ExtArgs>;
+					result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAuthStatePayload>;
+				};
+				update: {
+					args: Prisma.UserAuthStateUpdateArgs<ExtArgs>;
+					result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAuthStatePayload>;
+				};
+				deleteMany: {
+					args: Prisma.UserAuthStateDeleteManyArgs<ExtArgs>;
+					result: BatchPayload;
+				};
+				updateMany: {
+					args: Prisma.UserAuthStateUpdateManyArgs<ExtArgs>;
+					result: BatchPayload;
+				};
+				updateManyAndReturn: {
+					args: Prisma.UserAuthStateUpdateManyAndReturnArgs<ExtArgs>;
+					result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAuthStatePayload>[];
+				};
+				upsert: {
+					args: Prisma.UserAuthStateUpsertArgs<ExtArgs>;
+					result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAuthStatePayload>;
+				};
+				aggregate: {
+					args: Prisma.UserAuthStateAggregateArgs<ExtArgs>;
+					result: runtime.Types.Utils.Optional<Prisma.AggregateUserAuthState>;
+				};
+				groupBy: {
+					args: Prisma.UserAuthStateGroupByArgs<ExtArgs>;
+					result: runtime.Types.Utils.Optional<Prisma.UserAuthStateGroupByOutputType>[];
+				};
+				count: {
+					args: Prisma.UserAuthStateCountArgs<ExtArgs>;
+					result:
+						| runtime.Types.Utils.Optional<Prisma.UserAuthStateCountAggregateOutputType>
+						| number;
+				};
+			};
+		};
 	};
 } & {
 	other: {
@@ -1236,6 +1314,17 @@ export const RefreshTokenScalarFieldEnum = {
 
 export type RefreshTokenScalarFieldEnum =
 	(typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum];
+
+export const UserAuthStateScalarFieldEnum = {
+	userId: "userId",
+	failedLoginAttempts: "failedLoginAttempts",
+	lockedUntil: "lockedUntil",
+	createdAt: "createdAt",
+	updatedAt: "updatedAt",
+} as const;
+
+export type UserAuthStateScalarFieldEnum =
+	(typeof UserAuthStateScalarFieldEnum)[keyof typeof UserAuthStateScalarFieldEnum];
 
 export const SortOrder = {
 	asc: "asc",
@@ -1435,6 +1524,7 @@ export type GlobalOmitConfig = {
 	userAction?: Prisma.UserActionOmit;
 	session?: Prisma.SessionOmit;
 	refreshToken?: Prisma.RefreshTokenOmit;
+	userAuthState?: Prisma.UserAuthStateOmit;
 };
 
 /* Types for Logging */
