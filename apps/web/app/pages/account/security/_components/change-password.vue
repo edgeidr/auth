@@ -18,31 +18,8 @@
 				</FloatLabel>
 
 				<FloatLabel variant="in">
-					<Password
-						id="newPassword"
-						v-model="form.newPassword"
-						:promptLabel="' '"
-						:weakLabel="' '"
-						:mediumLabel="' '"
-						:strongLabel="' '"
-						strongRegex="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9])(?=.{8,})"
-						fluid>
-						<template #footer>
-							<span class="text-sm">
-								{{ $t("common.passwordRules.feedbackLabel") }}
-							</span>
-							<ul class="mt-1 mb-0 list-disc pl-5 text-sm leading-normal">
-								<li v-for="(rule, index) in passwordRules" :key="index">
-									<span :class="{ 'text-green-500': rule.condition }">
-										{{ rule.label }}
-									</span>
-								</li>
-							</ul>
-						</template>
-					</Password>
-					<label for="newPassword">
-						{{ $t("common.inputs.newPassword") }}
-					</label>
+					<CustomPassword v-model="form.newPassword" id="newPassword" fluid />
+					<label for="newPassword">{{ $t("common.inputs.newPassword") }}</label>
 				</FloatLabel>
 
 				<FloatLabel variant="in">

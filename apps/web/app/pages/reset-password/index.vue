@@ -8,38 +8,17 @@
 			<form @submit.prevent="onSubmit">
 				<div class="space-y-4">
 					<FloatLabel variant="in">
-						<Password
-							id="password"
-							v-model="form.password"
-							:promptLabel="' '"
-							:weakLabel="' '"
-							:mediumLabel="' '"
-							:strongLabel="' '"
-							strongRegex="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9])(?=.{8,})"
-							fluid>
-							<template #footer>
-								<span class="text-sm">
-									{{ $t("common.passwordRules.feedbackLabel") }}
-								</span>
-								<ul class="mt-1 mb-0 list-disc pl-5 text-sm leading-normal">
-									<li v-for="(rule, index) in passwordRules" :key="index">
-										<span :class="{ 'text-green-500': rule.condition }">
-											{{ rule.label }}
-										</span>
-									</li>
-								</ul>
-							</template>
-						</Password>
-						<label for="password">{{ $t("common.inputs.newPassword") }}</label>
+						<CustomPassword v-model="form.newPassword" id="newPassword" fluid />
+						<label for="newPassword">{{ $t("common.inputs.newPassword") }}</label>
 					</FloatLabel>
 
 					<FloatLabel variant="in">
 						<Password
-							id="confirmPassword"
-							v-model="form.confirmPassword"
+							id="confirmNewPassword"
+							v-model="form.confirmNewPassword"
 							:feedback="false"
 							fluid />
-						<label for="confirmPassword">
+						<label for="confirmNewPassword">
 							{{ $t("common.inputs.confirmNewPassword") }}
 						</label>
 					</FloatLabel>
@@ -77,11 +56,11 @@
 	const resetPasswordEmail = useState<string | null>("resetPasswordEmail");
 	const resetPasswordToken = useState<string | null>("resetPasswordToken");
 	const form = reactive<{
-		password: string;
-		confirmPassword: string;
+		newPassword: string;
+		confirmNewPassword: string;
 	}>({
-		password: "",
-		confirmPassword: "",
+		newPassword: "",
+		confirmNewPassword: "",
 	});
 
 	const passwordRules = ref([
@@ -107,11 +86,11 @@
 		},
 	]);
 
-	const hasUppercase = computed(() => /[A-Z]/.test(form.password));
-	const hasLowercase = computed(() => /[a-z]/.test(form.password));
-	const hasNumber = computed(() => /[0-9]/.test(form.password));
-	const hasSymbol = computed(() => /[^a-zA-Z0-9]/.test(form.password));
-	const hasMinLength = computed(() => form.password.length >= 8);
+	const hasUppercase = computed(() => /[A-Z]/.test(form.newPassword));
+	const hasLowercase = computed(() => /[a-z]/.test(form.newPassword));
+	const hasNumber = computed(() => /[0-9]/.test(form.newPassword));
+	const hasSymbol = computed(() => /[^a-zA-Z0-9]/.test(form.newPassword));
+	const hasMinLength = computed(() => form.newPassword.length >= 8);
 
 	const onSubmit = () => {
 		navigateTo({ name: "login" });

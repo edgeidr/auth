@@ -52,31 +52,12 @@
 
 					<div>
 						<FloatLabel variant="in">
-							<Password
-								id="password"
+							<CustomPassword
 								v-model="form.password"
-								:promptLabel="' '"
-								:weakLabel="' '"
-								:mediumLabel="' '"
-								:strongLabel="' '"
-								strongRegex="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9])(?=.{8,})"
+								id="password"
 								:invalid="hasError('password')"
 								@input="clearError('password')"
-								required
-								fluid>
-								<template #footer>
-									<span class="text-sm">
-										{{ $t("common.passwordRules.feedbackLabel") }}
-									</span>
-									<ul class="mt-1 mb-0 list-disc pl-5 text-sm leading-normal">
-										<li v-for="(rule, index) in passwordRules" :key="index">
-											<span :class="{ 'text-green-500': rule.condition }">
-												{{ rule.label }}
-											</span>
-										</li>
-									</ul>
-								</template>
-							</Password>
+								fluid />
 							<label for="password">{{ $t("common.inputs.password") }}</label>
 						</FloatLabel>
 						<FieldError :error="getError('password')" />
@@ -221,33 +202,4 @@
 			if (message && Array.isArray(message)) setErrors(message);
 		},
 	});
-
-	const passwordRules = ref([
-		{
-			label: t("common.passwordRules.requireUppercase"),
-			condition: computed(() => hasUppercase.value),
-		},
-		{
-			label: t("common.passwordRules.requireLowercase"),
-			condition: computed(() => hasLowercase.value),
-		},
-		{
-			label: t("common.passwordRules.requireNumber"),
-			condition: computed(() => hasNumber.value),
-		},
-		{
-			label: t("common.passwordRules.requireSymbol"),
-			condition: computed(() => hasSymbol.value),
-		},
-		{
-			label: t("common.passwordRules.requireMinCharacters"),
-			condition: computed(() => hasMinLength.value),
-		},
-	]);
-
-	const hasUppercase = computed(() => /[A-Z]/.test(form.password));
-	const hasLowercase = computed(() => /[a-z]/.test(form.password));
-	const hasNumber = computed(() => /[0-9]/.test(form.password));
-	const hasSymbol = computed(() => /[^a-zA-Z0-9]/.test(form.password));
-	const hasMinLength = computed(() => form.password.length >= 8);
 </script>
