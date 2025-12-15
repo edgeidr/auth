@@ -73,7 +73,7 @@
 					severity="secondary"
 					fluid>
 					<template #icon>
-						<Icon name="logos:google-icon" />
+						<Icon :name="Icons.googleLogo" />
 					</template>
 				</Button>
 
@@ -83,7 +83,7 @@
 					severity="secondary"
 					fluid>
 					<template #icon>
-						<Icon name="logos:github-icon" />
+						<Icon :name="Icons.githubLogo" />
 					</template>
 				</Button>
 			</div>
@@ -126,6 +126,7 @@
 
 <script setup lang="ts">
 	import { NuxtLink } from "#components";
+	import { Icons } from "@repo/assets";
 
 	definePageMeta({
 		layout: "auth",

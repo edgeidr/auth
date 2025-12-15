@@ -36,12 +36,8 @@
 								<span class="text-sm">
 									{{ $t("common.passwordRules.feedbackLabel") }}
 								</span>
-								<ul class="mt-1 mb-0 list-none text-sm leading-normal">
-									<li
-										v-for="(rule, index) in passwordRules"
-										:key="index"
-										class="flex items-center gap-1">
-										<Icon name="radix-icons:dot-filled" />
+								<ul class="mt-1 mb-0 list-disc pl-5 text-sm leading-normal">
+									<li v-for="(rule, index) in passwordRules" :key="index">
 										<span :class="{ 'text-green-500': rule.condition }">
 											{{ rule.label }}
 										</span>
@@ -103,7 +99,7 @@
 					severity="secondary"
 					fluid>
 					<template #icon>
-						<Icon name="logos:google-icon" />
+						<Icon :name="Icons.googleLogo" />
 					</template>
 				</Button>
 
@@ -113,7 +109,7 @@
 					severity="secondary"
 					fluid>
 					<template #icon>
-						<Icon name="logos:github-icon" />
+						<Icon :name="Icons.githubLogo" />
 					</template>
 				</Button>
 			</div>
@@ -134,6 +130,7 @@
 
 <script setup lang="ts">
 	import { NuxtLink } from "#components";
+	import { Icons } from "@repo/assets";
 
 	definePageMeta({
 		layout: "auth",

@@ -19,4 +19,6 @@ export const Icons = {
 	message: "hugeicons:message-02",
 	user: "hugeicons:user-03",
 	computer: "hugeicons:computer",
+	googleLogo: "logos:google-icon",
+	githubLogo: "logos:github-icon",
 };

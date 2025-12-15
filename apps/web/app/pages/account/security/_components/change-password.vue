@@ -31,12 +31,8 @@
 							<span class="text-sm">
 								{{ $t("common.passwordRules.feedbackLabel") }}
 							</span>
-							<ul class="mt-1 mb-0 list-none text-sm leading-normal">
-								<li
-									v-for="(rule, index) in passwordRules"
-									:key="index"
-									class="flex items-center gap-1">
-									<Icon name="radix-icons:dot-filled" />
+							<ul class="mt-1 mb-0 list-disc pl-5 text-sm leading-normal">
+								<li v-for="(rule, index) in passwordRules" :key="index">
 									<span :class="{ 'text-green-500': rule.condition }">
 										{{ rule.label }}
 									</span>
