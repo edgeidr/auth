@@ -1,4 +1,4 @@
-import { Equals, IsBoolean, IsEmail, IsNotEmpty } from "class-validator";
+import { Equals, IsBoolean, IsEmail, IsNotEmpty, IsStrongPassword } from "class-validator";
 import { Match } from "../../common/decorators/match.decorator";
 
 export class RegisterDto {
@@ -12,6 +12,7 @@ export class RegisterDto {
 	email: string;
 
 	@IsNotEmpty({ message: "common.validation.required" })
+	@IsStrongPassword({}, { message: "common.validation.invalidPassword" })
 	password: string;
 
 	@Match("password", { message: "common.validation.passwordMismatch" })

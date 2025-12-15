@@ -12,6 +12,7 @@
 		"validation": {
 			"required": "This is required",
 			"invalidEmail": "Invalid email address",
+			"invalidPassword": "Password does not meet all required rules",
 			"passwordMismatch": "Passwords do not match",
 			"emailTaken": "This email is already taken",
 			"termsAgreementRequired": "You must agree to the terms and conditions"

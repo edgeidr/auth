@@ -5,86 +5,139 @@
 		<template #subtitle>{{ $t("register.header.subtitle") }}</template>
 
 		<template #content>
-			<form>
+			<form @submit.prevent="register()">
 				<div class="space-y-4">
-					<FloatLabel variant="in">
-						<InputText id="firstName" v-model="form.firstName" fluid />
-						<label for="firstName">{{ $t("common.inputs.firstName") }}</label>
-					</FloatLabel>
-
-					<FloatLabel variant="in">
-						<InputText id="lastName" v-model="form.lastName" fluid />
-						<label for="lastName">{{ $t("common.inputs.lastName") }}</label>
-					</FloatLabel>
-
-					<FloatLabel variant="in">
-						<InputText id="email" v-model="form.email" type="email" fluid />
-						<label for="email">{{ $t("common.inputs.email") }}</label>
-					</FloatLabel>
-
-					<FloatLabel variant="in">
-						<Password
-							id="password"
-							v-model="form.password"
-							:promptLabel="' '"
-							:weakLabel="' '"
-							:mediumLabel="' '"
-							:strongLabel="' '"
-							strongRegex="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9])(?=.{8,})"
-							fluid>
-							<template #footer>
-								<span class="text-sm">
-									{{ $t("common.passwordRules.feedbackLabel") }}
-								</span>
-								<ul class="mt-1 mb-0 list-disc pl-5 text-sm leading-normal">
-									<li v-for="(rule, index) in passwordRules" :key="index">
-										<span :class="{ 'text-green-500': rule.condition }">
-											{{ rule.label }}
-										</span>
-									</li>
-								</ul>
-							</template>
-						</Password>
-						<label for="password">{{ $t("common.inputs.password") }}</label>
-					</FloatLabel>
-
-					<FloatLabel variant="in">
-						<Password
-							id="confirmPassword"
-							v-model="form.confirmPassword"
-							:feedback="false"
-							fluid />
-						<label for="confirmPassword">
-							{{ $t("common.inputs.confirmPassword") }}
-						</label>
-					</FloatLabel>
-
-					<div class="flex items-center">
-						<Checkbox inputId="agreement" v-model="form.agreement" binary />
-						<label for="agreement" class="cursor-pointer pl-2">
-							<i18n-t keypath="register.agreementPrompt" tag="p" scope="global">
-								<template #terms>
-									<Button
-										:as="NuxtLink"
-										:to="{ name: 'terms-of-service' }"
-										:label="$t('common.pages.terms')"
-										variant="link"
-										class="p-0!" />
-								</template>
-
-								<template #privacy>
-									<Button
-										:as="NuxtLink"
-										:to="{ name: 'privacy-policy' }"
-										:label="$t('common.pages.privacy')"
-										variant="link"
-										class="p-0!" />
-								</template>
-							</i18n-t>
-						</label>
+					<div>
+						<FloatLabel variant="in">
+							<InputText
+								id="firstName"
+								v-model="form.firstName"
+								:invalid="hasError('firstName')"
+								@input="clearError('firstName')"
+								required
+								fluid />
+							<label for="firstName">{{ $t("common.inputs.firstName") }}</label>
+						</FloatLabel>
+						<FieldError :error="getError('firstName')" />
 					</div>
 
-					<Button :label="$t('common.actions.signUp')" fluid />
+					<div>
+						<FloatLabel variant="in">
+							<InputText
+								id="lastName"
+								v-model="form.lastName"
+								:invalid="hasError('lastName')"
+								@input="clearError('lastName')"
+								required
+								fluid />
+							<label for="lastName">{{ $t("common.inputs.lastName") }}</label>
+						</FloatLabel>
+						<FieldError :error="getError('lastName')" />
+					</div>
+
+					<div>
+						<FloatLabel variant="in">
+							<InputText
+								id="email"
+								v-model="form.email"
+								inputmode="email"
+								:invalid="hasError('email')"
+								@input="clearError('email')"
+								required
+								fluid />
+							<label for="email">{{ $t("common.inputs.email") }}</label>
+						</FloatLabel>
+						<FieldError :error="getError('email')" />
+					</div>
+
+					<div>
+						<FloatLabel variant="in">
+							<Password
+								id="password"
+								v-model="form.password"
+								:promptLabel="' '"
+								:weakLabel="' '"
+								:mediumLabel="' '"
+								:strongLabel="' '"
+								strongRegex="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9])(?=.{8,})"
+								:invalid="hasError('password')"
+								@input="clearError('password')"
+								required
+								fluid>
+								<template #footer>
+									<span class="text-sm">
+										{{ $t("common.passwordRules.feedbackLabel") }}
+									</span>
+									<ul class="mt-1 mb-0 list-disc pl-5 text-sm leading-normal">
+										<li v-for="(rule, index) in passwordRules" :key="index">
+											<span :class="{ 'text-green-500': rule.condition }">
+												{{ rule.label }}
+											</span>
+										</li>
+									</ul>
+								</template>
+							</Password>
+							<label for="password">{{ $t("common.inputs.password") }}</label>
+						</FloatLabel>
+						<FieldError :error="getError('password')" />
+					</div>
+
+					<div>
+						<FloatLabel variant="in">
+							<Password
+								id="confirmPassword"
+								v-model="form.confirmPassword"
+								:feedback="false"
+								:invalid="hasError('confirmPassword')"
+								@input="clearError('confirmPassword')"
+								required
+								fluid />
+							<label for="confirmPassword">
+								{{ $t("common.inputs.confirmPassword") }}
+							</label>
+						</FloatLabel>
+						<FieldError :error="getError('confirmPassword')" />
+					</div>
+
+					<div>
+						<div class="flex items-center">
+							<Checkbox
+								inputId="agreement"
+								v-model="form.agreement"
+								:invalid="hasError('agreement')"
+								@change="clearError('agreement')"
+								required
+								binary />
+							<label for="agreement" class="cursor-pointer pl-2">
+								<i18n-t keypath="register.agreementPrompt" tag="p" scope="global">
+									<template #terms>
+										<Button
+											:as="NuxtLink"
+											:to="{ name: 'terms-of-service' }"
+											:label="$t('common.pages.terms')"
+											variant="link"
+											class="p-0!" />
+									</template>
+
+									<template #privacy>
+										<Button
+											:as="NuxtLink"
+											:to="{ name: 'privacy-policy' }"
+											:label="$t('common.pages.privacy')"
+											variant="link"
+											class="p-0!" />
+									</template>
+								</i18n-t>
+							</label>
+						</div>
+						<FieldError :error="getError('agreement')" />
+					</div>
+
+					<Button
+						type="submit"
+						:label="$t('common.actions.signUp')"
+						:loading="pending"
+						fluid />
 				</div>
 			</form>
 
@@ -136,15 +189,9 @@
 		layout: "auth",
 	});
 
+	const toast = useToast();
 	const { t } = useI18n();
-	const form = reactive<{
-		firstName: string;
-		lastName: string;
-		email: string;
-		password: string;
-		confirmPassword: string;
-		agreement: boolean;
-	}>({
+	const { form, clearError, getError, hasError, setErrors } = useForm({
 		firstName: "",
 		lastName: "",
 		email: "",
@@ -152,6 +199,29 @@
 		confirmPassword: "",
 		agreement: false,
 	});
+
+	const { execute: register, pending } = useCustomFetch("/auth/register", {
+		method: "POST",
+		body: form,
+		onResponse: async ({ response }) => {
+			if (!response.ok) return;
+
+			await navigateTo({ name: "login" });
+
+			toast.add({
+				summary: t("common.status.success"),
+				detail: t("common.message.registrationSuccess"),
+				severity: "success",
+				life: useRuntimeConfig().public.toastLife,
+			});
+		},
+		onResponseError: ({ response }) => {
+			const { message } = response._data as { message: any };
+
+			if (message && Array.isArray(message)) setErrors(message);
+		},
+	});
+
 	const passwordRules = ref([
 		{
 			label: t("common.passwordRules.requireUppercase"),
