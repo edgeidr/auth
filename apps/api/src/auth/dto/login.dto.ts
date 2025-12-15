@@ -1,10 +1,10 @@
 import { IsBoolean, IsEmail, IsNotEmpty, IsOptional } from "class-validator";
 
 export class LoginDto {
-	@IsEmail({}, { message: "validations.invalidEmail" })
+	@IsEmail({}, { message: "common.validation.invalidEmail" })
 	email: string;
 
-	@IsNotEmpty({ message: "validations.required" })
+	@IsNotEmpty({ message: "common.validation.required" })
 	password: string;
 
 	@IsOptional()

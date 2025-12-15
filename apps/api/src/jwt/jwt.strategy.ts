@@ -44,7 +44,7 @@ export class JwtRefreshStrategy extends PassportStrategy(Strategy, "jwt-refresh"
 			refreshToken,
 		});
 
-		if (!session) throw new UnauthorizedException("messages.tokenExpired");
+		if (!session) throw new UnauthorizedException("common.message.tokenExpired");
 
 		return { userId: payload.userId };
 	}

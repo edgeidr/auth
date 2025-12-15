@@ -42,7 +42,7 @@ export class AuthService {
 
 		if (userExists) {
 			throw new ConflictException({
-				message: [{ field: "email", error: ["validations.emailTaken"] }],
+				message: [{ field: "email", error: ["common.validation.emailTaken"] }],
 			});
 		}
 
@@ -53,8 +53,8 @@ export class AuthService {
 			lastName: input.lastName,
 		});
 
-		if (!user) throw new InternalServerErrorException("messages.tryAgain");
+		if (!user) throw new InternalServerErrorException("common.message.tryAgain");
 
-		return { message: "messages.registrationSuccess" };
+		return { message: "common.message.registrationSuccess" };
 	}
 }

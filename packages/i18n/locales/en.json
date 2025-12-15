@@ -1,21 +1,27 @@
 {
-	"messages": {
-		"tokenExpired": "Session expired. Please re-login.",
-		"invalidCredentials": "Incorrect Email or Password.",
-		"socialOnlyAccount": "This account is linked to a social login. Please sign in with it.",
-		"loginFailed": "Login Failed. Please try again.",
-		"accountLocked": "Account is temporarily locked. Please try again later.",
-		"tryAgain": "Something went wrong. Try again later.",
-		"registrationSuccess": "Account created successfully."
-	},
-	"validations": {
-		"required": "Required",
-		"invalidEmail": "Invalid email address",
-		"passwordMismatch": "Passwords do not match",
-		"emailTaken": "This email is already taken",
-		"termsAgreementRequired": "You must agree to the terms and conditions"
-	},
 	"common": {
+		"message": {
+			"tokenExpired": "Session expired. Please re-login.",
+			"invalidCredentials": "Incorrect Email or Password.",
+			"socialOnlyAccount": "This account is linked to a social login. Please sign in with it.",
+			"loginFailed": "Login Failed. Please try again.",
+			"accountLocked": "Account is temporarily locked. Please try again later.",
+			"tryAgain": "Something went wrong. Try again later.",
+			"registrationSuccess": "Account created successfully."
+		},
+		"validation": {
+			"required": "Required",
+			"invalidEmail": "Invalid email address",
+			"passwordMismatch": "Passwords do not match",
+			"emailTaken": "This email is already taken",
+			"termsAgreementRequired": "You must agree to the terms and conditions"
+		},
+		"status": {
+			"info": "Info!",
+			"success": "Success!",
+			"error": "Error!",
+			"serverError": "Server Error!"
+		},
 		"passwordRules": {
 			"feedbackLabel": "Must contain:",
 			"requireUppercase": "an uppercase letter",

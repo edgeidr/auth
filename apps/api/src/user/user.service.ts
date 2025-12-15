@@ -42,24 +42,24 @@ export class UserService {
 
 	async validateCredentials(input: ValidateCredentialsInput) {
 		const user = await this.findOneByEmail(input.email, { includePassword: true });
-		if (!user) throw new UnauthorizedException("messages.invalidCredentials");
+		if (!user) throw new UnauthorizedException("common.message.invalidCredentials");
 
 		if (!user.password) {
 			if (user.googleSub || user.githubId) {
-				throw new UnauthorizedException("messages.socialOnlyAccount");
+				throw new UnauthorizedException("common.message.socialOnlyAccount");
 			} else {
-				throw new UnauthorizedException("messages.loginFailed");
+				throw new UnauthorizedException("common.message.loginFailed");
 			}
 		}
 
 		const isAccountLocked = await this.userAuthStateService.isAccountLocked(user.id);
-		if (isAccountLocked) throw new UnauthorizedException("messages.accountLocked");
+		if (isAccountLocked) throw new UnauthorizedException("common.message.accountLocked");
 
 		const passwordMatches = await verify(user.password, input.password);
 
 		if (!passwordMatches) {
 			await this.userAuthStateService.incrementFailedLoginAttempts(user.id);
-			throw new UnauthorizedException("messages.invalidCredentials");
+			throw new UnauthorizedException("common.message.invalidCredentials");
 		}
 
 		await this.userAuthStateService.resetFailedLoginAttempts(user.id);
