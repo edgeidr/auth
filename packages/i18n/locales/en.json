@@ -10,7 +10,7 @@
 			"registrationSuccess": "Account created successfully."
 		},
 		"validation": {
-			"required": "Required",
+			"required": "This is required",
 			"invalidEmail": "Invalid email address",
 			"passwordMismatch": "Passwords do not match",
 			"emailTaken": "This email is already taken",
