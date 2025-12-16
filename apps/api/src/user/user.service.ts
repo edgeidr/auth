@@ -32,16 +32,16 @@ export class UserService {
 		const user = await this.prismaService.user.findFirst({
 			where: {
 				email,
-				isActive: options.includeInactive ? undefined : true,
+				isActive: options.include?.inactive ? undefined : true,
 			},
-			omit: { password: !options.includePassword },
+			omit: { password: !options.include?.password },
 		});
 
 		return user;
 	}
 
 	async validateCredentials(input: ValidateCredentialsInput) {
-		const user = await this.findOneByEmail(input.email, { includePassword: true });
+		const user = await this.findOneByEmail(input.email, { include: { password: true } });
 		if (!user) throw new UnauthorizedException("common.message.invalidCredentials");
 
 		if (!user.password) {

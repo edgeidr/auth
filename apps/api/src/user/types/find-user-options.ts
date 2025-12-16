@@ -1,4 +1,6 @@
 export interface FindUserOptions {
-	includePassword?: boolean;
-	includeInactive?: boolean;
+	include?: {
+		password?: boolean;
+		inactive?: boolean;
+	};
 }
