@@ -71,7 +71,6 @@ export class AuthController {
 		};
 	}
 
-	@HttpCode(HttpStatus.CREATED)
 	@Post("register")
 	register(@Body() registerDto: RegisterDto) {
 		const payload: RegisterInput = {
