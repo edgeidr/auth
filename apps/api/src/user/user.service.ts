@@ -15,6 +15,16 @@ export class UserService {
 		private readonly userAuthStateService: UserAuthStateService,
 	) {}
 
+	private buildSelect(options: FindUserOptions = {}) {
+		return {
+			...userSelect,
+			password: options.include?.password,
+			googleSub: options.include?.googleSub,
+			githubId: options.include?.githubId,
+			userProfile: options.include?.userProfile ? { select: userProfileSelect } : false,
+		};
+	}
+
 	async create(input: CreateUserInput) {
 		return this.prismaService.user.create({
 			data: {
@@ -27,6 +37,7 @@ export class UserService {
 					},
 				},
 			},
+			select: this.buildSelect(),
 		});
 	}
 
@@ -35,29 +46,32 @@ export class UserService {
 			where: {
 				id,
 				isActive: options.include?.inactive ? undefined : true,
+				deletedAt: null,
 			},
-			select: {
-				...userSelect,
-				password: options.include?.password,
-				userProfile: options.include?.userProfile ? { select: userProfileSelect } : false,
-			},
+			select: this.buildSelect(options),
 		});
 	}
 
-	async findOneByEmail(email: string, options: FindUserOptions = {}) {
-		const user = await this.prismaService.user.findFirst({
+	findOneByEmail(email: string, options: FindUserOptions = {}) {
+		return this.prismaService.user.findFirst({
 			where: {
 				email,
 				isActive: options.include?.inactive ? undefined : true,
+				deletedAt: null,
 			},
-			omit: { password: !options.include?.password },
+			select: this.buildSelect(options),
 		});
-
-		return user;
 	}
 
 	async validateCredentials(input: ValidateCredentialsInput) {
-		const user = await this.findOneByEmail(input.email, { include: { password: true } });
+		const user = await this.findOneByEmail(input.email, {
+			include: {
+				password: true,
+				googleSub: true,
+				githubId: true,
+			},
+		});
+
 		if (!user) throw new UnauthorizedException("common.message.invalidCredentials");
 
 		if (!user.password) {
