@@ -57,4 +57,10 @@ export class AuthService {
 
 		return { message: "common.message.registrationSuccess" };
 	}
+
+	getMe(userId: string) {
+		return this.userService.findOne(userId, {
+			include: { userProfile: true },
+		});
+	}
 }

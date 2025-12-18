@@ -5,6 +5,8 @@ import { PrismaService } from "../prisma/prisma.service";
 import { hash, verify } from "argon2";
 import { UserAuthStateService } from "../user-auth-state/user-auth-state.service";
 import { CreateUserInput } from "./inputs/create-user.input";
+import { userSelect } from "../../prisma/selects/user.select";
+import { userProfileSelect } from "../../prisma/selects/user-profile.select";
 
 @Injectable()
 export class UserService {
@@ -24,6 +26,20 @@ export class UserService {
 						lastName: input.lastName,
 					},
 				},
+			},
+		});
+	}
+
+	findOne(id: string, options: FindUserOptions = {}) {
+		return this.prismaService.user.findUnique({
+			where: {
+				id,
+				isActive: options.include?.inactive ? undefined : true,
+			},
+			select: {
+				...userSelect,
+				password: options.include?.password,
+				userProfile: options.include?.userProfile ? { select: userProfileSelect } : false,
 			},
 		});
 	}

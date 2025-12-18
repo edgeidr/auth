@@ -1,11 +1,22 @@
-import { Body, Controller, HttpCode, HttpStatus, Post, Res } from "@nestjs/common";
+import {
+	Body,
+	Controller,
+	Get,
+	HttpCode,
+	HttpStatus,
+	Post,
+	Req,
+	Res,
+	UseGuards,
+} from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { LoginDto } from "./dto/login.dto";
-import { CookieOptions, Response } from "express";
+import { CookieOptions, Request, Response } from "express";
 import { LoginInput } from "./inputs/login.input";
 import { ConfigService } from "@nestjs/config";
 import { RegisterInput } from "./inputs/register.input";
 import { RegisterDto } from "./dto/register.dto";
+import { JwtAccessGuard } from "../jwt/jwt.guard";
 
 @Controller("auth")
 export class AuthController {
@@ -71,5 +82,12 @@ export class AuthController {
 		};
 
 		return this.authService.register(payload);
+	}
+
+	@UseGuards(JwtAccessGuard)
+	@Get("me")
+	async getMe(@Req() request: Request) {
+		const { userId } = request.user as { userId: string };
+		return this.authService.getMe(userId);
 	}
 }
