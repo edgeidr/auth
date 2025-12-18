@@ -1,4 +1,9 @@
-import { ConflictException, Injectable, InternalServerErrorException } from "@nestjs/common";
+import {
+	ConflictException,
+	Injectable,
+	InternalServerErrorException,
+	UnauthorizedException,
+} from "@nestjs/common";
 import { LoginInput } from "./inputs/login.input";
 import { UserService } from "../user/user.service";
 import { SessionService } from "../session/session.service";
@@ -58,9 +63,13 @@ export class AuthService {
 		return { message: "common.message.registrationSuccess" };
 	}
 
-	getMe(userId: string) {
-		return this.userService.findOne(userId, {
+	async getMe(userId: string) {
+		const user = await this.userService.findOne(userId, {
 			include: { userProfile: true },
 		});
+
+		if (!user) throw new UnauthorizedException("common.message.accessDenied");
+
+		return user;
 	}
 }

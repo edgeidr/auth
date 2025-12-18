@@ -7,7 +7,8 @@
 			"loginFailed": "Login Failed. Please try again.",
 			"accountLocked": "Account is temporarily locked. Please try again later.",
 			"tryAgain": "Something went wrong. Try again later.",
-			"registrationSuccess": "Account created successfully."
+			"registrationSuccess": "Account created successfully.",
+			"accessDenied": "Access denied."
 		},
 		"validation": {
 			"required": "This is required",
