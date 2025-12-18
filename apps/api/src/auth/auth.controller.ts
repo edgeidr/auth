@@ -54,23 +54,6 @@ export class AuthController {
 		);
 	}
 
-	private getCookieOptions(options: { maxAge?: number; httpOnly?: boolean } = {}): CookieOptions {
-		const secureEnvironments = ["production", "staging"];
-		const useSecure = secureEnvironments.includes(
-			this.configService.get<string>("NODE_ENV", "development"),
-		);
-		const baseDomain = useSecure ? this.configService.get<string>("COOKIE_DOMAIN") : undefined;
-
-		return {
-			httpOnly: options.httpOnly ?? true,
-			sameSite: "strict",
-			secure: useSecure,
-			domain: baseDomain,
-			path: "/",
-			maxAge: options.maxAge,
-		};
-	}
-
 	@Post("register")
 	register(@Body() registerDto: RegisterDto) {
 		const payload: RegisterInput = {
@@ -88,5 +71,22 @@ export class AuthController {
 	async getMe(@Req() request: Request) {
 		const { userId } = request.user as { userId: string };
 		return this.authService.getMe(userId);
+	}
+
+	private getCookieOptions(options: { maxAge?: number; httpOnly?: boolean } = {}): CookieOptions {
+		const secureEnvironments = ["production", "staging"];
+		const useSecure = secureEnvironments.includes(
+			this.configService.get<string>("NODE_ENV", "development"),
+		);
+		const baseDomain = useSecure ? this.configService.get<string>("COOKIE_DOMAIN") : undefined;
+
+		return {
+			httpOnly: options.httpOnly ?? true,
+			sameSite: "strict",
+			secure: useSecure,
+			domain: baseDomain,
+			path: "/",
+			maxAge: options.maxAge,
+		};
 	}
 }
