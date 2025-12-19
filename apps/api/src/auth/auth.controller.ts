@@ -11,12 +11,12 @@ import {
 } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { LoginDto } from "./dto/login.dto";
-import { CookieOptions, Request, Response } from "express";
+import { CookieOptions, Request, response, Response } from "express";
 import { LoginInput } from "./inputs/login.input";
 import { ConfigService } from "@nestjs/config";
 import { RegisterInput } from "./inputs/register.input";
 import { RegisterDto } from "./dto/register.dto";
-import { JwtAccessGuard } from "../jwt/jwt.guard";
+import { JwtAccessGuard, JwtRefreshGuard } from "../jwt/jwt.guard";
 
 @Controller("auth")
 export class AuthController {
@@ -85,6 +85,29 @@ export class AuthController {
 		response.clearCookie("refreshToken", this.getCookieOptions());
 		response.clearCookie("accessToken", this.getCookieOptions());
 		response.clearCookie("sessionId", this.getCookieOptions());
+	}
+
+	@UseGuards(JwtRefreshGuard)
+	@Post("refresh")
+	async rotateTokens(@Req() request: Request, @Res({ passthrough: true }) response: Response) {
+		const sessionId = <string>request.cookies["sessionId"];
+		const { userId } = request.user as { userId: string };
+
+		const { refreshToken, accessToken } = await this.authService.rotateTokens({
+			sessionId,
+			userId,
+		});
+
+		response.cookie(
+			"refreshToken",
+			refreshToken.value,
+			this.getCookieOptions({ maxAge: refreshToken.totalDuration }),
+		);
+		response.cookie(
+			"accessToken",
+			accessToken.value,
+			this.getCookieOptions({ maxAge: accessToken.totalDuration }),
+		);
 	}
 
 	private getCookieOptions(options: { maxAge?: number; httpOnly?: boolean } = {}): CookieOptions {

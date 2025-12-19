@@ -3,6 +3,7 @@ import { PrismaService } from "../prisma/prisma.service";
 import { CreateSessionInput } from "./inputs/create-session.input";
 import { FindSessionInput } from "./inputs/find-session.input";
 import { RemoveSessionInput } from "./inputs/remove-session.input";
+import { UpdateSessionInput } from "./inputs/update-session.input";
 
 @Injectable()
 export class SessionService {
@@ -35,6 +36,21 @@ export class SessionService {
 					},
 				},
 			},
+		});
+	}
+
+	update(input: UpdateSessionInput) {
+		return this.prismaService.session.update({
+			where: {
+				id: input.sessionId,
+				userId: input.userId,
+			},
+			data: {
+				refreshToken: {
+					update: { value: input.refreshToken },
+				},
+			},
+			include: { refreshToken: true },
 		});
 	}
 

@@ -10,6 +10,7 @@ import { SessionService } from "../session/session.service";
 import { TokenService } from "../token/token.service";
 import { RegisterInput } from "./inputs/register.input";
 import { LogoutInput } from "./inputs/logout.input";
+import { RotateTokensInput } from "./inputs/rotate-tokens.input";
 
 @Injectable()
 export class AuthService {
@@ -76,5 +77,29 @@ export class AuthService {
 
 	async logout(input: LogoutInput) {
 		await this.sessionService.remove(input);
+	}
+
+	async rotateTokens(input: RotateTokensInput) {
+		const { refreshToken, accessToken } = await this.tokenService.generateAuthTokens({
+			userId: input.userId,
+			rememberMe: false,
+		});
+
+		const session = await this.sessionService.update({
+			userId: input.userId,
+			sessionId: input.sessionId,
+			refreshToken: refreshToken.value,
+		});
+
+		if (!session.refreshToken) throw new UnauthorizedException("common.message.tokenExpired");
+
+		return {
+			accessToken,
+			refreshToken: {
+				value: session.refreshToken.value,
+				expiresAt: session.refreshToken.expiresAt,
+				totalDuration: session.refreshToken.expiresAt.getTime() - Date.now(),
+			},
+		};
 	}
 }
