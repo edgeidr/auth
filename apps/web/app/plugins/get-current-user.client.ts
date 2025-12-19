@@ -1,9 +1,8 @@
 import { Access } from "@repo/shared";
 
 export default defineNuxtPlugin(() => {
-	const { user, hasUser, isLoggedIn, getCurrentUser } = useCurrentUser();
+	const { user, isLoggedIn, getCurrentUser } = useCurrentUser();
 	const route = useRoute();
-	const access = route.meta.access ?? [];
 
 	watch(
 		isLoggedIn,
@@ -17,6 +16,8 @@ export default defineNuxtPlugin(() => {
 	watch(
 		user,
 		(hasUserData) => {
+			const access = route.meta.access ?? [];
+
 			if (hasUserData && access.length > 0 && !access.includes(Access.AUTHENTICATED)) {
 				return navigateTo("/");
 			}
