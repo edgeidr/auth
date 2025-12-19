@@ -35,8 +35,10 @@
 <script setup lang="ts">
 	import { Icons } from "@repo/assets";
 	import { NuxtLink } from "#components";
+	import { Access } from "@repo/shared";
 
 	definePageMeta({
 		layout: "legal",
+		access: [Access.GUEST, Access.AUTHENTICATED],
 	});
 </script>

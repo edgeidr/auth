@@ -4,7 +4,7 @@
 			<nav class="grid h-full grid-cols-12 items-center gap-4 py-2 duration-200">
 				<div class="col-span-3 justify-items-start">
 					<div>
-						<NuxtLink :to="{ name: 'account-profile' }">
+						<NuxtLink to="/">
 							<img :src="Images.TransparentLogo" class="h-10" />
 						</NuxtLink>
 					</div>

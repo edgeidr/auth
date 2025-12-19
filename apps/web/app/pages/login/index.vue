@@ -127,11 +127,14 @@
 <script setup lang="ts">
 	import { NuxtLink } from "#components";
 	import { Icons } from "@repo/assets";
+	import { Access } from "@repo/shared";
 
 	definePageMeta({
 		layout: "auth",
+		access: [Access.GUEST],
 	});
 
+	const { pending: userIsLoading } = useCurrentUser();
 	const { form, setErrors, hasError, clearError, getError } = useForm({
 		email: "",
 		password: "",

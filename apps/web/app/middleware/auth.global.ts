@@ -1,9 +1,22 @@
-export default defineNuxtRouteMiddleware((to, from) => {
-	if (to.path === "/") {
-		return navigateTo({ name: "account-profile" }, { replace: true });
+import { Access } from "@repo/shared";
+
+export default defineNuxtRouteMiddleware(async (to, from) => {
+	const { hasUser, isLoggedIn } = useCurrentUser();
+	const access = to.meta.access ?? [];
+
+	if (isLoggedIn.value) {
+		await until(() => hasUser.value)
+			.toBe(true, { timeout: 10000 })
+			.catch(() => {
+				isLoggedIn.value = false;
+			});
 	}
 
-	if (to.path === "/account") {
-		return navigateTo({ name: "account-profile" }, { replace: true });
+	if (hasUser.value && access.length > 0 && !access.includes(Access.AUTHENTICATED)) {
+		return navigateTo("/");
+	}
+
+	if (!hasUser.value && access.length > 0 && !access.includes(Access.GUEST)) {
+		return navigateTo({ name: "login" });
 	}
 });
