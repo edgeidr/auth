@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
 import { CreateSessionInput } from "./inputs/create-session.input";
 import { FindSessionInput } from "./inputs/find-session.input";
+import { RemoveSessionInput } from "./inputs/remove-session.input";
 
 @Injectable()
 export class SessionService {
@@ -33,6 +34,15 @@ export class SessionService {
 						expiresAt: input.refreshToken.expiresAt,
 					},
 				},
+			},
+		});
+	}
+
+	async remove(input: RemoveSessionInput) {
+		await this.prismaService.session.deleteMany({
+			where: {
+				id: input.sessionId,
+				userId: input.sessionId,
 			},
 		});
 	}

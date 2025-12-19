@@ -62,6 +62,11 @@
 
 	const { t } = useI18n();
 	const profileMenu = ref();
+
+	const { execute: logout } = useCustomFetch("/auth/logout", {
+		method: "POST",
+	});
+
 	const profileMenuItems = ref([
 		{
 			separator: true,
@@ -95,6 +100,7 @@
 		{
 			label: t("common.actions.logout"),
 			icon: Icons.logout,
+			command: () => logout(),
 		},
 	]);
 </script>

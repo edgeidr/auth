@@ -73,6 +73,20 @@ export class AuthController {
 		return this.authService.getMe(userId);
 	}
 
+	@UseGuards(JwtAccessGuard)
+	@Post("logout")
+	async logout(@Req() request: Request, @Res({ passthrough: true }) response: Response) {
+		const { userId } = request.user as { userId: string };
+		const sessionId = request.cookies?.["sessionId"] as string | null;
+
+		if (sessionId && userId) await this.authService.logout({ sessionId, userId });
+
+		response.clearCookie("isLoggedIn", this.getCookieOptions({ httpOnly: false }));
+		response.clearCookie("refreshToken", this.getCookieOptions());
+		response.clearCookie("accessToken", this.getCookieOptions());
+		response.clearCookie("sessionId", this.getCookieOptions());
+	}
+
 	private getCookieOptions(options: { maxAge?: number; httpOnly?: boolean } = {}): CookieOptions {
 		const secureEnvironments = ["production", "staging"];
 		const useSecure = secureEnvironments.includes(

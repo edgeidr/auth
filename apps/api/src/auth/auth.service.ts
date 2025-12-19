@@ -9,6 +9,7 @@ import { UserService } from "../user/user.service";
 import { SessionService } from "../session/session.service";
 import { TokenService } from "../token/token.service";
 import { RegisterInput } from "./inputs/register.input";
+import { LogoutInput } from "./inputs/logout.input";
 
 @Injectable()
 export class AuthService {
@@ -71,5 +72,9 @@ export class AuthService {
 		if (!user) throw new UnauthorizedException("common.message.accessDenied");
 
 		return user;
+	}
+
+	async logout(input: LogoutInput) {
+		await this.sessionService.remove(input);
 	}
 }
