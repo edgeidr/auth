@@ -41,7 +41,7 @@
 					:label="$t('common.actions.backToLogin')"
 					variant="link"
 					:as="NuxtLink"
-					:to="{ name: 'login' }"
+					to="/login"
 					class="p-0!">
 					<template #icon="slotProps">
 						<Icon :name="Icons.left" :class="slotProps.class" />
@@ -101,7 +101,7 @@
 	const onSubmit = () => {
 		resetPasswordEmail.value = forgotPasswordEmail.value;
 		resetPasswordToken.value = "abc123";
-		navigateTo({ name: "reset-password" });
+		navigateTo("/reset-password");
 	};
 
 	onMounted(() => {

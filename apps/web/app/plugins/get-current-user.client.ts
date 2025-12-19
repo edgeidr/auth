@@ -15,14 +15,14 @@ export default defineNuxtPlugin(() => {
 	);
 
 	watch(
-		hasUser,
+		user,
 		(hasUserData) => {
 			if (hasUserData && access.length > 0 && !access.includes(Access.AUTHENTICATED)) {
 				return navigateTo("/");
 			}
 
 			if (!hasUserData && access.length > 0 && !access.includes(Access.GUEST)) {
-				return navigateTo({ name: "login" });
+				return navigateTo("/login");
 			}
 		},
 		{ immediate: true },

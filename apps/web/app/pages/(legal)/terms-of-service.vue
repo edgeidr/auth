@@ -9,11 +9,7 @@
 	</Card>
 
 	<div class="mt-4 flex items-center justify-between gap-4">
-		<Button
-			:label="$t('common.actions.backToLogin')"
-			variant="text"
-			:as="NuxtLink"
-			:to="{ name: 'login' }">
+		<Button :label="$t('common.actions.backToLogin')" variant="text" :as="NuxtLink" to="/login">
 			<template #icon="slotProps">
 				<Icon :name="Icons.left" :class="slotProps.class" />
 			</template>
@@ -24,7 +20,7 @@
 			variant="text"
 			iconPos="right"
 			:as="NuxtLink"
-			:to="{ name: 'privacy-policy' }">
+			to="/privacy-policy">
 			<template #icon="slotProps">
 				<Icon :name="Icons.right" :class="slotProps.class" />
 			</template>

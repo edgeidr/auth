@@ -32,7 +32,7 @@
 							<li v-for="link in navLinks" :key="link.label">
 								<Button
 									:as="NuxtLink"
-									:to="{ name: link.routeName }"
+									:to="link.route"
 									variant="text"
 									severity="contrast"
 									fluid>
@@ -40,7 +40,7 @@
 										<div
 											class="flex w-full items-center gap-4 duration-200"
 											:class="{
-												'text-primary': $route.name === link.routeName,
+												'text-primary': $route.path === link.route,
 											}">
 											<Icon :name="link.icon" size="large" />
 
@@ -74,25 +74,25 @@
 		label: string;
 		description: string;
 		icon: string;
-		routeName: string;
+		route: string;
 	}[] = [
 		{
 			label: t("common.pages.profile"),
 			description: t("layout.sidebar.profile.description"),
 			icon: Icons.user,
-			routeName: "account-profile",
+			route: "/account/profile",
 		},
 		{
 			label: t("common.pages.security"),
 			description: t("layout.sidebar.security.description"),
 			icon: Icons.security,
-			routeName: "account-security",
+			route: "/account/security",
 		},
 		{
 			label: t("common.pages.notifications"),
 			description: t("layout.sidebar.notifications.description"),
 			icon: Icons.notifications,
-			routeName: "account-notifications",
+			route: "/account/notifications",
 		},
 	];
 	const socials: {

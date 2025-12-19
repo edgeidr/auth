@@ -94,7 +94,7 @@
 									<template #terms>
 										<Button
 											:as="NuxtLink"
-											:to="{ name: 'terms-of-service' }"
+											to="/terms-of-service"
 											:label="$t('common.pages.terms')"
 											variant="link"
 											class="p-0!" />
@@ -103,7 +103,7 @@
 									<template #privacy>
 										<Button
 											:as="NuxtLink"
-											:to="{ name: 'privacy-policy' }"
+											to="/privacy-policy"
 											:label="$t('common.pages.privacy')"
 											variant="link"
 											class="p-0!" />
@@ -155,7 +155,7 @@
 						:label="$t('common.actions.signIn')"
 						class="p-0!"
 						:as="NuxtLink"
-						:to="{ name: 'login' }" />
+						to="/login" />
 				</template>
 			</i18n-t>
 		</template>
@@ -187,7 +187,7 @@
 		onResponse: async ({ response }) => {
 			if (!response.ok) return;
 
-			await navigateTo({ name: "login" });
+			await navigateTo("/login");
 
 			toast.add({
 				summary: t("common.status.success"),

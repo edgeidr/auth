@@ -21,7 +21,7 @@
 					:label="$t('common.actions.backToLogin')"
 					variant="link"
 					:as="NuxtLink"
-					:to="{ name: 'login' }"
+					to="/login"
 					class="p-0!">
 					<template #icon="slotProps">
 						<Icon :name="Icons.left" :class="slotProps.class" />
@@ -49,6 +49,6 @@
 
 	const onSubmit = () => {
 		forgotPasswordEmail.value = form.email;
-		navigateTo({ name: "forgot-password-verify" });
+		navigateTo("/forgot-password/verify");
 	};
 </script>

@@ -13,5 +13,6 @@
 	definePageMeta({
 		layout: "account",
 		access: [Access.AUTHENTICATED],
+		alias: ["/", "/account"],
 	});
 </script>

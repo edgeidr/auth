@@ -68,12 +68,12 @@
 		},
 		{
 			label: t("common.pages.profile"),
-			route: { name: "account-profile" },
+			route: "/account/profile",
 			icon: Icons.user,
 		},
 		{
 			label: t("layout.header.profileMenu.settings"),
-			route: { name: "account-security" },
+			route: "/account/security",
 			icon: Icons.settings,
 		},
 		{
@@ -81,12 +81,12 @@
 		},
 		{
 			label: t("common.pages.terms"),
-			route: { name: "terms-of-service" },
+			route: "/terms-of-service",
 			icon: Icons.file,
 		},
 		{
 			label: t("common.pages.privacy"),
-			route: { name: "privacy-policy" },
+			route: "/privacy-policy",
 			icon: Icons.lock,
 		},
 		{

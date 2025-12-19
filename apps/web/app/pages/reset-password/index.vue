@@ -32,7 +32,7 @@
 					:label="$t('common.actions.backToLogin')"
 					variant="link"
 					:as="NuxtLink"
-					:to="{ name: 'login' }"
+					to="/login"
 					class="p-0!">
 					<template #icon="slotProps">
 						<Icon :name="Icons.left" :class="slotProps.class" />
@@ -93,7 +93,7 @@
 	const hasMinLength = computed(() => form.newPassword.length >= 8);
 
 	const onSubmit = () => {
-		navigateTo({ name: "login" });
+		navigateTo("/login");
 	};
 
 	onUnmounted(() => {

@@ -51,7 +51,7 @@
 							:label="$t('common.actions.forgotPassword')"
 							class="p-0!"
 							:as="NuxtLink"
-							:to="{ name: 'forgot-password' }" />
+							to="/forgot-password" />
 					</div>
 
 					<Button
@@ -95,7 +95,7 @@
 						:label="$t('common.actions.signUp')"
 						class="p-0!"
 						:as="NuxtLink"
-						:to="{ name: 'register' }" />
+						to="/register" />
 				</template>
 			</i18n-t>
 		</template>
@@ -105,7 +105,7 @@
 		<template #terms>
 			<Button
 				:as="NuxtLink"
-				:to="{ name: 'terms-of-service' }"
+				to="/terms-of-service"
 				:label="$t('common.pages.terms')"
 				size="small"
 				variant="link"
@@ -115,7 +115,7 @@
 		<template #privacy>
 			<Button
 				:as="NuxtLink"
-				:to="{ name: 'privacy-policy' }"
+				to="/privacy-policy"
 				:label="$t('common.pages.privacy')"
 				size="small"
 				variant="link"
@@ -134,7 +134,6 @@
 		access: [Access.GUEST],
 	});
 
-	const { pending: userIsLoading } = useCurrentUser();
 	const { form, setErrors, hasError, clearError, getError } = useForm({
 		email: "",
 		password: "",

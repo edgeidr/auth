@@ -6,7 +6,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
 	if (isLoggedIn.value) {
 		await until(() => hasUser.value)
-			.toBe(true, { timeout: 10000 })
+			.toBe(true, { timeout: 5000 })
 			.catch(() => {
 				isLoggedIn.value = false;
 			});
@@ -17,6 +17,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 	}
 
 	if (!hasUser.value && access.length > 0 && !access.includes(Access.GUEST)) {
-		return navigateTo({ name: "login" });
+		return navigateTo("/login");
 	}
 });
