@@ -6,7 +6,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
 	if (isLoggedIn.value) {
 		await until(() => hasUser.value)
-			.toBe(true, { timeout: 5000 })
+			.toBe(true, { timeout: 5000, throwOnTimeout: true })
 			.catch(() => {
 				isLoggedIn.value = false;
 			});

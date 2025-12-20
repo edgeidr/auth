@@ -35,8 +35,12 @@ export class JwtRefreshStrategy extends PassportStrategy(Strategy, "jwt-refresh"
 	}
 
 	async validate(request: Request, payload: { sub: string; userId: string }) {
-		const sessionId = <string>request.cookies["sessionId"];
-		const refreshToken = <string>request.cookies["refreshToken"];
+		const sessionId = <string>request.cookies["sessionId"] || null;
+		const refreshToken = <string>request.cookies["refreshToken"] || null;
+
+		if (!sessionId || !refreshToken) {
+			throw new UnauthorizedException("common.message.tokenExpired");
+		}
 
 		const session = await this.sessionService.findOne({
 			sessionId,
