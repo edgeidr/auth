@@ -37,6 +37,10 @@ export default defineNuxtConfig({
 	pages: {
 		pattern: ["**/*.vue", "!**/_components/**"],
 	},
+	routeRules: {
+		"/": { redirect: "/account/profile" },
+		"/account": { redirect: "/account/profile" },
+	},
 	components: [
 		{
 			path: "@/components",
