@@ -57,7 +57,7 @@ export class UserService {
 	}
 
 	findOneByEmail(email: string, options: FindUserOptions = {}) {
-		return this.prismaService.user.findFirst({
+		return this.prismaService.user.findUnique({
 			where: {
 				email,
 				isActive: options.include?.inactive ? undefined : true,
@@ -68,7 +68,7 @@ export class UserService {
 	}
 
 	findOneByGoogleSub(googleSub: string, options: FindUserOptions = {}) {
-		return this.prismaService.user.findFirst({
+		return this.prismaService.user.findUnique({
 			where: {
 				googleSub,
 				isActive: options.include?.inactive ? undefined : true,
