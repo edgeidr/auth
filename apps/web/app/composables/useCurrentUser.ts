@@ -6,6 +6,14 @@ export const useCurrentUser = () => {
 
 	const hasUser = computed(() => !!user.value);
 
+	const fullName = computed(() => {
+		if (!hasUser.value) return "";
+
+		return [user.value?.userProfile?.firstName, user.value?.userProfile?.lastName]
+			.filter(Boolean)
+			.join(" ");
+	});
+
 	const { execute: getCurrentUser, pending } = useCustomFetch<User>("/auth/me", {
 		method: "GET",
 		onResponse: ({ response }) => {
@@ -22,5 +30,5 @@ export const useCurrentUser = () => {
 		},
 	});
 
-	return { user, isLoggedIn, hasUser, pending, getCurrentUser };
+	return { user, isLoggedIn, hasUser, pending, fullName, getCurrentUser };
 };

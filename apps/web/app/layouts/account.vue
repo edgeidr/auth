@@ -4,11 +4,14 @@
 			<Card>
 				<template #content>
 					<div class="flex flex-col items-center gap-4">
-						<Avatar :image="undefined" shape="circle" class="size-28!" />
+						<Avatar
+							:image="user?.userProfile?.photoUrl"
+							shape="circle"
+							class="size-28!" />
 
 						<div class="text-center">
-							<span class="text-xl">John Doe</span>
-							<p class="text-muted-color">john.doe@example.com</p>
+							<span class="text-xl">{{ fullName }}</span>
+							<p class="text-muted-color">{{ user?.email }}</p>
 						</div>
 
 						<div>
@@ -69,6 +72,7 @@
 	import { Icons } from "@repo/assets";
 	import { NuxtLink } from "#components";
 
+	const { fullName, user } = useCurrentUser();
 	const { t } = useI18n();
 	const navLinks: {
 		label: string;

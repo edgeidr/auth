@@ -21,15 +21,15 @@
 									@click="profileMenu?.toggle"
 									variant="text"
 									rounded>
-									<Avatar :image="undefined" shape="circle" />
+									<Avatar :image="user?.userProfile?.photoUrl" shape="circle" />
 								</Button>
 
 								<Menu ref="profileMenu" :model="profileMenuItems" popup>
 									<template #start>
 										<div class="px-4 py-2">
-											<p>John Doe</p>
+											<p>{{ fullName }}</p>
 											<p class="text-muted-color text-sm">
-												john.doe@example.com
+												{{ user?.email }}
 											</p>
 										</div>
 									</template>
@@ -62,6 +62,7 @@
 
 	const { t } = useI18n();
 	const profileMenu = ref();
+	const { user, fullName } = useCurrentUser();
 
 	const { execute: logout } = useCustomFetch("/auth/logout", {
 		method: "POST",
