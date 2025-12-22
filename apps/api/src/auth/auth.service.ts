@@ -118,8 +118,11 @@ export class AuthService {
 					photoUrl: input.photoUrl ?? undefined,
 					googleSub: input.id,
 				});
-			} else {
-				if (!user.googleSub) await this.userService.updateGoogleSub(user.id, input.id);
+			} else if (!user.googleSub) {
+				await this.userService.updateGoogleProfile(user.id, {
+					googleSub: input.id,
+					photoUrl: input.photoUrl ?? undefined,
+				});
 			}
 		}
 

@@ -8,6 +8,8 @@ import { CreateUserInput } from "./inputs/create-user.input";
 import { userSelect } from "../../prisma/selects/user.select";
 import { userProfileSelect } from "../../prisma/selects/user-profile.select";
 import { UpdateUserInput } from "./inputs/update-user.input";
+import { UpdateGoogleProfileInput } from "./inputs/update-google-profile.input";
+import { Prisma } from "../generated/prisma/client";
 
 @Injectable()
 export class UserService {
@@ -129,10 +131,27 @@ export class UserService {
 		});
 	}
 
-	async updateGoogleSub(id: string, googleSub: string, options: FindUserOptions = {}) {
+	async updateGoogleProfile(
+		id: string,
+		input: UpdateGoogleProfileInput,
+		options: FindUserOptions = {},
+	) {
+		const user = await this.findOne(id);
+		const updateData: Prisma.UserUpdateInput = {
+			googleSub: input.googleSub,
+		};
+
+		if (!user?.userProfile?.photoUrl && input.photoUrl) {
+			updateData.userProfile = {
+				update: {
+					photoUrl: input.photoUrl,
+				},
+			};
+		}
+
 		await this.prismaService.user.update({
 			where: { id },
-			data: { googleSub },
+			data: updateData,
 			select: this.buildSelect(options),
 		});
 	}
