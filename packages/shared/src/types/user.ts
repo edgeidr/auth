@@ -1,7 +1,7 @@
 export interface User {
 	id: string;
 	email: string;
-	slug: string;
+	publicId: string;
 	isActive: boolean;
 	userProfile?: UserProfile;
 }

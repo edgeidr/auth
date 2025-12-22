@@ -1,8 +1,8 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "../../src/generated/prisma/client";
 
-export const userSelect = Prisma.validator<Prisma.UserSelect>()({
+export const userSelect = <Prisma.UserSelect>{
 	id: true,
+	publicId: true,
 	email: true,
-	slug: true,
 	isActive: true,
-});
+};
