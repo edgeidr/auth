@@ -8,7 +8,8 @@
 			"accountLocked": "Account is temporarily locked. Please try again later.",
 			"tryAgain": "Something went wrong. Try again later.",
 			"registrationSuccess": "Account created successfully.",
-			"accessDenied": "Access denied."
+			"accessDenied": "Access denied.",
+			"emailUnverified": "No verified email found. Please use a different account."
 		},
 		"validation": {
 			"required": "This is required",

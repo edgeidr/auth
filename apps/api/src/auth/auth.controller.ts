@@ -11,12 +11,14 @@ import {
 } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { LoginDto } from "./dto/login.dto";
-import { CookieOptions, Request, response, Response } from "express";
+import { CookieOptions, Request, Response } from "express";
 import { LoginInput } from "./inputs/login.input";
 import { ConfigService } from "@nestjs/config";
 import { RegisterInput } from "./inputs/register.input";
 import { RegisterDto } from "./dto/register.dto";
 import { JwtAccessGuard, JwtRefreshGuard } from "../jwt/jwt.guard";
+import { GoogleOauthGuard } from "./guards/google-oauth.guard";
+import { OAuthProfile } from "./types/oauth-profile";
 
 @Controller("auth")
 export class AuthController {
@@ -108,6 +110,38 @@ export class AuthController {
 			accessToken.value,
 			this.getCookieOptions({ maxAge: accessToken.totalDuration }),
 		);
+	}
+
+	@UseGuards(GoogleOauthGuard)
+	@Get("google")
+	googleLogin() {}
+
+	@UseGuards(GoogleOauthGuard)
+	@Get("google/callback")
+	async googleCallback(@Req() request: Request, @Res() response: Response) {
+		const redirectUrl = this.configService.get<string>("OAUTH_REDIRECT_URL")!;
+		const { accessToken, refreshToken, sessionId } = await this.authService.googleLogin(
+			request.user as OAuthProfile,
+		);
+
+		response.cookie("isLoggedIn", true, this.getCookieOptions({ httpOnly: false }));
+		response.cookie(
+			"sessionId",
+			sessionId,
+			this.getCookieOptions({ maxAge: refreshToken.totalDuration }),
+		);
+		response.cookie(
+			"accessToken",
+			accessToken.value,
+			this.getCookieOptions({ maxAge: accessToken.totalDuration }),
+		);
+		response.cookie(
+			"refreshToken",
+			refreshToken.value,
+			this.getCookieOptions({ maxAge: refreshToken.totalDuration }),
+		);
+
+		return response.redirect(redirectUrl);
 	}
 
 	private getCookieOptions(options: { maxAge?: number; httpOnly?: boolean } = {}): CookieOptions {

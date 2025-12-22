@@ -69,8 +69,11 @@
 			<div class="flex items-center gap-4">
 				<Button
 					:label="$t('common.social.google')"
+					:as="NuxtLink"
 					variant="outlined"
 					severity="secondary"
+					:href="googleAuthUrl"
+					external
 					fluid>
 					<template #icon>
 						<Icon :name="Icons.googleLogo" />
@@ -134,6 +137,8 @@
 		access: [Access.GUEST],
 	});
 
+	const config = useRuntimeConfig();
+	const googleAuthUrl = `${config.public.apiBaseUrl}/auth/google`;
 	const { form, setErrors, hasError, clearError, getError } = useForm({
 		email: "",
 		password: "",

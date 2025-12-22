@@ -7,6 +7,7 @@ import { UserAuthStateService } from "../user-auth-state/user-auth-state.service
 import { CreateUserInput } from "./inputs/create-user.input";
 import { userSelect } from "../../prisma/selects/user.select";
 import { userProfileSelect } from "../../prisma/selects/user-profile.select";
+import { UpdateUserInput } from "./inputs/update-user.input";
 
 @Injectable()
 export class UserService {
@@ -29,11 +30,14 @@ export class UserService {
 		return this.prismaService.user.create({
 			data: {
 				email: input.email,
-				password: await hash(input.password),
+				password: input.password ? await hash(input.password) : null,
+				googleSub: input.googleSub,
+				githubId: input.githubId,
 				userProfile: {
 					create: {
 						firstName: input.firstName,
 						lastName: input.lastName,
+						photoUrl: input.photoUrl,
 					},
 				},
 			},
@@ -56,6 +60,17 @@ export class UserService {
 		return this.prismaService.user.findFirst({
 			where: {
 				email,
+				isActive: options.include?.inactive ? undefined : true,
+				deletedAt: null,
+			},
+			select: this.buildSelect(options),
+		});
+	}
+
+	findOneByGoogleSub(googleSub: string, options: FindUserOptions = {}) {
+		return this.prismaService.user.findFirst({
+			where: {
+				googleSub,
 				isActive: options.include?.inactive ? undefined : true,
 				deletedAt: null,
 			},
@@ -97,5 +112,28 @@ export class UserService {
 		const { password: _, ...safeUser } = user;
 
 		return safeUser;
+	}
+
+	async update(id: string, input: UpdateUserInput, options: FindUserOptions = {}) {
+		await this.prismaService.user.update({
+			where: { id },
+			data: {
+				userProfile: {
+					update: {
+						firstName: input.firstName,
+						lastName: input.lastName,
+					},
+				},
+			},
+			select: this.buildSelect(options),
+		});
+	}
+
+	async updateGoogleSub(id: string, googleSub: string, options: FindUserOptions = {}) {
+		await this.prismaService.user.update({
+			where: { id },
+			data: { googleSub },
+			select: this.buildSelect(options),
+		});
 	}
 }

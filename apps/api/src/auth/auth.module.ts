@@ -4,10 +4,11 @@ import { AuthController } from "./auth.controller";
 import { UserModule } from "../user/user.module";
 import { SessionModule } from "../session/session.module";
 import { TokenModule } from "../token/token.module";
+import { GoogleOauthStrategy } from "./strategies/google-oauth.strategy";
 
 @Module({
 	controllers: [AuthController],
-	providers: [AuthService],
+	providers: [AuthService, GoogleOauthStrategy],
 	imports: [UserModule, SessionModule, TokenModule],
 })
 export class AuthModule {}

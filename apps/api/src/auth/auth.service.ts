@@ -11,6 +11,7 @@ import { TokenService } from "../token/token.service";
 import { RegisterInput } from "./inputs/register.input";
 import { LogoutInput } from "./inputs/logout.input";
 import { RotateTokensInput } from "./inputs/rotate-tokens.input";
+import { OauthLoginInput } from "./inputs/oauth-login.input";
 
 @Injectable()
 export class AuthService {
@@ -101,5 +102,40 @@ export class AuthService {
 				totalDuration: session.refreshToken.expiresAt.getTime() - Date.now(),
 			},
 		};
+	}
+
+	async googleLogin(input: OauthLoginInput) {
+		let user = await this.userService.findOneByGoogleSub(input.id);
+
+		if (!user) {
+			user = await this.userService.findOneByEmail(input.email);
+
+			if (!user) {
+				user = await this.userService.create({
+					email: input.email,
+					firstName: input.firstName,
+					lastName: input.lastName,
+					photoUrl: input.photoUrl ?? undefined,
+					googleSub: input.id,
+				});
+			} else {
+				if (!user.googleSub) await this.userService.updateGoogleSub(user.id, input.id);
+			}
+		}
+
+		const { accessToken, refreshToken } = await this.tokenService.generateAuthTokens({
+			userId: user.id,
+			rememberMe: false,
+		});
+
+		const session = await this.sessionService.create({
+			userId: user.id,
+			refreshToken: {
+				value: refreshToken.value,
+				expiresAt: refreshToken.expiresAt,
+			},
+		});
+
+		return { accessToken, refreshToken, sessionId: session.id };
 	}
 }
