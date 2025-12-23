@@ -18,6 +18,7 @@ import { RegisterInput } from "./inputs/register.input";
 import { RegisterDto } from "./dto/register.dto";
 import { JwtAccessGuard, JwtRefreshGuard } from "../jwt/jwt.guard";
 import { GoogleOauthGuard } from "./guards/google-oauth.guard";
+import { GithubOauthGuard } from "./guards/github-oauth.guard";
 
 @Controller("auth")
 export class AuthController {
@@ -133,6 +134,37 @@ export class AuthController {
 			return response.redirect(`${redirectUrl}?error=${error}`);
 		}
 
+		const { accessToken, refreshToken, sessionId } = await this.authService.socialLogin(userId);
+
+		response.cookie("isLoggedIn", true, this.getCookieOptions({ httpOnly: false }));
+		response.cookie(
+			"sessionId",
+			sessionId,
+			this.getCookieOptions({ maxAge: refreshToken.totalDuration }),
+		);
+		response.cookie(
+			"accessToken",
+			accessToken.value,
+			this.getCookieOptions({ maxAge: accessToken.totalDuration }),
+		);
+		response.cookie(
+			"refreshToken",
+			refreshToken.value,
+			this.getCookieOptions({ maxAge: refreshToken.totalDuration }),
+		);
+
+		return response.redirect(redirectUrl);
+	}
+
+	@UseGuards(GithubOauthGuard)
+	@Get("github")
+	githubLogin() {}
+
+	@UseGuards(GithubOauthGuard)
+	@Get("github/callback")
+	async githubCallback(@Req() request: Request, @Res() response: Response) {
+		const redirectUrl = this.configService.get<string>("OAUTH_REDIRECT_URL")!;
+		const { userId } = request.user as { userId: string };
 		const { accessToken, refreshToken, sessionId } = await this.authService.socialLogin(userId);
 
 		response.cookie("isLoggedIn", true, this.getCookieOptions({ httpOnly: false }));

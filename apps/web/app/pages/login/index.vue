@@ -82,8 +82,11 @@
 
 				<Button
 					:label="$t('common.social.github')"
+					:as="NuxtLink"
 					variant="outlined"
 					severity="secondary"
+					:href="config.public.githubAuthUrl"
+					external
 					fluid>
 					<template #icon>
 						<Icon :name="Icons.githubLogo" />

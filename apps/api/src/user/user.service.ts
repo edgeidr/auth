@@ -80,6 +80,17 @@ export class UserService {
 		});
 	}
 
+	findOneByGithubId(githubId: string, options: FindUserOptions = {}) {
+		return this.prismaService.user.findUnique({
+			where: {
+				githubId,
+				isActive: options.include?.inactive ? undefined : true,
+				deletedAt: null,
+			},
+			select: this.buildSelect(options),
+		});
+	}
+
 	async validateCredentials(input: ValidateCredentialsInput) {
 		const user = await this.findOneByEmail(input.email, {
 			include: {
