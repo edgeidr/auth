@@ -31,7 +31,7 @@ export default defineNuxtConfig({
 			apiBaseUrl: process.env.NUXT_API_BASE_URL || "",
 			toastLife: Number(process.env.NUXT_TOAST_LIFE) || 5000,
 			otpDuration: Number(process.env.NUXT_OTP_DURATION) || 300,
-			googleClientId: process.env.NUXT_GOOGLE_CLIENT_ID || "",
+			googleAuthUrl: process.env.NUXT_GOOGLE_AUTH_URL || "",
 		},
 	},
 	pages: {

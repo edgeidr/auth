@@ -129,8 +129,11 @@
 			<div class="flex items-center gap-4">
 				<Button
 					:label="$t('common.social.google')"
+					:as="NuxtLink"
 					variant="outlined"
 					severity="secondary"
+					:href="config.public.googleAuthUrl"
+					external
 					fluid>
 					<template #icon>
 						<Icon :name="Icons.googleLogo" />
@@ -170,6 +173,7 @@
 		layout: "auth",
 	});
 
+	const config = useRuntimeConfig();
 	const toast = useToast();
 	const { t } = useI18n();
 	const { form, clearError, getError, hasError, setErrors } = useForm({

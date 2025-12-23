@@ -72,7 +72,7 @@
 					:as="NuxtLink"
 					variant="outlined"
 					severity="secondary"
-					:href="googleAuthUrl"
+					:href="config.public.googleAuthUrl"
 					external
 					fluid>
 					<template #icon>
@@ -138,7 +138,6 @@
 	});
 
 	const config = useRuntimeConfig();
-	const googleAuthUrl = `${config.public.apiBaseUrl}/auth/google`;
 	const { form, setErrors, hasError, clearError, getError } = useForm({
 		email: "",
 		password: "",

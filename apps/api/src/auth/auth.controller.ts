@@ -18,7 +18,6 @@ import { RegisterInput } from "./inputs/register.input";
 import { RegisterDto } from "./dto/register.dto";
 import { JwtAccessGuard, JwtRefreshGuard } from "../jwt/jwt.guard";
 import { GoogleOauthGuard } from "./guards/google-oauth.guard";
-import { OAuthProfile } from "./types/oauth-profile";
 
 @Controller("auth")
 export class AuthController {
@@ -120,9 +119,21 @@ export class AuthController {
 	@Get("google/callback")
 	async googleCallback(@Req() request: Request, @Res() response: Response) {
 		const redirectUrl = this.configService.get<string>("OAUTH_REDIRECT_URL")!;
-		const { accessToken, refreshToken, sessionId } = await this.authService.googleLogin(
-			request.user as OAuthProfile,
-		);
+		const { error, provider, userId } = request.user as {
+			error?: string;
+			provider?: string;
+			userId: string;
+		};
+
+		if (error) {
+			if (provider) {
+				return response.redirect(`${redirectUrl}?error=${error}&provider=${provider}`);
+			}
+
+			return response.redirect(`${redirectUrl}?error=${error}`);
+		}
+
+		const { accessToken, refreshToken, sessionId } = await this.authService.socialLogin(userId);
 
 		response.cookie("isLoggedIn", true, this.getCookieOptions({ httpOnly: false }));
 		response.cookie(

@@ -4,6 +4,7 @@
 			"tokenExpired": "Session expired. Please re-login.",
 			"invalidCredentials": "Incorrect Email or Password.",
 			"socialOnlyAccount": "This account is linked to a social login. Please sign in with it.",
+			"emailInUse": "Email already in use. Sign in with your existing account to link {provider} later.",
 			"loginFailed": "Login Failed. Please try again.",
 			"accountLocked": "Account is temporarily locked. Please try again later.",
 			"tryAgain": "Something went wrong. Try again later.",
