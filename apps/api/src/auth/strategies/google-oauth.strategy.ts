@@ -18,6 +18,10 @@ export class GoogleOauthStrategy extends PassportStrategy(Strategy, "google") {
 		});
 	}
 
+	authorizationParams() {
+		return { prompt: "select_account" };
+	}
+
 	async validate(_accessToken: string, _refreshToken: string, profile: Profile) {
 		const { id, emails, photos, name } = profile;
 		const email = emails?.find((item) => item.verified)?.value ?? null;

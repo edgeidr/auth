@@ -18,6 +18,10 @@ export class GithubOauthStrategy extends PassportStrategy(Strategy, "github") {
 		});
 	}
 
+	authorizationParams() {
+		return { prompt: "select_account" };
+	}
+
 	async validate(_accessToken: string, _refreshToken: string, profile: Profile) {
 		const { id, displayName, photos } = profile;
 		const safeName = displayName?.trim() ?? "";
