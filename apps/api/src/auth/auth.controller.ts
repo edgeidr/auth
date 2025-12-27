@@ -60,7 +60,7 @@ export class AuthController {
 	}
 
 	@Post("register")
-	register(@Body() registerDto: RegisterDto) {
+	async register(@Body() registerDto: RegisterDto) {
 		const payload: RegisterInput = {
 			firstName: registerDto.firstName,
 			lastName: registerDto.lastName,
@@ -68,7 +68,9 @@ export class AuthController {
 			password: registerDto.password,
 		};
 
-		return this.authService.register(payload);
+		await this.authService.register(payload);
+
+		return { message: "common.message.registrationSuccess" };
 	}
 
 	@UseGuards(JwtAccessGuard)

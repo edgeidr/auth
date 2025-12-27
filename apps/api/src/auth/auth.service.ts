@@ -66,8 +66,6 @@ export class AuthService {
 		});
 
 		if (!user) throw new InternalServerErrorException("common.message.tryAgain");
-
-		return { message: "common.message.registrationSuccess" };
 	}
 
 	async getMe(userId: string) {
