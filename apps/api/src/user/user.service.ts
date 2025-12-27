@@ -8,9 +8,8 @@ import { CreateUserInput } from "./inputs/create-user.input";
 import { userSelect } from "../../prisma/selects/user.select";
 import { userProfileSelect } from "../../prisma/selects/user-profile.select";
 import { UpdateUserInput } from "./inputs/update-user.input";
-import { UpdateGoogleProfileInput } from "./inputs/update-google-profile.input";
-import { Prisma } from "../generated/prisma/client";
 import { UpdatePasswordInput } from "./inputs/update-password.input";
+import { LinkGoogleInput } from "./inputs/link-google.input";
 
 @Injectable()
 export class UserService {
@@ -163,28 +162,16 @@ export class UserService {
 		});
 	}
 
-	async updateGoogleProfile(
-		id: string,
-		input: UpdateGoogleProfileInput,
-		options: FindUserOptions = {},
-	) {
-		const user = await this.findOne(id);
-		const updateData: Prisma.UserUpdateInput = {
-			googleSub: input.googleSub,
-		};
+	async linkGoogle(input: LinkGoogleInput) {
+		const user = await this.findOneByGoogleSub(input.googleSub);
 
-		if (!user?.userProfile?.photoUrl && input.photoUrl) {
-			updateData.userProfile = {
-				update: {
-					photoUrl: input.photoUrl,
-				},
-			};
+		if (user && user.id !== input.userId) {
+			throw new BadRequestException("common.message.tryAgain");
 		}
 
 		await this.prismaService.user.update({
-			where: { id },
-			data: updateData,
-			select: this.buildSelect(options),
+			where: { id: input.userId },
+			data: { googleSub: input.googleSub },
 		});
 	}
 }

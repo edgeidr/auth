@@ -23,36 +23,37 @@ export class GoogleOauthStrategy extends PassportStrategy(Strategy, "google") {
 	}
 
 	async validate(_accessToken: string, _refreshToken: string, profile: Profile) {
-		const { id, emails, photos, name } = profile;
+		const { id: googleSub, emails, photos, name } = profile;
 		const email = emails?.find((item) => item.verified)?.value ?? null;
 		const firstName = name?.givenName ?? "New";
 		const lastName = name?.familyName ?? "User";
-		const photoUrl = photos?.[0].value ?? null;
+		const photoUrl = photos?.[0].value ?? undefined;
 
-		if (!email) {
-			return { error: "common.message.emailUnverified" };
-		}
+		if (!email) return { error: "common.message.emailUnverified" };
 
-		let user = await this.userService.findOneByGoogleSub(id);
+		let user = await this.userService.findOneByGoogleSub(googleSub, {
+			include: { inactive: true },
+		});
 
 		if (!user) {
-			user = await this.userService.findOneByEmail(email);
+			user = await this.userService.findOneByEmail(email, { include: { inactive: true } });
 
 			if (!user) {
 				user = await this.userService.create({
 					email,
 					firstName,
 					lastName,
-					photoUrl: photoUrl ?? undefined,
-					googleSub: id,
+					photoUrl,
+					googleSub,
 				});
 			} else {
-				return {
-					error: "common.message.emailInUse",
-					provider: "Google",
-				};
+				if (!user.isActive) return { error: "common.message.accountInactive" };
+
+				await this.userService.linkGoogle({ userId: user.id, googleSub });
 			}
 		}
+
+		if (!user.isActive) return { error: "common.message.accountInactive" };
 
 		return { userId: user.id };
 	}

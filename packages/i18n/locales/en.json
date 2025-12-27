@@ -4,7 +4,6 @@
 			"tokenExpired": "Session expired. Please re-login.",
 			"invalidCredentials": "Incorrect Email or Password.",
 			"socialOnlyAccount": "This account is linked to a social login. Please sign in with it.",
-			"emailInUse": "Email already in use. Sign in with your existing account to link {provider} later.",
 			"loginFailed": "Login Failed. Please try again.",
 			"accountLocked": "Account is temporarily locked. Please try again later.",
 			"tryAgain": "Something went wrong. Try again later.",
@@ -12,7 +11,8 @@
 			"accessDenied": "Access denied.",
 			"emailUnverified": "No verified email found. Please use a different account.",
 			"maxOtpAttempts": "Max OTP attempts reached. Try again in {minutes} minute(s).",
-			"passwordResetSuccess": "Password has been reset successfully."
+			"passwordResetSuccess": "Password has been reset successfully.",
+			"accountInactive": "Account has been deactivated. Please contact support."
 		},
 		"validation": {
 			"required": "This is required",
