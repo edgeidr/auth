@@ -194,11 +194,13 @@
 		onResponse: async ({ response }) => {
 			if (!response.ok) return;
 
+			const { message } = response._data as { message: string };
+
 			await navigateTo("/login");
 
 			toast.add({
 				summary: t("common.status.success"),
-				detail: t("common.message.registrationSuccess"),
+				detail: t(message),
 				severity: "success",
 				life: useRuntimeConfig().public.toastLife,
 			});
