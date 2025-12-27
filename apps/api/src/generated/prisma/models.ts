@@ -17,4 +17,7 @@ export type * from "./models/UserAction";
 export type * from "./models/Session";
 export type * from "./models/RefreshToken";
 export type * from "./models/UserAuthState";
+export type * from "./models/Otp";
+export type * from "./models/OtpAttempt";
+export type * from "./models/Token";
 export type * from "./commonInputTypes";

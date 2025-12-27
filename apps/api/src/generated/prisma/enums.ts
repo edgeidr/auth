@@ -14,3 +14,15 @@ export const ActionScope = {
 } as const;
 
 export type ActionScope = (typeof ActionScope)[keyof typeof ActionScope];
+
+export const OtpType = {
+	FORGOT_PASSWORD: "FORGOT_PASSWORD",
+} as const;
+
+export type OtpType = (typeof OtpType)[keyof typeof OtpType];
+
+export const TokenType = {
+	PASSWORD_RESET: "PASSWORD_RESET",
+} as const;
+
+export type TokenType = (typeof TokenType)[keyof typeof TokenType];

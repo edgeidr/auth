@@ -58,6 +58,9 @@ export const ModelName = {
 	Session: "Session",
 	RefreshToken: "RefreshToken",
 	UserAuthState: "UserAuthState",
+	Otp: "Otp",
+	OtpAttempt: "OtpAttempt",
+	Token: "Token",
 } as const;
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
@@ -183,6 +186,39 @@ export const UserAuthStateScalarFieldEnum = {
 
 export type UserAuthStateScalarFieldEnum =
 	(typeof UserAuthStateScalarFieldEnum)[keyof typeof UserAuthStateScalarFieldEnum];
+
+export const OtpScalarFieldEnum = {
+	userId: "userId",
+	type: "type",
+	code: "code",
+	expiresAt: "expiresAt",
+	createdAt: "createdAt",
+} as const;
+
+export type OtpScalarFieldEnum = (typeof OtpScalarFieldEnum)[keyof typeof OtpScalarFieldEnum];
+
+export const OtpAttemptScalarFieldEnum = {
+	userId: "userId",
+	type: "type",
+	failedAttempts: "failedAttempts",
+	lastAttemptAt: "lastAttemptAt",
+	lockedUntil: "lockedUntil",
+	createdAt: "createdAt",
+	updatedAt: "updatedAt",
+} as const;
+
+export type OtpAttemptScalarFieldEnum =
+	(typeof OtpAttemptScalarFieldEnum)[keyof typeof OtpAttemptScalarFieldEnum];
+
+export const TokenScalarFieldEnum = {
+	userId: "userId",
+	type: "type",
+	value: "value",
+	expiresAt: "expiresAt",
+	createdAt: "createdAt",
+} as const;
+
+export type TokenScalarFieldEnum = (typeof TokenScalarFieldEnum)[keyof typeof TokenScalarFieldEnum];
 
 export const SortOrder = {
 	asc: "asc",

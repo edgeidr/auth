@@ -6,10 +6,11 @@ import { SessionModule } from "../session/session.module";
 import { TokenModule } from "../token/token.module";
 import { GoogleOauthStrategy } from "./strategies/google-oauth.strategy";
 import { GithubOauthStrategy } from "./strategies/github-oauth.strategy";
+import { OtpModule } from "../otp/otp.module";
 
 @Module({
 	controllers: [AuthController],
 	providers: [AuthService, GoogleOauthStrategy, GithubOauthStrategy],
-	imports: [UserModule, SessionModule, TokenModule],
+	imports: [UserModule, SessionModule, TokenModule, OtpModule],
 })
 export class AuthModule {}

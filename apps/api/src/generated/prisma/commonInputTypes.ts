@@ -190,6 +190,40 @@ export type EnumActionScopeWithAggregatesFilter<$PrismaModel = never> = {
 	_max?: Prisma.NestedEnumActionScopeFilter<$PrismaModel>;
 };
 
+export type EnumOtpTypeFilter<$PrismaModel = never> = {
+	equals?: $Enums.OtpType | Prisma.EnumOtpTypeFieldRefInput<$PrismaModel>;
+	in?: $Enums.OtpType[] | Prisma.ListEnumOtpTypeFieldRefInput<$PrismaModel>;
+	notIn?: $Enums.OtpType[] | Prisma.ListEnumOtpTypeFieldRefInput<$PrismaModel>;
+	not?: Prisma.NestedEnumOtpTypeFilter<$PrismaModel> | $Enums.OtpType;
+};
+
+export type EnumOtpTypeWithAggregatesFilter<$PrismaModel = never> = {
+	equals?: $Enums.OtpType | Prisma.EnumOtpTypeFieldRefInput<$PrismaModel>;
+	in?: $Enums.OtpType[] | Prisma.ListEnumOtpTypeFieldRefInput<$PrismaModel>;
+	notIn?: $Enums.OtpType[] | Prisma.ListEnumOtpTypeFieldRefInput<$PrismaModel>;
+	not?: Prisma.NestedEnumOtpTypeWithAggregatesFilter<$PrismaModel> | $Enums.OtpType;
+	_count?: Prisma.NestedIntFilter<$PrismaModel>;
+	_min?: Prisma.NestedEnumOtpTypeFilter<$PrismaModel>;
+	_max?: Prisma.NestedEnumOtpTypeFilter<$PrismaModel>;
+};
+
+export type EnumTokenTypeFilter<$PrismaModel = never> = {
+	equals?: $Enums.TokenType | Prisma.EnumTokenTypeFieldRefInput<$PrismaModel>;
+	in?: $Enums.TokenType[] | Prisma.ListEnumTokenTypeFieldRefInput<$PrismaModel>;
+	notIn?: $Enums.TokenType[] | Prisma.ListEnumTokenTypeFieldRefInput<$PrismaModel>;
+	not?: Prisma.NestedEnumTokenTypeFilter<$PrismaModel> | $Enums.TokenType;
+};
+
+export type EnumTokenTypeWithAggregatesFilter<$PrismaModel = never> = {
+	equals?: $Enums.TokenType | Prisma.EnumTokenTypeFieldRefInput<$PrismaModel>;
+	in?: $Enums.TokenType[] | Prisma.ListEnumTokenTypeFieldRefInput<$PrismaModel>;
+	notIn?: $Enums.TokenType[] | Prisma.ListEnumTokenTypeFieldRefInput<$PrismaModel>;
+	not?: Prisma.NestedEnumTokenTypeWithAggregatesFilter<$PrismaModel> | $Enums.TokenType;
+	_count?: Prisma.NestedIntFilter<$PrismaModel>;
+	_min?: Prisma.NestedEnumTokenTypeFilter<$PrismaModel>;
+	_max?: Prisma.NestedEnumTokenTypeFilter<$PrismaModel>;
+};
+
 export type NestedStringFilter<$PrismaModel = never> = {
 	equals?: string | Prisma.StringFieldRefInput<$PrismaModel>;
 	in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>;
@@ -379,4 +413,38 @@ export type NestedEnumActionScopeWithAggregatesFilter<$PrismaModel = never> = {
 	_count?: Prisma.NestedIntFilter<$PrismaModel>;
 	_min?: Prisma.NestedEnumActionScopeFilter<$PrismaModel>;
 	_max?: Prisma.NestedEnumActionScopeFilter<$PrismaModel>;
+};
+
+export type NestedEnumOtpTypeFilter<$PrismaModel = never> = {
+	equals?: $Enums.OtpType | Prisma.EnumOtpTypeFieldRefInput<$PrismaModel>;
+	in?: $Enums.OtpType[] | Prisma.ListEnumOtpTypeFieldRefInput<$PrismaModel>;
+	notIn?: $Enums.OtpType[] | Prisma.ListEnumOtpTypeFieldRefInput<$PrismaModel>;
+	not?: Prisma.NestedEnumOtpTypeFilter<$PrismaModel> | $Enums.OtpType;
+};
+
+export type NestedEnumOtpTypeWithAggregatesFilter<$PrismaModel = never> = {
+	equals?: $Enums.OtpType | Prisma.EnumOtpTypeFieldRefInput<$PrismaModel>;
+	in?: $Enums.OtpType[] | Prisma.ListEnumOtpTypeFieldRefInput<$PrismaModel>;
+	notIn?: $Enums.OtpType[] | Prisma.ListEnumOtpTypeFieldRefInput<$PrismaModel>;
+	not?: Prisma.NestedEnumOtpTypeWithAggregatesFilter<$PrismaModel> | $Enums.OtpType;
+	_count?: Prisma.NestedIntFilter<$PrismaModel>;
+	_min?: Prisma.NestedEnumOtpTypeFilter<$PrismaModel>;
+	_max?: Prisma.NestedEnumOtpTypeFilter<$PrismaModel>;
+};
+
+export type NestedEnumTokenTypeFilter<$PrismaModel = never> = {
+	equals?: $Enums.TokenType | Prisma.EnumTokenTypeFieldRefInput<$PrismaModel>;
+	in?: $Enums.TokenType[] | Prisma.ListEnumTokenTypeFieldRefInput<$PrismaModel>;
+	notIn?: $Enums.TokenType[] | Prisma.ListEnumTokenTypeFieldRefInput<$PrismaModel>;
+	not?: Prisma.NestedEnumTokenTypeFilter<$PrismaModel> | $Enums.TokenType;
+};
+
+export type NestedEnumTokenTypeWithAggregatesFilter<$PrismaModel = never> = {
+	equals?: $Enums.TokenType | Prisma.EnumTokenTypeFieldRefInput<$PrismaModel>;
+	in?: $Enums.TokenType[] | Prisma.ListEnumTokenTypeFieldRefInput<$PrismaModel>;
+	notIn?: $Enums.TokenType[] | Prisma.ListEnumTokenTypeFieldRefInput<$PrismaModel>;
+	not?: Prisma.NestedEnumTokenTypeWithAggregatesFilter<$PrismaModel> | $Enums.TokenType;
+	_count?: Prisma.NestedIntFilter<$PrismaModel>;
+	_min?: Prisma.NestedEnumTokenTypeFilter<$PrismaModel>;
+	_max?: Prisma.NestedEnumTokenTypeFilter<$PrismaModel>;
 };

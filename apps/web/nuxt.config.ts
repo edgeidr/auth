@@ -26,13 +26,14 @@ export default defineNuxtConfig({
 	},
 	runtimeConfig: {
 		public: {
-			appName: process.env.NUXT_APP_NAME || "",
-			brandName: process.env.NUXT_BRAND_NAME || "",
-			apiBaseUrl: process.env.NUXT_API_BASE_URL || "",
-			toastLife: Number(process.env.NUXT_TOAST_LIFE) || 5000,
-			otpDuration: Number(process.env.NUXT_OTP_DURATION) || 300,
-			googleAuthUrl: process.env.NUXT_GOOGLE_AUTH_URL || "",
-			githubAuthUrl: process.env.NUXT_GITHUB_AUTH_URL || "",
+			appName: process.env.APP_NAME || "",
+			brandName: process.env.BRAND_NAME || "",
+			apiBaseUrl: process.env.API_BASE_URL || "",
+			toastLife: Number(process.env.TOAST_LIFE) || 5000,
+			otpDuration: Number(process.env.OTP_DURATION) || 300,
+			googleAuthUrl: process.env.GOOGLE_AUTH_URL || "",
+			githubAuthUrl: process.env.GITHUB_AUTH_URL || "",
+			otpLength: Number(process.env.OTP_LENGTH) || 6,
 		},
 	},
 	pages: {

@@ -16,7 +16,17 @@
 
 				<form>
 					<div class="flex flex-col items-center space-y-4">
-						<InputOtp v-model="form.code" :length="OTP_LENGTH" integerOnly fluid />
+						<div>
+							<InputOtp
+								v-model="form.code"
+								:length="OTP_LENGTH"
+								@change="clearError('code')"
+								:invalid="hasError('code')"
+								:disabled="pendingVerify"
+								integerOnly
+								fluid />
+							<FieldError :error="getError('code')" class="flex justify-center" />
+						</div>
 					</div>
 				</form>
 
@@ -29,8 +39,10 @@
 						<Button
 							:label="resendLabel"
 							class="p-0!"
-							@click="onResend"
-							:disabled="!!resendTimer"
+							@click="onResend()"
+							:disabled="!!resendTimer || pendingResend"
+							:loading="pendingResend"
+							iconPos="right"
 							variant="link" />
 					</template>
 				</i18n-t>
@@ -55,6 +67,7 @@
 <script setup lang="ts">
 	import { NuxtLink } from "#components";
 	import { Icons } from "@repo/assets";
+	import { OtpType } from "@repo/shared";
 
 	definePageMeta({
 		layout: "auth",
@@ -62,19 +75,55 @@
 	});
 
 	const { t } = useI18n();
+	const config = useRuntimeConfig();
 	const forgotPasswordEmail = useState<string | null>("forgotPasswordEmail");
+	const forgotPasswordCodeExpiry = useState<Date | null>("forgotPasswordCodeExpiry");
 	const resetPasswordEmail = useState<string | null>("resetPasswordEmail");
 	const resetPasswordToken = useState<string | null>("resetPasswordToken");
-	const codeExpiry = ref<Date | null>(null);
 	const resendExpiry = ref<Date | null>(null);
-	const OTP_LENGTH = 6;
+	const OTP_LENGTH = config.public.otpLength;
 	const RESEND_DURATION = 30;
-	const codeTimer = useCountdownTimer(codeExpiry, "mm:ss");
+	const codeTimer = useCountdownTimer(forgotPasswordCodeExpiry, "mm:ss");
 	const resendTimer = useCountdownTimer(resendExpiry, "s");
-	const form = reactive<{
-		code: string;
-	}>({
+	const { form, getError, setErrors, clearError, hasError } = useForm({
 		code: "",
+		email: forgotPasswordEmail.value,
+		type: OtpType.FORGOT_PASSWORD,
+	});
+
+	const { execute: onResend, pending: pendingResend } = useCustomFetch("/auth/forgot-password", {
+		method: "POST",
+		body: {
+			email: form.email,
+		},
+		onResponse: ({ response }) => {
+			if (!response.ok) return;
+
+			const { expiresAt } = response._data as { expiresAt: string };
+
+			forgotPasswordCodeExpiry.value = new Date(expiresAt);
+			resendExpiry.value = new Date(Date.now() + RESEND_DURATION * 1000);
+		},
+	});
+
+	const { execute: onVerify, pending: pendingVerify } = useCustomFetch("/otps/verify", {
+		method: "POST",
+		body: form,
+		onResponse: async ({ response }) => {
+			if (!response.ok) return;
+
+			const { value } = response._data as { value: string };
+
+			resetPasswordEmail.value = forgotPasswordEmail.value;
+			resetPasswordToken.value = value;
+
+			navigateTo("/reset-password");
+		},
+		onResponseError: ({ response }) => {
+			const { message } = response._data as { message: any };
+
+			if (message && Array.isArray(message)) setErrors(message);
+		},
 	});
 
 	const codeTimerLabel = computed(() => {
@@ -89,25 +138,6 @@
 		return t("common.actions.resend", { timer });
 	});
 
-	const resetCodeTimer = () => {
-		codeExpiry.value = new Date(Date.now() + useRuntimeConfig().public.otpDuration * 1000);
-	};
-
-	const onResend = () => {
-		resendExpiry.value = new Date(Date.now() + RESEND_DURATION * 1000);
-		resetCodeTimer();
-	};
-
-	const onSubmit = () => {
-		resetPasswordEmail.value = forgotPasswordEmail.value;
-		resetPasswordToken.value = "abc123";
-		navigateTo("/reset-password");
-	};
-
-	onMounted(() => {
-		resetCodeTimer();
-	});
-
 	onUnmounted(() => {
 		forgotPasswordEmail.value = null;
 	});
@@ -115,9 +145,7 @@
 	watch(
 		() => form.code,
 		(code) => {
-			if (code.length === OTP_LENGTH) {
-				onSubmit();
-			}
+			if (code.length === OTP_LENGTH) onVerify();
 		},
 	);
 </script>

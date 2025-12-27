@@ -5,14 +5,27 @@
 		<template #subtitle>{{ $t("forgotPassword.header.subtitle") }}</template>
 
 		<template #content>
-			<form @submit.prevent="onSubmit">
+			<form @submit.prevent="onSubmit()">
 				<div class="space-y-4">
-					<FloatLabel variant="in">
-						<InputText id="email" v-model="form.email" type="email" fluid />
-						<label for="email">{{ $t("common.inputs.email") }}</label>
-					</FloatLabel>
+					<div>
+						<FloatLabel variant="in">
+							<InputText
+								id="email"
+								v-model="form.email"
+								inputmode="email"
+								@input="clearError('email')"
+								required
+								fluid />
+							<label for="email">{{ $t("common.inputs.email") }}</label>
+						</FloatLabel>
+						<FieldError :error="getError('email')" />
+					</div>
 
-					<Button type="submit" :label="$t('common.actions.sendCode')" fluid />
+					<Button
+						type="submit"
+						:label="$t('common.actions.sendCode')"
+						:loading="pending"
+						fluid />
 				</div>
 			</form>
 
@@ -41,14 +54,28 @@
 	});
 
 	const forgotPasswordEmail = useState<string | null>("forgotPasswordEmail");
-	const form = reactive<{
-		email: string;
-	}>({
+	const forgotPasswordCodeExpiry = useState<Date | null>("forgotPasswordCodeExpiry");
+	const { form, setErrors, getError, clearError } = useForm({
 		email: "",
 	});
 
-	const onSubmit = () => {
-		forgotPasswordEmail.value = form.email;
-		navigateTo("/forgot-password/verify");
-	};
+	const { execute: onSubmit, pending } = useCustomFetch("/auth/forgot-password", {
+		method: "POST",
+		body: form,
+		onResponse: ({ response }) => {
+			if (!response.ok) return;
+
+			const { expiresAt } = response._data as { expiresAt: string };
+
+			forgotPasswordEmail.value = form.email;
+			forgotPasswordCodeExpiry.value = new Date(expiresAt);
+
+			navigateTo("/forgot-password/verify");
+		},
+		onResponseError: ({ response }) => {
+			const { message } = response._data as { message: any };
+
+			if (message && Array.isArray(message)) setErrors(message);
+		},
+	});
 </script>

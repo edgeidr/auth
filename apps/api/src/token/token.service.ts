@@ -1,17 +1,72 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { GenerateAccessTokenInput } from "./inputs/generate-access-token.input";
 import { GenerateRefreshTokenInput } from "./inputs/generate-refresh-token.input";
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import { randomUUID } from "crypto";
 import { GenerateAuthTokensInput } from "./inputs/generate-auth-tokens.input";
+import { TokenInput } from "./inputs/token.input";
+import { PrismaService } from "../prisma/prisma.service";
+import { hash, verify } from "argon2";
+import { VerifyTokenInput } from "./inputs/verify-token.input";
 
 @Injectable()
 export class TokenService {
+	private readonly TOKEN_DURATION: number;
+
 	constructor(
 		private readonly configService: ConfigService,
 		private readonly jwtService: JwtService,
-	) {}
+		private readonly prismaService: PrismaService,
+	) {
+		this.TOKEN_DURATION = configService.get<number>("TOKEN_DURATION_IN_MINUTES", 5) * 1000 * 60;
+	}
+
+	async reissue(input: TokenInput) {
+		await this.remove(input);
+		return this.create(input);
+	}
+
+	async verifyOrThrow(input: VerifyTokenInput) {
+		const token = await this.prismaService.token.findUnique({
+			where: {
+				userId_type: {
+					userId: input.userId,
+					type: input.type,
+				},
+			},
+		});
+
+		if (!token || !(await verify(token.value, input.value))) {
+			throw new BadRequestException("common.message.tryAgain");
+		}
+	}
+
+	async create(input: TokenInput) {
+		const tokenValue = randomUUID();
+		const hashedTokenValue = await hash(tokenValue);
+		const expiresAt = new Date(Date.now() + this.TOKEN_DURATION);
+
+		await this.prismaService.token.create({
+			data: {
+				userId: input.userId,
+				type: input.type,
+				value: hashedTokenValue,
+				expiresAt,
+			},
+		});
+
+		return { value: tokenValue };
+	}
+
+	async remove(input: TokenInput) {
+		await this.prismaService.token.deleteMany({
+			where: {
+				userId: input.userId,
+				type: input.type,
+			},
+		});
+	}
 
 	async generateAuthTokens(input: GenerateAuthTokensInput) {
 		const uuid = randomUUID();

@@ -10,7 +10,9 @@
 			"tryAgain": "Something went wrong. Try again later.",
 			"registrationSuccess": "Account created successfully.",
 			"accessDenied": "Access denied.",
-			"emailUnverified": "No verified email found. Please use a different account."
+			"emailUnverified": "No verified email found. Please use a different account.",
+			"maxOtpAttempts": "Max OTP attempts reached. Try again in {minutes} minute(s).",
+			"passwordResetSuccess": "Password has been reset successfully."
 		},
 		"validation": {
 			"required": "This is required",
@@ -18,7 +20,8 @@
 			"invalidPassword": "Password does not meet all required rules",
 			"passwordMismatch": "Passwords do not match",
 			"emailTaken": "This email is already taken",
-			"termsAgreementRequired": "You must agree to the terms and conditions"
+			"termsAgreementRequired": "You must agree to the terms and conditions",
+			"invalidOtp": "Invalid OTP"
 		},
 		"status": {
 			"info": "Info!",

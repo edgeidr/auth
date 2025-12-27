@@ -66,3 +66,18 @@ export type RefreshToken = Prisma.RefreshTokenModel;
  *
  */
 export type UserAuthState = Prisma.UserAuthStateModel;
+/**
+ * Model Otp
+ *
+ */
+export type Otp = Prisma.OtpModel;
+/**
+ * Model OtpAttempt
+ *
+ */
+export type OtpAttempt = Prisma.OtpAttemptModel;
+/**
+ * Model Token
+ *
+ */
+export type Token = Prisma.TokenModel;

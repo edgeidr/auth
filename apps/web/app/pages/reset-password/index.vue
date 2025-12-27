@@ -5,25 +5,44 @@
 		<template #subtitle>{{ $t("resetPassword.header.subtitle") }}</template>
 
 		<template #content>
-			<form @submit.prevent="onSubmit">
+			<form @submit.prevent="onSubmit()">
 				<div class="space-y-4">
-					<FloatLabel variant="in">
-						<CustomPassword v-model="form.newPassword" id="newPassword" fluid />
-						<label for="newPassword">{{ $t("common.inputs.newPassword") }}</label>
-					</FloatLabel>
+					<div>
+						<FloatLabel variant="in">
+							<CustomPassword
+								v-model="form.newPassword"
+								id="newPassword"
+								:invalid="hasError('newPassword')"
+								@input="clearError('newPassword')"
+								required
+								fluid />
+							<label for="newPassword">{{ $t("common.inputs.newPassword") }}</label>
+						</FloatLabel>
+						<FieldError :error="getError('newPassword')" />
+					</div>
 
-					<FloatLabel variant="in">
-						<Password
-							id="confirmNewPassword"
-							v-model="form.confirmNewPassword"
-							:feedback="false"
-							fluid />
-						<label for="confirmNewPassword">
-							{{ $t("common.inputs.confirmNewPassword") }}
-						</label>
-					</FloatLabel>
+					<div>
+						<FloatLabel variant="in">
+							<Password
+								id="confirmNewPassword"
+								v-model="form.confirmNewPassword"
+								:invalid="hasError('confirmNewPassword')"
+								@input="clearError('confirmNewPassword')"
+								:feedback="false"
+								required
+								fluid />
+							<label for="confirmNewPassword">
+								{{ $t("common.inputs.confirmNewPassword") }}
+							</label>
+						</FloatLabel>
+						<FieldError :error="getError('confirmNewPassword')" />
+					</div>
 
-					<Button type="submit" :label="$t('common.actions.resetPassword')" fluid />
+					<Button
+						type="submit"
+						:label="$t('common.actions.resetPassword')"
+						:loading="pending"
+						fluid />
 				</div>
 			</form>
 
@@ -52,49 +71,40 @@
 		middleware: ["require-reset-password-credentials"],
 	});
 
+	const toast = useToast();
 	const { t } = useI18n();
 	const resetPasswordEmail = useState<string | null>("resetPasswordEmail");
 	const resetPasswordToken = useState<string | null>("resetPasswordToken");
-	const form = reactive<{
-		newPassword: string;
-		confirmNewPassword: string;
-	}>({
+	const { form, setErrors, hasError, getError, clearError } = useForm({
+		email: resetPasswordEmail.value,
+		token: resetPasswordToken.value,
 		newPassword: "",
 		confirmNewPassword: "",
 	});
 
-	const passwordRules = ref([
-		{
-			label: t("common.passwordRules.requireUppercase"),
-			condition: computed(() => hasUppercase.value),
-		},
-		{
-			label: t("common.passwordRules.requireLowercase"),
-			condition: computed(() => hasLowercase.value),
-		},
-		{
-			label: t("common.passwordRules.requireNumber"),
-			condition: computed(() => hasNumber.value),
-		},
-		{
-			label: t("common.passwordRules.requireSymbol"),
-			condition: computed(() => hasSymbol.value),
-		},
-		{
-			label: t("common.passwordRules.requireMinCharacters"),
-			condition: computed(() => hasMinLength.value),
-		},
-	]);
+	const { execute: onSubmit, pending } = useCustomFetch("/auth/reset-password", {
+		method: "POST",
+		body: form,
+		onResponse: async ({ response }) => {
+			if (!response.ok) return;
 
-	const hasUppercase = computed(() => /[A-Z]/.test(form.newPassword));
-	const hasLowercase = computed(() => /[a-z]/.test(form.newPassword));
-	const hasNumber = computed(() => /[0-9]/.test(form.newPassword));
-	const hasSymbol = computed(() => /[^a-zA-Z0-9]/.test(form.newPassword));
-	const hasMinLength = computed(() => form.newPassword.length >= 8);
+			const { message } = response._data as { message: string };
 
-	const onSubmit = () => {
-		navigateTo("/login");
-	};
+			await navigateTo("/login");
+
+			toast.add({
+				summary: t("common.status.success"),
+				detail: t(message),
+				severity: "success",
+				life: useRuntimeConfig().public.toastLife,
+			});
+		},
+		onResponseError: ({ response }) => {
+			const { message } = response._data as { message: any };
+
+			if (message && Array.isArray(message)) setErrors(message);
+		},
+	});
 
 	onUnmounted(() => {
 		resetPasswordEmail.value = null;

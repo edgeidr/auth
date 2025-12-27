@@ -1,4 +1,5 @@
 import {
+	BadRequestException,
 	ConflictException,
 	Injectable,
 	InternalServerErrorException,
@@ -11,6 +12,9 @@ import { TokenService } from "../token/token.service";
 import { RegisterInput } from "./inputs/register.input";
 import { LogoutInput } from "./inputs/logout.input";
 import { RotateTokensInput } from "./inputs/rotate-tokens.input";
+import { OtpService } from "../otp/otp.service";
+import { OtpType, TokenType } from "../generated/prisma/enums";
+import { ResetPasswordInput } from "./inputs/reset-password.input";
 
 @Injectable()
 export class AuthService {
@@ -18,6 +22,7 @@ export class AuthService {
 		private readonly userService: UserService,
 		private readonly sessionService: SessionService,
 		private readonly tokenService: TokenService,
+		private readonly otpService: OtpService,
 	) {}
 
 	async login(input: LoginInput) {
@@ -118,5 +123,32 @@ export class AuthService {
 		});
 
 		return { accessToken, refreshToken, sessionId: session.id };
+	}
+
+	async forgotPassword(email: string) {
+		return this.otpService.sendViaEmail({
+			subject: "Reset Your Password - OTP Verification",
+			email,
+			type: OtpType.FORGOT_PASSWORD,
+		});
+	}
+
+	async resetPassword(input: ResetPasswordInput) {
+		const user = await this.userService.findOneByEmail(input.email, {
+			include: { password: true },
+		});
+
+		if (!user) throw new BadRequestException("common.message.tryAgain");
+
+		await this.tokenService.verifyOrThrow({
+			userId: user.id,
+			value: input.token,
+			type: TokenType.PASSWORD_RESET,
+		});
+
+		await this.userService.updatePassword(user.id, {
+			newPassword: input.newPassword,
+			skipOldPassword: true,
+		});
 	}
 }

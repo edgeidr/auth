@@ -8,6 +8,9 @@ import { AuthModule } from "./auth/auth.module";
 import { UserModule } from "./user/user.module";
 import { SessionModule } from "./session/session.module";
 import { UserAuthStateModule } from "./user-auth-state/user-auth-state.module";
+import { OtpModule } from "./otp/otp.module";
+import { MailModule } from "./mail/mail.module";
+import { OtpAttemptModule } from "./otp-attempt/otp-attempt.module";
 
 @Module({
 	imports: [
@@ -18,6 +21,9 @@ import { UserAuthStateModule } from "./user-auth-state/user-auth-state.module";
 		UserModule,
 		SessionModule,
 		UserAuthStateModule,
+		OtpModule,
+		MailModule,
+		OtpAttemptModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],

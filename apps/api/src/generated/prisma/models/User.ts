@@ -227,6 +227,9 @@ export type UserWhereInput = {
 		Prisma.UserAuthStateWhereInput
 	> | null;
 	sessions?: Prisma.SessionListRelationFilter;
+	otps?: Prisma.OtpListRelationFilter;
+	otpAttempts?: Prisma.OtpAttemptListRelationFilter;
+	tokens?: Prisma.TokenListRelationFilter;
 };
 
 export type UserOrderByWithRelationInput = {
@@ -243,6 +246,9 @@ export type UserOrderByWithRelationInput = {
 	userProfile?: Prisma.UserProfileOrderByWithRelationInput;
 	userAuthStates?: Prisma.UserAuthStateOrderByWithRelationInput;
 	sessions?: Prisma.SessionOrderByRelationAggregateInput;
+	otps?: Prisma.OtpOrderByRelationAggregateInput;
+	otpAttempts?: Prisma.OtpAttemptOrderByRelationAggregateInput;
+	tokens?: Prisma.TokenOrderByRelationAggregateInput;
 };
 
 export type UserWhereUniqueInput = Prisma.AtLeast<
@@ -269,6 +275,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<
 			Prisma.UserAuthStateWhereInput
 		> | null;
 		sessions?: Prisma.SessionListRelationFilter;
+		otps?: Prisma.OtpListRelationFilter;
+		otpAttempts?: Prisma.OtpAttemptListRelationFilter;
+		tokens?: Prisma.TokenListRelationFilter;
 	},
 	"id" | "publicId" | "email" | "googleSub" | "githubId"
 >;
@@ -319,6 +328,9 @@ export type UserCreateInput = {
 	userProfile?: Prisma.UserProfileCreateNestedOneWithoutUserInput;
 	userAuthStates?: Prisma.UserAuthStateCreateNestedOneWithoutUserInput;
 	sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+	otps?: Prisma.OtpCreateNestedManyWithoutUserInput;
+	otpAttempts?: Prisma.OtpAttemptCreateNestedManyWithoutUserInput;
+	tokens?: Prisma.TokenCreateNestedManyWithoutUserInput;
 };
 
 export type UserUncheckedCreateInput = {
@@ -335,6 +347,9 @@ export type UserUncheckedCreateInput = {
 	userProfile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput;
 	userAuthStates?: Prisma.UserAuthStateUncheckedCreateNestedOneWithoutUserInput;
 	sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+	otps?: Prisma.OtpUncheckedCreateNestedManyWithoutUserInput;
+	otpAttempts?: Prisma.OtpAttemptUncheckedCreateNestedManyWithoutUserInput;
+	tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput;
 };
 
 export type UserUpdateInput = {
@@ -351,6 +366,9 @@ export type UserUpdateInput = {
 	userProfile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput;
 	userAuthStates?: Prisma.UserAuthStateUpdateOneWithoutUserNestedInput;
 	sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+	otps?: Prisma.OtpUpdateManyWithoutUserNestedInput;
+	otpAttempts?: Prisma.OtpAttemptUpdateManyWithoutUserNestedInput;
+	tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput;
 };
 
 export type UserUncheckedUpdateInput = {
@@ -367,6 +385,9 @@ export type UserUncheckedUpdateInput = {
 	userProfile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput;
 	userAuthStates?: Prisma.UserAuthStateUncheckedUpdateOneWithoutUserNestedInput;
 	sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+	otps?: Prisma.OtpUncheckedUpdateManyWithoutUserNestedInput;
+	otpAttempts?: Prisma.OtpAttemptUncheckedUpdateManyWithoutUserNestedInput;
+	tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput;
 };
 
 export type UserCreateManyInput = {
@@ -550,6 +571,84 @@ export type UserUpdateOneRequiredWithoutUserAuthStatesNestedInput = {
 	>;
 };
 
+export type UserCreateNestedOneWithoutOtpsInput = {
+	create?: Prisma.XOR<
+		Prisma.UserCreateWithoutOtpsInput,
+		Prisma.UserUncheckedCreateWithoutOtpsInput
+	>;
+	connectOrCreate?: Prisma.UserCreateOrConnectWithoutOtpsInput;
+	connect?: Prisma.UserWhereUniqueInput;
+};
+
+export type UserUpdateOneRequiredWithoutOtpsNestedInput = {
+	create?: Prisma.XOR<
+		Prisma.UserCreateWithoutOtpsInput,
+		Prisma.UserUncheckedCreateWithoutOtpsInput
+	>;
+	connectOrCreate?: Prisma.UserCreateOrConnectWithoutOtpsInput;
+	upsert?: Prisma.UserUpsertWithoutOtpsInput;
+	connect?: Prisma.UserWhereUniqueInput;
+	update?: Prisma.XOR<
+		Prisma.XOR<
+			Prisma.UserUpdateToOneWithWhereWithoutOtpsInput,
+			Prisma.UserUpdateWithoutOtpsInput
+		>,
+		Prisma.UserUncheckedUpdateWithoutOtpsInput
+	>;
+};
+
+export type UserCreateNestedOneWithoutOtpAttemptsInput = {
+	create?: Prisma.XOR<
+		Prisma.UserCreateWithoutOtpAttemptsInput,
+		Prisma.UserUncheckedCreateWithoutOtpAttemptsInput
+	>;
+	connectOrCreate?: Prisma.UserCreateOrConnectWithoutOtpAttemptsInput;
+	connect?: Prisma.UserWhereUniqueInput;
+};
+
+export type UserUpdateOneRequiredWithoutOtpAttemptsNestedInput = {
+	create?: Prisma.XOR<
+		Prisma.UserCreateWithoutOtpAttemptsInput,
+		Prisma.UserUncheckedCreateWithoutOtpAttemptsInput
+	>;
+	connectOrCreate?: Prisma.UserCreateOrConnectWithoutOtpAttemptsInput;
+	upsert?: Prisma.UserUpsertWithoutOtpAttemptsInput;
+	connect?: Prisma.UserWhereUniqueInput;
+	update?: Prisma.XOR<
+		Prisma.XOR<
+			Prisma.UserUpdateToOneWithWhereWithoutOtpAttemptsInput,
+			Prisma.UserUpdateWithoutOtpAttemptsInput
+		>,
+		Prisma.UserUncheckedUpdateWithoutOtpAttemptsInput
+	>;
+};
+
+export type UserCreateNestedOneWithoutTokensInput = {
+	create?: Prisma.XOR<
+		Prisma.UserCreateWithoutTokensInput,
+		Prisma.UserUncheckedCreateWithoutTokensInput
+	>;
+	connectOrCreate?: Prisma.UserCreateOrConnectWithoutTokensInput;
+	connect?: Prisma.UserWhereUniqueInput;
+};
+
+export type UserUpdateOneRequiredWithoutTokensNestedInput = {
+	create?: Prisma.XOR<
+		Prisma.UserCreateWithoutTokensInput,
+		Prisma.UserUncheckedCreateWithoutTokensInput
+	>;
+	connectOrCreate?: Prisma.UserCreateOrConnectWithoutTokensInput;
+	upsert?: Prisma.UserUpsertWithoutTokensInput;
+	connect?: Prisma.UserWhereUniqueInput;
+	update?: Prisma.XOR<
+		Prisma.XOR<
+			Prisma.UserUpdateToOneWithWhereWithoutTokensInput,
+			Prisma.UserUpdateWithoutTokensInput
+		>,
+		Prisma.UserUncheckedUpdateWithoutTokensInput
+	>;
+};
+
 export type UserCreateWithoutUserProfileInput = {
 	id?: string;
 	publicId?: string;
@@ -563,6 +662,9 @@ export type UserCreateWithoutUserProfileInput = {
 	deletedAt?: Date | string | null;
 	userAuthStates?: Prisma.UserAuthStateCreateNestedOneWithoutUserInput;
 	sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+	otps?: Prisma.OtpCreateNestedManyWithoutUserInput;
+	otpAttempts?: Prisma.OtpAttemptCreateNestedManyWithoutUserInput;
+	tokens?: Prisma.TokenCreateNestedManyWithoutUserInput;
 };
 
 export type UserUncheckedCreateWithoutUserProfileInput = {
@@ -578,6 +680,9 @@ export type UserUncheckedCreateWithoutUserProfileInput = {
 	deletedAt?: Date | string | null;
 	userAuthStates?: Prisma.UserAuthStateUncheckedCreateNestedOneWithoutUserInput;
 	sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+	otps?: Prisma.OtpUncheckedCreateNestedManyWithoutUserInput;
+	otpAttempts?: Prisma.OtpAttemptUncheckedCreateNestedManyWithoutUserInput;
+	tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput;
 };
 
 export type UserCreateOrConnectWithoutUserProfileInput = {
@@ -621,6 +726,9 @@ export type UserUpdateWithoutUserProfileInput = {
 	deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
 	userAuthStates?: Prisma.UserAuthStateUpdateOneWithoutUserNestedInput;
 	sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+	otps?: Prisma.OtpUpdateManyWithoutUserNestedInput;
+	otpAttempts?: Prisma.OtpAttemptUpdateManyWithoutUserNestedInput;
+	tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput;
 };
 
 export type UserUncheckedUpdateWithoutUserProfileInput = {
@@ -636,6 +744,9 @@ export type UserUncheckedUpdateWithoutUserProfileInput = {
 	deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
 	userAuthStates?: Prisma.UserAuthStateUncheckedUpdateOneWithoutUserNestedInput;
 	sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+	otps?: Prisma.OtpUncheckedUpdateManyWithoutUserNestedInput;
+	otpAttempts?: Prisma.OtpAttemptUncheckedUpdateManyWithoutUserNestedInput;
+	tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput;
 };
 
 export type UserCreateWithoutSessionsInput = {
@@ -651,6 +762,9 @@ export type UserCreateWithoutSessionsInput = {
 	deletedAt?: Date | string | null;
 	userProfile?: Prisma.UserProfileCreateNestedOneWithoutUserInput;
 	userAuthStates?: Prisma.UserAuthStateCreateNestedOneWithoutUserInput;
+	otps?: Prisma.OtpCreateNestedManyWithoutUserInput;
+	otpAttempts?: Prisma.OtpAttemptCreateNestedManyWithoutUserInput;
+	tokens?: Prisma.TokenCreateNestedManyWithoutUserInput;
 };
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -666,6 +780,9 @@ export type UserUncheckedCreateWithoutSessionsInput = {
 	deletedAt?: Date | string | null;
 	userProfile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput;
 	userAuthStates?: Prisma.UserAuthStateUncheckedCreateNestedOneWithoutUserInput;
+	otps?: Prisma.OtpUncheckedCreateNestedManyWithoutUserInput;
+	otpAttempts?: Prisma.OtpAttemptUncheckedCreateNestedManyWithoutUserInput;
+	tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput;
 };
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -709,6 +826,9 @@ export type UserUpdateWithoutSessionsInput = {
 	deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
 	userProfile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput;
 	userAuthStates?: Prisma.UserAuthStateUpdateOneWithoutUserNestedInput;
+	otps?: Prisma.OtpUpdateManyWithoutUserNestedInput;
+	otpAttempts?: Prisma.OtpAttemptUpdateManyWithoutUserNestedInput;
+	tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput;
 };
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -724,6 +844,9 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
 	deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
 	userProfile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput;
 	userAuthStates?: Prisma.UserAuthStateUncheckedUpdateOneWithoutUserNestedInput;
+	otps?: Prisma.OtpUncheckedUpdateManyWithoutUserNestedInput;
+	otpAttempts?: Prisma.OtpAttemptUncheckedUpdateManyWithoutUserNestedInput;
+	tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput;
 };
 
 export type UserCreateWithoutUserAuthStatesInput = {
@@ -739,6 +862,9 @@ export type UserCreateWithoutUserAuthStatesInput = {
 	deletedAt?: Date | string | null;
 	userProfile?: Prisma.UserProfileCreateNestedOneWithoutUserInput;
 	sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+	otps?: Prisma.OtpCreateNestedManyWithoutUserInput;
+	otpAttempts?: Prisma.OtpAttemptCreateNestedManyWithoutUserInput;
+	tokens?: Prisma.TokenCreateNestedManyWithoutUserInput;
 };
 
 export type UserUncheckedCreateWithoutUserAuthStatesInput = {
@@ -754,6 +880,9 @@ export type UserUncheckedCreateWithoutUserAuthStatesInput = {
 	deletedAt?: Date | string | null;
 	userProfile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput;
 	sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+	otps?: Prisma.OtpUncheckedCreateNestedManyWithoutUserInput;
+	otpAttempts?: Prisma.OtpAttemptUncheckedCreateNestedManyWithoutUserInput;
+	tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput;
 };
 
 export type UserCreateOrConnectWithoutUserAuthStatesInput = {
@@ -797,6 +926,9 @@ export type UserUpdateWithoutUserAuthStatesInput = {
 	deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
 	userProfile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput;
 	sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+	otps?: Prisma.OtpUpdateManyWithoutUserNestedInput;
+	otpAttempts?: Prisma.OtpAttemptUpdateManyWithoutUserNestedInput;
+	tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput;
 };
 
 export type UserUncheckedUpdateWithoutUserAuthStatesInput = {
@@ -812,6 +944,306 @@ export type UserUncheckedUpdateWithoutUserAuthStatesInput = {
 	deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
 	userProfile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput;
 	sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+	otps?: Prisma.OtpUncheckedUpdateManyWithoutUserNestedInput;
+	otpAttempts?: Prisma.OtpAttemptUncheckedUpdateManyWithoutUserNestedInput;
+	tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput;
+};
+
+export type UserCreateWithoutOtpsInput = {
+	id?: string;
+	publicId?: string;
+	email?: string | null;
+	password?: string | null;
+	googleSub?: string | null;
+	githubId?: string | null;
+	isActive?: boolean;
+	createdAt?: Date | string;
+	updatedAt?: Date | string;
+	deletedAt?: Date | string | null;
+	userProfile?: Prisma.UserProfileCreateNestedOneWithoutUserInput;
+	userAuthStates?: Prisma.UserAuthStateCreateNestedOneWithoutUserInput;
+	sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+	otpAttempts?: Prisma.OtpAttemptCreateNestedManyWithoutUserInput;
+	tokens?: Prisma.TokenCreateNestedManyWithoutUserInput;
+};
+
+export type UserUncheckedCreateWithoutOtpsInput = {
+	id?: string;
+	publicId?: string;
+	email?: string | null;
+	password?: string | null;
+	googleSub?: string | null;
+	githubId?: string | null;
+	isActive?: boolean;
+	createdAt?: Date | string;
+	updatedAt?: Date | string;
+	deletedAt?: Date | string | null;
+	userProfile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput;
+	userAuthStates?: Prisma.UserAuthStateUncheckedCreateNestedOneWithoutUserInput;
+	sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+	otpAttempts?: Prisma.OtpAttemptUncheckedCreateNestedManyWithoutUserInput;
+	tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput;
+};
+
+export type UserCreateOrConnectWithoutOtpsInput = {
+	where: Prisma.UserWhereUniqueInput;
+	create: Prisma.XOR<
+		Prisma.UserCreateWithoutOtpsInput,
+		Prisma.UserUncheckedCreateWithoutOtpsInput
+	>;
+};
+
+export type UserUpsertWithoutOtpsInput = {
+	update: Prisma.XOR<
+		Prisma.UserUpdateWithoutOtpsInput,
+		Prisma.UserUncheckedUpdateWithoutOtpsInput
+	>;
+	create: Prisma.XOR<
+		Prisma.UserCreateWithoutOtpsInput,
+		Prisma.UserUncheckedCreateWithoutOtpsInput
+	>;
+	where?: Prisma.UserWhereInput;
+};
+
+export type UserUpdateToOneWithWhereWithoutOtpsInput = {
+	where?: Prisma.UserWhereInput;
+	data: Prisma.XOR<Prisma.UserUpdateWithoutOtpsInput, Prisma.UserUncheckedUpdateWithoutOtpsInput>;
+};
+
+export type UserUpdateWithoutOtpsInput = {
+	id?: Prisma.StringFieldUpdateOperationsInput | string;
+	publicId?: Prisma.StringFieldUpdateOperationsInput | string;
+	email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+	createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+	updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+	deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+	userProfile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput;
+	userAuthStates?: Prisma.UserAuthStateUpdateOneWithoutUserNestedInput;
+	sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+	otpAttempts?: Prisma.OtpAttemptUpdateManyWithoutUserNestedInput;
+	tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput;
+};
+
+export type UserUncheckedUpdateWithoutOtpsInput = {
+	id?: Prisma.StringFieldUpdateOperationsInput | string;
+	publicId?: Prisma.StringFieldUpdateOperationsInput | string;
+	email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+	createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+	updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+	deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+	userProfile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput;
+	userAuthStates?: Prisma.UserAuthStateUncheckedUpdateOneWithoutUserNestedInput;
+	sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+	otpAttempts?: Prisma.OtpAttemptUncheckedUpdateManyWithoutUserNestedInput;
+	tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput;
+};
+
+export type UserCreateWithoutOtpAttemptsInput = {
+	id?: string;
+	publicId?: string;
+	email?: string | null;
+	password?: string | null;
+	googleSub?: string | null;
+	githubId?: string | null;
+	isActive?: boolean;
+	createdAt?: Date | string;
+	updatedAt?: Date | string;
+	deletedAt?: Date | string | null;
+	userProfile?: Prisma.UserProfileCreateNestedOneWithoutUserInput;
+	userAuthStates?: Prisma.UserAuthStateCreateNestedOneWithoutUserInput;
+	sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+	otps?: Prisma.OtpCreateNestedManyWithoutUserInput;
+	tokens?: Prisma.TokenCreateNestedManyWithoutUserInput;
+};
+
+export type UserUncheckedCreateWithoutOtpAttemptsInput = {
+	id?: string;
+	publicId?: string;
+	email?: string | null;
+	password?: string | null;
+	googleSub?: string | null;
+	githubId?: string | null;
+	isActive?: boolean;
+	createdAt?: Date | string;
+	updatedAt?: Date | string;
+	deletedAt?: Date | string | null;
+	userProfile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput;
+	userAuthStates?: Prisma.UserAuthStateUncheckedCreateNestedOneWithoutUserInput;
+	sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+	otps?: Prisma.OtpUncheckedCreateNestedManyWithoutUserInput;
+	tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput;
+};
+
+export type UserCreateOrConnectWithoutOtpAttemptsInput = {
+	where: Prisma.UserWhereUniqueInput;
+	create: Prisma.XOR<
+		Prisma.UserCreateWithoutOtpAttemptsInput,
+		Prisma.UserUncheckedCreateWithoutOtpAttemptsInput
+	>;
+};
+
+export type UserUpsertWithoutOtpAttemptsInput = {
+	update: Prisma.XOR<
+		Prisma.UserUpdateWithoutOtpAttemptsInput,
+		Prisma.UserUncheckedUpdateWithoutOtpAttemptsInput
+	>;
+	create: Prisma.XOR<
+		Prisma.UserCreateWithoutOtpAttemptsInput,
+		Prisma.UserUncheckedCreateWithoutOtpAttemptsInput
+	>;
+	where?: Prisma.UserWhereInput;
+};
+
+export type UserUpdateToOneWithWhereWithoutOtpAttemptsInput = {
+	where?: Prisma.UserWhereInput;
+	data: Prisma.XOR<
+		Prisma.UserUpdateWithoutOtpAttemptsInput,
+		Prisma.UserUncheckedUpdateWithoutOtpAttemptsInput
+	>;
+};
+
+export type UserUpdateWithoutOtpAttemptsInput = {
+	id?: Prisma.StringFieldUpdateOperationsInput | string;
+	publicId?: Prisma.StringFieldUpdateOperationsInput | string;
+	email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+	createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+	updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+	deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+	userProfile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput;
+	userAuthStates?: Prisma.UserAuthStateUpdateOneWithoutUserNestedInput;
+	sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+	otps?: Prisma.OtpUpdateManyWithoutUserNestedInput;
+	tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput;
+};
+
+export type UserUncheckedUpdateWithoutOtpAttemptsInput = {
+	id?: Prisma.StringFieldUpdateOperationsInput | string;
+	publicId?: Prisma.StringFieldUpdateOperationsInput | string;
+	email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+	createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+	updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+	deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+	userProfile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput;
+	userAuthStates?: Prisma.UserAuthStateUncheckedUpdateOneWithoutUserNestedInput;
+	sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+	otps?: Prisma.OtpUncheckedUpdateManyWithoutUserNestedInput;
+	tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput;
+};
+
+export type UserCreateWithoutTokensInput = {
+	id?: string;
+	publicId?: string;
+	email?: string | null;
+	password?: string | null;
+	googleSub?: string | null;
+	githubId?: string | null;
+	isActive?: boolean;
+	createdAt?: Date | string;
+	updatedAt?: Date | string;
+	deletedAt?: Date | string | null;
+	userProfile?: Prisma.UserProfileCreateNestedOneWithoutUserInput;
+	userAuthStates?: Prisma.UserAuthStateCreateNestedOneWithoutUserInput;
+	sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+	otps?: Prisma.OtpCreateNestedManyWithoutUserInput;
+	otpAttempts?: Prisma.OtpAttemptCreateNestedManyWithoutUserInput;
+};
+
+export type UserUncheckedCreateWithoutTokensInput = {
+	id?: string;
+	publicId?: string;
+	email?: string | null;
+	password?: string | null;
+	googleSub?: string | null;
+	githubId?: string | null;
+	isActive?: boolean;
+	createdAt?: Date | string;
+	updatedAt?: Date | string;
+	deletedAt?: Date | string | null;
+	userProfile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput;
+	userAuthStates?: Prisma.UserAuthStateUncheckedCreateNestedOneWithoutUserInput;
+	sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+	otps?: Prisma.OtpUncheckedCreateNestedManyWithoutUserInput;
+	otpAttempts?: Prisma.OtpAttemptUncheckedCreateNestedManyWithoutUserInput;
+};
+
+export type UserCreateOrConnectWithoutTokensInput = {
+	where: Prisma.UserWhereUniqueInput;
+	create: Prisma.XOR<
+		Prisma.UserCreateWithoutTokensInput,
+		Prisma.UserUncheckedCreateWithoutTokensInput
+	>;
+};
+
+export type UserUpsertWithoutTokensInput = {
+	update: Prisma.XOR<
+		Prisma.UserUpdateWithoutTokensInput,
+		Prisma.UserUncheckedUpdateWithoutTokensInput
+	>;
+	create: Prisma.XOR<
+		Prisma.UserCreateWithoutTokensInput,
+		Prisma.UserUncheckedCreateWithoutTokensInput
+	>;
+	where?: Prisma.UserWhereInput;
+};
+
+export type UserUpdateToOneWithWhereWithoutTokensInput = {
+	where?: Prisma.UserWhereInput;
+	data: Prisma.XOR<
+		Prisma.UserUpdateWithoutTokensInput,
+		Prisma.UserUncheckedUpdateWithoutTokensInput
+	>;
+};
+
+export type UserUpdateWithoutTokensInput = {
+	id?: Prisma.StringFieldUpdateOperationsInput | string;
+	publicId?: Prisma.StringFieldUpdateOperationsInput | string;
+	email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+	createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+	updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+	deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+	userProfile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput;
+	userAuthStates?: Prisma.UserAuthStateUpdateOneWithoutUserNestedInput;
+	sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+	otps?: Prisma.OtpUpdateManyWithoutUserNestedInput;
+	otpAttempts?: Prisma.OtpAttemptUpdateManyWithoutUserNestedInput;
+};
+
+export type UserUncheckedUpdateWithoutTokensInput = {
+	id?: Prisma.StringFieldUpdateOperationsInput | string;
+	publicId?: Prisma.StringFieldUpdateOperationsInput | string;
+	email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+	isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+	createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+	updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+	deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+	userProfile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput;
+	userAuthStates?: Prisma.UserAuthStateUncheckedUpdateOneWithoutUserNestedInput;
+	sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+	otps?: Prisma.OtpUncheckedUpdateManyWithoutUserNestedInput;
+	otpAttempts?: Prisma.OtpAttemptUncheckedUpdateManyWithoutUserNestedInput;
 };
 
 /**
@@ -820,12 +1252,18 @@ export type UserUncheckedUpdateWithoutUserAuthStatesInput = {
 
 export type UserCountOutputType = {
 	sessions: number;
+	otps: number;
+	otpAttempts: number;
+	tokens: number;
 };
 
 export type UserCountOutputTypeSelect<
 	ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
 	sessions?: boolean | UserCountOutputTypeCountSessionsArgs;
+	otps?: boolean | UserCountOutputTypeCountOtpsArgs;
+	otpAttempts?: boolean | UserCountOutputTypeCountOtpAttemptsArgs;
+	tokens?: boolean | UserCountOutputTypeCountTokensArgs;
 };
 
 /**
@@ -849,6 +1287,33 @@ export type UserCountOutputTypeCountSessionsArgs<
 	where?: Prisma.SessionWhereInput;
 };
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountOtpsArgs<
+	ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+	where?: Prisma.OtpWhereInput;
+};
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountOtpAttemptsArgs<
+	ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+	where?: Prisma.OtpAttemptWhereInput;
+};
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountTokensArgs<
+	ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+	where?: Prisma.TokenWhereInput;
+};
+
 export type UserSelect<
 	ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetSelect<
@@ -866,6 +1331,9 @@ export type UserSelect<
 		userProfile?: boolean | Prisma.User$userProfileArgs<ExtArgs>;
 		userAuthStates?: boolean | Prisma.User$userAuthStatesArgs<ExtArgs>;
 		sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>;
+		otps?: boolean | Prisma.User$otpsArgs<ExtArgs>;
+		otpAttempts?: boolean | Prisma.User$otpAttemptsArgs<ExtArgs>;
+		tokens?: boolean | Prisma.User$tokensArgs<ExtArgs>;
 		_count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 	},
 	ExtArgs["result"]["user"]
@@ -941,6 +1409,9 @@ export type UserInclude<
 	userProfile?: boolean | Prisma.User$userProfileArgs<ExtArgs>;
 	userAuthStates?: boolean | Prisma.User$userAuthStatesArgs<ExtArgs>;
 	sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>;
+	otps?: boolean | Prisma.User$otpsArgs<ExtArgs>;
+	otpAttempts?: boolean | Prisma.User$otpAttemptsArgs<ExtArgs>;
+	tokens?: boolean | Prisma.User$tokensArgs<ExtArgs>;
 	_count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type UserIncludeCreateManyAndReturn<
@@ -958,6 +1429,9 @@ export type $UserPayload<
 		userProfile: Prisma.$UserProfilePayload<ExtArgs> | null;
 		userAuthStates: Prisma.$UserAuthStatePayload<ExtArgs> | null;
 		sessions: Prisma.$SessionPayload<ExtArgs>[];
+		otps: Prisma.$OtpPayload<ExtArgs>[];
+		otpAttempts: Prisma.$OtpAttemptPayload<ExtArgs>[];
+		tokens: Prisma.$TokenPayload<ExtArgs>[];
 	};
 	scalars: runtime.Types.Extensions.GetPayloadResult<
 		{
@@ -1543,6 +2017,39 @@ export interface Prisma__UserClient<
 		  >
 		| Null
 	>;
+	otps<T extends Prisma.User$otpsArgs<ExtArgs> = {}>(
+		args?: Prisma.Subset<T, Prisma.User$otpsArgs<ExtArgs>>,
+	): Prisma.PrismaPromise<
+		| runtime.Types.Result.GetResult<
+				Prisma.$OtpPayload<ExtArgs>,
+				T,
+				"findMany",
+				GlobalOmitOptions
+		  >
+		| Null
+	>;
+	otpAttempts<T extends Prisma.User$otpAttemptsArgs<ExtArgs> = {}>(
+		args?: Prisma.Subset<T, Prisma.User$otpAttemptsArgs<ExtArgs>>,
+	): Prisma.PrismaPromise<
+		| runtime.Types.Result.GetResult<
+				Prisma.$OtpAttemptPayload<ExtArgs>,
+				T,
+				"findMany",
+				GlobalOmitOptions
+		  >
+		| Null
+	>;
+	tokens<T extends Prisma.User$tokensArgs<ExtArgs> = {}>(
+		args?: Prisma.Subset<T, Prisma.User$tokensArgs<ExtArgs>>,
+	): Prisma.PrismaPromise<
+		| runtime.Types.Result.GetResult<
+				Prisma.$TokenPayload<ExtArgs>,
+				T,
+				"findMany",
+				GlobalOmitOptions
+		  >
+		| Null
+	>;
 	/**
 	 * Attaches callbacks for the resolution and/or rejection of the Promise.
 	 * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2064,6 +2571,86 @@ export type User$sessionsArgs<
 	take?: number;
 	skip?: number;
 	distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[];
+};
+
+/**
+ * User.otps
+ */
+export type User$otpsArgs<
+	ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+	/**
+	 * Select specific fields to fetch from the Otp
+	 */
+	select?: Prisma.OtpSelect<ExtArgs> | null;
+	/**
+	 * Omit specific fields from the Otp
+	 */
+	omit?: Prisma.OtpOmit<ExtArgs> | null;
+	/**
+	 * Choose, which related nodes to fetch as well
+	 */
+	include?: Prisma.OtpInclude<ExtArgs> | null;
+	where?: Prisma.OtpWhereInput;
+	orderBy?: Prisma.OtpOrderByWithRelationInput | Prisma.OtpOrderByWithRelationInput[];
+	cursor?: Prisma.OtpWhereUniqueInput;
+	take?: number;
+	skip?: number;
+	distinct?: Prisma.OtpScalarFieldEnum | Prisma.OtpScalarFieldEnum[];
+};
+
+/**
+ * User.otpAttempts
+ */
+export type User$otpAttemptsArgs<
+	ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+	/**
+	 * Select specific fields to fetch from the OtpAttempt
+	 */
+	select?: Prisma.OtpAttemptSelect<ExtArgs> | null;
+	/**
+	 * Omit specific fields from the OtpAttempt
+	 */
+	omit?: Prisma.OtpAttemptOmit<ExtArgs> | null;
+	/**
+	 * Choose, which related nodes to fetch as well
+	 */
+	include?: Prisma.OtpAttemptInclude<ExtArgs> | null;
+	where?: Prisma.OtpAttemptWhereInput;
+	orderBy?:
+		| Prisma.OtpAttemptOrderByWithRelationInput
+		| Prisma.OtpAttemptOrderByWithRelationInput[];
+	cursor?: Prisma.OtpAttemptWhereUniqueInput;
+	take?: number;
+	skip?: number;
+	distinct?: Prisma.OtpAttemptScalarFieldEnum | Prisma.OtpAttemptScalarFieldEnum[];
+};
+
+/**
+ * User.tokens
+ */
+export type User$tokensArgs<
+	ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+	/**
+	 * Select specific fields to fetch from the Token
+	 */
+	select?: Prisma.TokenSelect<ExtArgs> | null;
+	/**
+	 * Omit specific fields from the Token
+	 */
+	omit?: Prisma.TokenOmit<ExtArgs> | null;
+	/**
+	 * Choose, which related nodes to fetch as well
+	 */
+	include?: Prisma.TokenInclude<ExtArgs> | null;
+	where?: Prisma.TokenWhereInput;
+	orderBy?: Prisma.TokenOrderByWithRelationInput | Prisma.TokenOrderByWithRelationInput[];
+	cursor?: Prisma.TokenWhereUniqueInput;
+	take?: number;
+	skip?: number;
+	distinct?: Prisma.TokenScalarFieldEnum | Prisma.TokenScalarFieldEnum[];
 };
 
 /**

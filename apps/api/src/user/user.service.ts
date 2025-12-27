@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { BadRequestException, Injectable, UnauthorizedException } from "@nestjs/common";
 import { ValidateCredentialsInput } from "./inputs/validate-credentials.input";
 import { FindUserOptions } from "./types/find-user-options";
 import { PrismaService } from "../prisma/prisma.service";
@@ -10,6 +10,7 @@ import { userProfileSelect } from "../../prisma/selects/user-profile.select";
 import { UpdateUserInput } from "./inputs/update-user.input";
 import { UpdateGoogleProfileInput } from "./inputs/update-google-profile.input";
 import { Prisma } from "../generated/prisma/client";
+import { UpdatePasswordInput } from "./inputs/update-password.input";
 
 @Injectable()
 export class UserService {
@@ -139,6 +140,26 @@ export class UserService {
 				},
 			},
 			select: this.buildSelect(options),
+		});
+	}
+
+	async updatePassword(id: string, input: UpdatePasswordInput) {
+		const user = await this.findOne(id);
+
+		if (!user) throw new BadRequestException("common.message.tryAgain");
+
+		if (user.password && !input.skipOldPassword) {
+			if (!input.oldPassword) throw new BadRequestException("common.message.tryAgain");
+
+			const oldPasswordMatched = await verify(user.password, input.oldPassword);
+			if (!oldPasswordMatched) throw new BadRequestException("common.message.tryAgain");
+		}
+
+		const hashedPassword = await hash(input.newPassword);
+
+		await this.prismaService.user.update({
+			where: { id },
+			data: { password: hashedPassword },
 		});
 	}
 

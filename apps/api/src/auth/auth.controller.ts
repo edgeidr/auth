@@ -19,6 +19,9 @@ import { RegisterDto } from "./dto/register.dto";
 import { JwtAccessGuard, JwtRefreshGuard } from "../jwt/jwt.guard";
 import { GoogleOauthGuard } from "./guards/google-oauth.guard";
 import { GithubOauthGuard } from "./guards/github-oauth.guard";
+import { ForgotPasswordDto } from "./dto/forgot-password.dto";
+import { ResetPasswordDto } from "./dto/reset-password.dto";
+import { ResetPasswordInput } from "./inputs/reset-password.input";
 
 @Controller("auth")
 export class AuthController {
@@ -185,6 +188,24 @@ export class AuthController {
 		);
 
 		return response.redirect(redirectUrl);
+	}
+
+	@Post("forgot-password")
+	forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
+		return this.authService.forgotPassword(forgotPasswordDto.email);
+	}
+
+	@Post("reset-password")
+	async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
+		const payload: ResetPasswordInput = {
+			email: resetPasswordDto.email,
+			token: resetPasswordDto.token,
+			newPassword: resetPasswordDto.newPassword,
+		};
+
+		await this.authService.resetPassword(payload);
+
+		return { message: "common.message.passwordResetSuccess" };
 	}
 
 	private getCookieOptions(options: { maxAge?: number; httpOnly?: boolean } = {}): CookieOptions {
