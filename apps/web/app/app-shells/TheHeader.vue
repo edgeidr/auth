@@ -54,6 +54,8 @@
 			</nav>
 		</div>
 	</header>
+
+	<div v-if="pendingLogout || !user" class="bg-surface-200 fixed inset-0 z-9999"></div>
 </template>
 
 <script setup lang="ts">
@@ -64,7 +66,7 @@
 	const profileMenu = ref();
 	const { user, fullName } = useCurrentUser();
 
-	const { execute: logout } = useCustomFetch("/auth/logout", {
+	const { execute: logout, pending: pendingLogout } = useCustomFetch("/auth/logout", {
 		method: "POST",
 	});
 
