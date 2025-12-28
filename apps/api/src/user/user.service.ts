@@ -7,9 +7,9 @@ import { UserAuthStateService } from "../user-auth-state/user-auth-state.service
 import { CreateUserInput } from "./inputs/create-user.input";
 import { userSelect } from "../../prisma/selects/user.select";
 import { userProfileSelect } from "../../prisma/selects/user-profile.select";
-import { UpdateUserInput } from "./inputs/update-user.input";
 import { UpdatePasswordInput } from "./inputs/update-password.input";
 import { LinkGoogleInput } from "./inputs/link-google.input";
+import { UpdateUserProfileInput } from "./inputs/update-user-profile.input";
 
 @Injectable()
 export class UserService {
@@ -127,9 +127,9 @@ export class UserService {
 		return safeUser;
 	}
 
-	async update(id: string, input: UpdateUserInput, options: FindUserOptions = {}) {
+	async update(input: UpdateUserProfileInput) {
 		await this.prismaService.user.update({
-			where: { id },
+			where: { id: input.userId },
 			data: {
 				userProfile: {
 					update: {
@@ -138,7 +138,7 @@ export class UserService {
 					},
 				},
 			},
-			select: this.buildSelect(options),
+			select: this.buildSelect(),
 		});
 	}
 

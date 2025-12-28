@@ -10,21 +10,19 @@
 					<label class="text-muted-color text-sm">
 						{{ $t("account.profile.accountInformation.labels.accountId") }}
 					</label>
-					<InputText v-model="data.accountId" class="w-full" disabled unstyled />
-				</div>
-
-				<div>
-					<label class="text-muted-color text-sm">
-						{{ $t("account.profile.accountInformation.labels.createdAt") }}
-					</label>
-					<InputText v-model="data.createdAt" class="w-full" disabled unstyled />
+					<InputText :value="user?.publicId" class="w-full" disabled unstyled />
 				</div>
 
 				<div>
 					<label class="text-muted-color text-sm">
 						{{ $t("account.profile.accountInformation.labels.status") }}
 					</label>
-					<InputText v-model="data.status" class="w-full" disabled unstyled />
+					<InputText
+						:value="status"
+						:class="{ 'text-red-500': !user?.isActive }"
+						class="w-full"
+						disabled
+						unstyled />
 				</div>
 			</div>
 		</template>
@@ -32,9 +30,7 @@
 </template>
 
 <script setup lang="ts">
-	const data = reactive({
-		accountId: "usr_2kN5xPq9M1LbFg",
-		createdAt: "January 15, 2024",
-		status: "Active",
-	});
+	const { user } = useCurrentUser();
+
+	const status = computed(() => (user.value?.isActive ? "Active" : "Inactive"));
 </script>

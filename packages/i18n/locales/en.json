@@ -7,12 +7,13 @@
 			"loginFailed": "Login Failed. Please try again.",
 			"accountLocked": "Account is temporarily locked. Please try again later.",
 			"tryAgain": "Something went wrong. Try again later.",
-			"registrationSuccess": "Account created successfully.",
 			"accessDenied": "Access denied.",
 			"emailUnverified": "No verified email found. Please use a different account.",
 			"maxOtpAttempts": "Max OTP attempts reached. Try again in {minutes} minute(s).",
+			"accountInactive": "Account has been deactivated. Please contact support.",
+			"registrationSuccess": "Account created successfully.",
 			"passwordResetSuccess": "Password has been reset successfully.",
-			"accountInactive": "Account has been deactivated. Please contact support."
+			"profileUpdateSuccess": "Profile updated successfully."
 		},
 		"validation": {
 			"required": "This is required",
