@@ -6,36 +6,38 @@
 
 		<template #content>
 			<form @submit.prevent="onSubmit()" id="personalInformation" class="space-y-4">
-				<div>
-					<FloatLabel variant="in">
-						<InputText
-							v-model="form.firstName"
-							:invalid="hasError('firstName')"
-							@input="clearError('firstName')"
-							name="firstName"
-							required
-							fluid />
-						<label for="firstName">
-							{{ $t("common.inputs.firstName") }}
-						</label>
-					</FloatLabel>
-					<FieldError :error="getError('firstName')" />
-				</div>
+				<div class="flex gap-4">
+					<div class="flex-1">
+						<FloatLabel variant="in">
+							<InputText
+								v-model="form.firstName"
+								:invalid="hasError('firstName')"
+								@input="clearError('firstName')"
+								name="firstName"
+								required
+								fluid />
+							<label for="firstName">
+								{{ $t("common.inputs.firstName") }}
+							</label>
+						</FloatLabel>
+						<FieldError :error="getError('firstName')" />
+					</div>
 
-				<div>
-					<FloatLabel variant="in">
-						<InputText
-							v-model="form.lastName"
-							name="lastName"
-							:invalid="hasError('lastName')"
-							@input="clearError('lastName')"
-							required
-							fluid />
-						<label for="lastName">
-							{{ $t("common.inputs.lastName") }}
-						</label>
-					</FloatLabel>
-					<FieldError :error="getError('lastName')" />
+					<div class="flex-1">
+						<FloatLabel variant="in">
+							<InputText
+								v-model="form.lastName"
+								name="lastName"
+								:invalid="hasError('lastName')"
+								@input="clearError('lastName')"
+								required
+								fluid />
+							<label for="lastName">
+								{{ $t("common.inputs.lastName") }}
+							</label>
+						</FloatLabel>
+						<FieldError :error="getError('lastName')" />
+					</div>
 				</div>
 			</form>
 		</template>
@@ -43,9 +45,16 @@
 		<template #footer>
 			<div class="flex justify-end gap-4">
 				<Button
+					label="Reset"
+					@click="resetForm()"
+					:disabled="!hasChanged"
+					severity="secondary" />
+
+				<Button
 					type="submit"
 					form="personalInformation"
 					:loading="pending"
+					:disabled="!hasChanged"
 					:label="$t('common.actions.save')" />
 			</div>
 		</template>
@@ -57,7 +66,7 @@
 	const config = useRuntimeConfig();
 	const { t } = useI18n();
 	const { user, getCurrentUser } = useCurrentUser();
-	const { form, getError, hasError, clearError } = useForm({
+	const { form, getError, hasError, clearError, resetForm, hasChanged, reinitialize } = useForm({
 		firstName: user.value?.userProfile?.firstName,
 		lastName: user.value?.userProfile?.lastName,
 	});
@@ -71,6 +80,7 @@
 			const { message } = response._data as { message: string };
 
 			await getCurrentUser();
+			reinitialize();
 
 			toast.add({
 				summary: t("common.status.success"),
