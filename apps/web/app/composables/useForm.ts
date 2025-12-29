@@ -1,6 +1,3 @@
-import { reactive, ref } from "vue";
-import { useI18n } from "vue-i18n";
-
 interface FormError {
 	field: string;
 	error: string[];
@@ -10,9 +7,13 @@ type FormShape = Record<string, any>;
 
 export const useForm = <T extends FormShape>(initialValues: T) => {
 	const { t } = useI18n();
-
 	const form = reactive<T>({ ...initialValues });
 	const errors = ref<FormError[]>([]);
+	const initialSnapshot = reactive(structuredClone(initialValues));
+
+	const hasChanged = computed(() => {
+		return JSON.stringify(form) !== JSON.stringify(initialSnapshot);
+	});
 
 	const hasError = (field: keyof T | string): boolean => {
 		return errors.value.some((e) => e.field === field);
@@ -36,13 +37,19 @@ export const useForm = <T extends FormShape>(initialValues: T) => {
 	};
 
 	const resetForm = () => {
-		Object.assign(form, initialValues);
+		Object.assign(form, structuredClone({ ...initialSnapshot }));
 		clearAllErrors();
+	};
+
+	const reinitialize = () => {
+		Object.assign(initialSnapshot, structuredClone({ ...form }));
 	};
 
 	return {
 		form,
 		errors,
+		hasChanged,
+		reinitialize,
 		hasError,
 		getError,
 		setErrors,
