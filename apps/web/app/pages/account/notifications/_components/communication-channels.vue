@@ -18,12 +18,7 @@
 
 								<div class="flex-1">
 									<span>{{ item.title }}</span>
-
-									<div class="flex items-center gap-2">
-										<span class="text-muted-color text-sm">
-											{{ item.subtitle }}
-										</span>
-									</div>
+									<p class="text-muted-color text-sm">{{ item.subtitle }}</p>
 								</div>
 
 								<ToggleSwitch />
