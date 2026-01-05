@@ -1,4 +1,5 @@
 export const Icons = {
+	check: "hugeicons:checkmark-circle-03",
 	file: "hugeicons:file-02",
 	email: "hugeicons:at",
 	github: "hugeicons:github-01",

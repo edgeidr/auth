@@ -76,7 +76,22 @@
 			"resend": "Resend {timer}",
 			"sendCode": "Send Code",
 			"revoke": "Revoke",
-			"signOutOtherDevices": "Sign out all other devices"
+			"signOutOtherDevices": "Sign out all other devices",
+			"change": "Change",
+			"addEmail": "Add Email",
+			"connect": "Connect",
+			"disconnect": "Disconnect"
+		},
+		"tags": {
+			"verified": "Verified",
+			"unverified": "Unverified",
+			"enabled": "Enabled",
+			"disabled": "Disabled",
+			"connected": "Connected",
+			"disconnected": "Disconnected"
+		},
+		"timestamps": {
+			"lastChanged": "Last changed {time}"
 		}
 	},
 	"layout": {
@@ -90,7 +105,7 @@
 				"description": "Personal information"
 			},
 			"security": {
-				"description": "Password & Sessions"
+				"description": "Account access & sign-in"
 			},
 			"notifications": {
 				"description": "Email & alerts"
@@ -155,9 +170,18 @@
 			}
 		},
 		"security": {
-			"changePassword": {
-				"title": "Change Password",
-				"subtitle": "Update your password regulary to keep your account secure"
+			"emailAddress": {
+				"title": "Email Address",
+				"subtitle": "Manage your primary email address for sign-in and communications"
+			},
+			"password": {
+				"title": "Password",
+				"subtitle": "Traditional password-based authentication",
+				"passwordSignIn": "Password Sign-In"
+			},
+			"socialAccounts": {
+				"title": "Social Accounts",
+				"subtitle": "Connected sign-in providers"
 			},
 			"activeSessions": {
 				"title": "Active Sessions",

@@ -33,7 +33,6 @@
 								<Button
 									v-if="!session.isCurrent"
 									:label="$t('common.actions.revoke')"
-									variant="outlined"
 									severity="secondary" />
 							</div>
 						</div>
