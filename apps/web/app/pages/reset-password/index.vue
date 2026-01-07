@@ -48,7 +48,7 @@
 
 			<div class="mt-4 text-center">
 				<Button
-					:label="$t('common.actions.backToLogin')"
+					:label="$t('common.actions.backTo', { page: hasUser ? 'Home' : 'Login' })"
 					variant="link"
 					:as="NuxtLink"
 					to="/login"
@@ -65,13 +65,16 @@
 <script setup lang="ts">
 	import { NuxtLink } from "#components";
 	import { Icons } from "@repo/assets";
+	import { Access } from "@repo/shared";
 
 	definePageMeta({
 		layout: "auth",
+		access: [Access.AUTHENTICATED, Access.GUEST],
 	});
 
 	const toast = useToast();
 	const route = useRoute();
+	const { hasUser } = useCurrentUser();
 	const { t } = useI18n();
 	const { form, setErrors, hasError, getError, clearError } = useForm({
 		tokenId: route.query.tokenId,

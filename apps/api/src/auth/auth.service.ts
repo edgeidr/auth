@@ -13,7 +13,7 @@ import { RegisterInput } from "./inputs/register.input";
 import { LogoutInput } from "./inputs/logout.input";
 import { RotateTokensInput } from "./inputs/rotate-tokens.input";
 import { OtpService } from "../otp/otp.service";
-import { OtpType, TokenType } from "../generated/prisma/enums";
+import { OtpType } from "../generated/prisma/enums";
 import { ResetPasswordInput } from "./inputs/reset-password.input";
 
 @Injectable()
@@ -123,14 +123,6 @@ export class AuthService {
 		return { accessToken, refreshToken, sessionId: session.id };
 	}
 
-	async forgotPassword(email: string) {
-		return this.otpService.sendViaEmail({
-			subject: "Reset Your Password - OTP Verification",
-			email,
-			type: OtpType.FORGOT_PASSWORD,
-		});
-	}
-
 	async resetPassword(input: ResetPasswordInput) {
 		const token = await this.tokenService.verifyOrThrow({
 			id: input.tokenId,
@@ -152,8 +144,20 @@ export class AuthService {
 		});
 	}
 
-	async requestPasswordReset(userId: string) {
+	async requestPasswordChange(userId: string) {
 		const user = await this.userService.findOne(userId);
+
+		if (!user?.email) throw new BadRequestException("common.message.tryAgain");
+
+		return this.otpService.sendViaEmail({
+			subject: "Reset Your Password - OTP Verification",
+			email: user.email,
+			type: OtpType.PASSWORD_RESET,
+		});
+	}
+
+	async requestPasswordReset(email: string) {
+		const user = await this.userService.findOneByEmail(email);
 
 		if (!user?.email) throw new BadRequestException("common.message.tryAgain");
 

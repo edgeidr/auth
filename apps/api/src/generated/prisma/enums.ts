@@ -18,7 +18,6 @@ export type ActionScope = (typeof ActionScope)[keyof typeof ActionScope]
 
 
 export const OtpType = {
-  FORGOT_PASSWORD: 'FORGOT_PASSWORD',
   PASSWORD_RESET: 'PASSWORD_RESET'
 } as const
 

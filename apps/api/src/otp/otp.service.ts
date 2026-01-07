@@ -123,15 +123,6 @@ export class OtpService {
 		await this.otpAttemptService.reset(otpAttemptPayload);
 
 		switch (otp.type) {
-			case OtpType.FORGOT_PASSWORD: {
-				const { tokenId, token } = await this.tokenService.reissue({
-					userId: user.id,
-					type: TokenType.PASSWORD_RESET,
-				});
-
-				return { nextStep: `reset-password?tokenId=${tokenId}&token=${token}` };
-			}
-
 			case OtpType.PASSWORD_RESET: {
 				const { tokenId, token } = await this.tokenService.reissue({
 					userId: user.id,

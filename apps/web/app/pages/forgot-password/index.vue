@@ -31,7 +31,7 @@
 
 			<div class="mt-4 text-center">
 				<Button
-					:label="$t('common.actions.backToLogin')"
+					:label="$t('common.actions.backTo', { page: 'Login' })"
 					variant="link"
 					:as="NuxtLink"
 					to="/login"
@@ -48,29 +48,28 @@
 <script setup lang="ts">
 	import { NuxtLink } from "#components";
 	import { Icons } from "@repo/assets";
+	import { Access } from "@repo/shared";
 
 	definePageMeta({
 		layout: "auth",
+		access: [Access.GUEST],
 	});
 
-	const forgotPasswordEmail = useState<string | null>("forgotPasswordEmail");
-	const forgotPasswordCodeExpiry = useState<Date | null>("forgotPasswordCodeExpiry");
+	const route = useRoute();
 	const { form, setErrors, getError, clearError } = useForm({
+		token: route.query.token,
 		email: "",
 	});
 
-	const { execute: onSubmit, pending } = useCustomFetch("/auth/forgot-password", {
+	const { execute: onSubmit, pending } = useCustomFetch("/auth/password/reset/request", {
 		method: "POST",
 		body: form,
 		onResponse: ({ response }) => {
 			if (!response.ok) return;
 
-			const { expiresAt } = response._data as { expiresAt: string };
+			const { token } = response._data as { token: string };
 
-			forgotPasswordEmail.value = form.email;
-			forgotPasswordCodeExpiry.value = new Date(expiresAt);
-
-			navigateTo("/forgot-password/verify");
+			navigateTo(`/verify-otp?token=${token}`);
 		},
 		onResponseError: ({ response }) => {
 			const { message } = response._data as { message: any };

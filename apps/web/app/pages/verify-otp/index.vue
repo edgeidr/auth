@@ -44,9 +44,7 @@
 
 			<div class="mt-4 text-center">
 				<Button
-					:label="
-						$t('common.actions.backToPreviousStep', { previousStep: backButtonLabel })
-					"
+					:label="$t('common.actions.backTo', { page: hasUser ? 'Home' : 'Login' })"
 					variant="link"
 					:as="NuxtLink"
 					to="/login"
@@ -63,9 +61,11 @@
 <script setup lang="ts">
 	import { NuxtLink } from "#components";
 	import { Icons } from "@repo/assets";
+	import { Access } from "@repo/shared";
 
 	definePageMeta({
 		layout: "auth",
+		access: [Access.AUTHENTICATED, Access.GUEST],
 	});
 
 	const { hasUser } = useCurrentUser();
@@ -112,10 +112,6 @@
 		const timer = resendTimer.value ? `(${resendTimer.value}s)` : null;
 
 		return t("common.actions.resend", { timer });
-	});
-
-	const backButtonLabel = computed(() => {
-		return hasUser.value ? "Home" : "Login";
 	});
 
 	watch(

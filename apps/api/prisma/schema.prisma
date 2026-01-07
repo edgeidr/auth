@@ -20,7 +20,6 @@ enum ActionScope {
 }
 
 enum OtpType {
-    FORGOT_PASSWORD
     PASSWORD_RESET
 }
 

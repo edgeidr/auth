@@ -9,7 +9,11 @@
 	</Card>
 
 	<div class="mt-4 flex items-center justify-between gap-4">
-		<Button :label="$t('common.actions.backToLogin')" variant="text" :as="NuxtLink" to="/login">
+		<Button
+			:label="$t('common.actions.backTo', { page: hasUser ? 'Home' : 'Login' })"
+			variant="text"
+			:as="NuxtLink"
+			to="/login">
 			<template #icon="slotProps">
 				<Icon :name="Icons.left" :class="slotProps.class" />
 			</template>
@@ -37,4 +41,6 @@
 		layout: "legal",
 		access: [Access.GUEST, Access.AUTHENTICATED],
 	});
+
+	const { hasUser } = useCurrentUser();
 </script>

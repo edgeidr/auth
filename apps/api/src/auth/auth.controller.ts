@@ -19,7 +19,7 @@ import { RegisterDto } from "./dto/register.dto";
 import { JwtAccessGuard, JwtRefreshGuard } from "../jwt/jwt.guard";
 import { GoogleOauthGuard } from "./guards/google-oauth.guard";
 import { GithubOauthGuard } from "./guards/github-oauth.guard";
-import { ForgotPasswordDto } from "./dto/forgot-password.dto";
+import { PasswordResetRequestDto } from "./dto/password-reset-request";
 import { ResetPasswordDto } from "./dto/reset-password.dto";
 import { ResetPasswordInput } from "./inputs/reset-password.input";
 
@@ -192,11 +192,6 @@ export class AuthController {
 		return response.redirect(redirectUrl);
 	}
 
-	@Post("forgot-password")
-	forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
-		return this.authService.forgotPassword(forgotPasswordDto.email);
-	}
-
 	@Post("reset-password")
 	async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
 		const payload: ResetPasswordInput = {
@@ -210,12 +205,17 @@ export class AuthController {
 		return { message: "common.message.passwordResetSuccess" };
 	}
 
+	@Post("password/reset/request")
+	async requestPasswordReset(@Body() passwordResetRequestDto: PasswordResetRequestDto) {
+		return this.authService.requestPasswordReset(passwordResetRequestDto.email);
+	}
+
 	@UseGuards(JwtAccessGuard)
 	@Post("password/change/request")
-	async requestPasswordReset(@Req() request: Request) {
+	async requestPasswordChange(@Req() request: Request) {
 		const { userId } = request.user as { userId: string };
 
-		return this.authService.requestPasswordReset(userId);
+		return this.authService.requestPasswordChange(userId);
 	}
 
 	private getCookieOptions(options: { maxAge?: number; httpOnly?: boolean } = {}): CookieOptions {
