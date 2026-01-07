@@ -68,16 +68,14 @@
 
 	definePageMeta({
 		layout: "auth",
-		middleware: ["require-reset-password-credentials"],
 	});
 
 	const toast = useToast();
+	const route = useRoute();
 	const { t } = useI18n();
-	const resetPasswordEmail = useState<string | null>("resetPasswordEmail");
-	const resetPasswordToken = useState<string | null>("resetPasswordToken");
 	const { form, setErrors, hasError, getError, clearError } = useForm({
-		email: resetPasswordEmail.value,
-		token: resetPasswordToken.value,
+		tokenId: route.query.tokenId,
+		token: route.query.token,
 		newPassword: "",
 		confirmNewPassword: "",
 	});
@@ -90,7 +88,7 @@
 
 			const { message } = response._data as { message: string };
 
-			await navigateTo("/login");
+			await navigateTo("/");
 
 			toast.add({
 				summary: t("common.status.success"),
@@ -104,10 +102,5 @@
 
 			if (message && Array.isArray(message)) setErrors(message);
 		},
-	});
-
-	onUnmounted(() => {
-		resetPasswordEmail.value = null;
-		resetPasswordToken.value = null;
 	});
 </script>

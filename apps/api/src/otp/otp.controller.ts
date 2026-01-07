@@ -11,8 +11,7 @@ export class OtpController {
 	verify(@Body() verifyOtpDto: VerifyOtpDto) {
 		const payload: VerifyOtpInput = {
 			code: verifyOtpDto.code,
-			email: verifyOtpDto.email,
-			type: verifyOtpDto.type,
+			id: verifyOtpDto.token,
 		};
 
 		return this.otpService.verifyCode(payload);

@@ -1,7 +1,4 @@
-import { TokenType } from "../../generated/prisma/enums";
-
 export interface VerifyTokenInput {
-	type: TokenType;
+	id: string;
 	value: string;
-	userId: string;
 }

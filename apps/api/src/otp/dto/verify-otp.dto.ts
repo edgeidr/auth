@@ -1,13 +1,9 @@
-import { IsEmail, IsEnum, IsNotEmpty } from "class-validator";
-import { OtpType } from "../../generated/prisma/enums";
+import { IsNotEmpty } from "class-validator";
 
 export class VerifyOtpDto {
-	@IsEmail({}, { message: "common.validation.invalidEmail" })
-	email: string;
+	@IsNotEmpty({ message: "common.validation.required" })
+	token: string;
 
-	@IsNotEmpty({ message: "validation.required" })
+	@IsNotEmpty({ message: "common.validation.required" })
 	code: string;
-
-	@IsEnum(OtpType)
-	type: OtpType;
 }

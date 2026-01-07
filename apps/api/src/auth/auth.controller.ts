@@ -200,7 +200,7 @@ export class AuthController {
 	@Post("reset-password")
 	async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
 		const payload: ResetPasswordInput = {
-			email: resetPasswordDto.email,
+			tokenId: resetPasswordDto.tokenId,
 			token: resetPasswordDto.token,
 			newPassword: resetPasswordDto.newPassword,
 		};
@@ -208,6 +208,14 @@ export class AuthController {
 		await this.authService.resetPassword(payload);
 
 		return { message: "common.message.passwordResetSuccess" };
+	}
+
+	@UseGuards(JwtAccessGuard)
+	@Post("password/change/request")
+	async requestPasswordReset(@Req() request: Request) {
+		const { userId } = request.user as { userId: string };
+
+		return this.authService.requestPasswordReset(userId);
 	}
 
 	private getCookieOptions(options: { maxAge?: number; httpOnly?: boolean } = {}): CookieOptions {

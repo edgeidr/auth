@@ -29,17 +29,14 @@ export class TokenService {
 
 	async verifyOrThrow(input: VerifyTokenInput) {
 		const token = await this.prismaService.token.findUnique({
-			where: {
-				userId_type: {
-					userId: input.userId,
-					type: input.type,
-				},
-			},
+			where: { id: input.id },
 		});
 
 		if (!token || !(await verify(token.value, input.value))) {
 			throw new BadRequestException("common.message.tryAgain");
 		}
+
+		return token;
 	}
 
 	async create(input: TokenInput) {
@@ -47,16 +44,17 @@ export class TokenService {
 		const hashedTokenValue = await hash(tokenValue);
 		const expiresAt = new Date(Date.now() + this.TOKEN_DURATION);
 
-		await this.prismaService.token.create({
+		const token = await this.prismaService.token.create({
 			data: {
 				userId: input.userId,
 				type: input.type,
 				value: hashedTokenValue,
 				expiresAt,
 			},
+			select: { id: true },
 		});
 
-		return { value: tokenValue };
+		return { tokenId: token.id, token: tokenValue };
 	}
 
 	async remove(input: TokenInput) {

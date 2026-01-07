@@ -27,7 +27,12 @@
 						</p>
 					</div>
 
-					<Button :label="t('common.actions.resetPassword')" severity="secondary" />
+					<Button
+						@click="sendCode()"
+						:label="t('common.actions.resetPassword')"
+						:disabled="!user?.email || pending"
+						:loading="pending"
+						severity="secondary" />
 				</div>
 			</div>
 		</template>
@@ -37,6 +42,17 @@
 <script setup lang="ts">
 	import { Icons } from "@repo/assets";
 
-	const { user } = useCurrentUser();
 	const { t } = useI18n();
+	const { user } = useCurrentUser();
+
+	const { execute: sendCode, pending } = useCustomFetch("/auth/password/change/request", {
+		method: "POST",
+		onResponse: ({ response }) => {
+			if (!response.ok) return;
+
+			const { token } = response._data as { token: string };
+
+			navigateTo(`/verify-otp?token=${token}`);
+		},
+	});
 </script>

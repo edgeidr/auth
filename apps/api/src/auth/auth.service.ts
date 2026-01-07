@@ -132,21 +132,35 @@ export class AuthService {
 	}
 
 	async resetPassword(input: ResetPasswordInput) {
-		const user = await this.userService.findOneByEmail(input.email, {
-			include: { password: true },
+		const token = await this.tokenService.verifyOrThrow({
+			id: input.tokenId,
+			value: input.token,
 		});
+
+		const user = await this.userService.findOne(token.userId);
 
 		if (!user) throw new BadRequestException("common.message.tryAgain");
-
-		await this.tokenService.verifyOrThrow({
-			userId: user.id,
-			value: input.token,
-			type: TokenType.PASSWORD_RESET,
-		});
 
 		await this.userService.updatePassword(user.id, {
 			newPassword: input.newPassword,
 			skipOldPassword: true,
+		});
+
+		await this.tokenService.remove({
+			type: token.type,
+			userId: token.userId,
+		});
+	}
+
+	async requestPasswordReset(userId: string) {
+		const user = await this.userService.findOne(userId);
+
+		if (!user?.email) throw new BadRequestException("common.message.tryAgain");
+
+		return this.otpService.sendViaEmail({
+			subject: "Reset Your Password - OTP Verification",
+			email: user.email,
+			type: OtpType.PASSWORD_RESET,
 		});
 	}
 }

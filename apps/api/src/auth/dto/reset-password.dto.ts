@@ -1,9 +1,9 @@
-import { IsEmail, IsNotEmpty, IsStrongPassword } from "class-validator";
+import { IsNotEmpty, IsStrongPassword } from "class-validator";
 import { Match } from "../../common/decorators/match.decorator";
 
 export class ResetPasswordDto {
-	@IsEmail({}, { message: "common.validation.invalidEmail" })
-	email: string;
+	@IsNotEmpty({ message: "common.validation.required" })
+	tokenId: string;
 
 	@IsNotEmpty({ message: "common.validation.required" })
 	token: string;

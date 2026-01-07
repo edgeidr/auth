@@ -67,6 +67,7 @@
 			"cancel": "Cancel",
 			"save": "Save Changes",
 			"logout": "Logout",
+			"backToPreviousStep": "Back to {previousStep}",
 			"backToLogin": "Back to Login",
 			"signIn": "Sign In",
 			"signUp": "Sign Up",
@@ -142,6 +143,15 @@
 		"code": {
 			"expiresIn": "Expires in {expiry}",
 			"expired": "Code Expired"
+		},
+		"help": {
+			"full": "Didn't receive the code? {resend}"
+		}
+	},
+	"verifyOtp": {
+		"header": {
+			"title": "Enter OTP",
+			"subtitle": "We've sent a 6-digit code to your email. OTP is valid for 5 minutes."
 		},
 		"help": {
 			"full": "Didn't receive the code? {resend}"

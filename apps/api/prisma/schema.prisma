@@ -21,6 +21,7 @@ enum ActionScope {
 
 enum OtpType {
     FORGOT_PASSWORD
+    PASSWORD_RESET
 }
 
 enum TokenType {
@@ -161,6 +162,7 @@ model UserAuthState {
 }
 
 model Otp {
+    id        String   @id @default(cuid())
     userId    String
     type      OtpType
     code      String
@@ -169,7 +171,7 @@ model Otp {
 
     user User @relation(fields: [userId], references: [id])
 
-    @@id([userId, type])
+    @@unique([userId, type])
     @@map("otps")
 }
 
@@ -189,14 +191,15 @@ model OtpAttempt {
 }
 
 model Token {
+    id        String    @id @default(cuid())
     userId    String
     type      TokenType
-    value     String
+    value     String    @unique
     expiresAt DateTime
     createdAt DateTime  @default(now())
 
     user User @relation(fields: [userId], references: [id])
 
-    @@id([userId, type])
+    @@unique([userId, type])
     @@map("tokens")
 }

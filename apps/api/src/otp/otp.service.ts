@@ -12,6 +12,7 @@ import { OtpType, TokenType } from "../generated/prisma/enums";
 import { TokenService } from "../token/token.service";
 import { OtpAttemptInput } from "../otp-attempt/inputs/otp-attempt.input";
 import { OtpInput } from "./inputs/otp.input";
+import cuid from "cuid";
 
 @Injectable()
 export class OtpService {
@@ -30,11 +31,10 @@ export class OtpService {
 		this.OTP_LENGTH = configService.get<number>("OTP_LENGTH", 6);
 	}
 
-	findOne(input: OtpInput) {
+	findOne(id: string) {
 		return this.prismaService.otp.findFirst({
 			where: {
-				userId: input.userId,
-				type: input.type,
+				id,
 				expiresAt: { gte: new Date() },
 			},
 		});
@@ -61,7 +61,7 @@ export class OtpService {
 
 		return {
 			code,
-			expiresAt: otp.expiresAt,
+			id: otp.id,
 		};
 	}
 
@@ -76,7 +76,7 @@ export class OtpService {
 
 	async sendViaEmail(input: SendOtpViaEmailInput) {
 		const user = await this.userService.findOneByEmail(input.email);
-		let expiresAt = new Date(Date.now() + this.OTP_DURATION);
+		let token = cuid();
 
 		if (user) {
 			const otp = await this.reissue({ userId: user.id, type: input.type });
@@ -87,14 +87,22 @@ export class OtpService {
 				code: otp.code,
 			});
 
-			expiresAt = otp.expiresAt;
+			token = otp.id;
 		}
 
-		return { expiresAt };
+		return { token };
 	}
 
 	async verifyCode(input: VerifyOtpInput) {
-		const user = await this.userService.findOneByEmail(input.email);
+		const otp = await this.findOne(input.id);
+
+		if (!otp) {
+			throw new ConflictException({
+				message: [{ field: "code", error: ["common.validation.invalidOtp"] }],
+			});
+		}
+
+		const user = await this.userService.findOne(otp.userId);
 
 		if (!user) {
 			throw new ConflictException({
@@ -102,24 +110,36 @@ export class OtpService {
 			});
 		}
 
-		const otpAttemptPayload: OtpAttemptInput = { userId: user.id, type: input.type };
+		const otpAttemptPayload: OtpAttemptInput = { userId: otp.userId, type: otp.type };
 
 		await this.otpAttemptService.throwIfLocked(otpAttemptPayload);
 
-		const otp = await this.findOne(otpAttemptPayload);
-
-		if (!otp || !(await verify(otp.code, input.code))) {
+		if (!(await verify(otp.code, input.code))) {
 			await this.otpAttemptService.handleFailure(otpAttemptPayload);
+			return;
 		}
 
+		await this.remove({ type: otp.type, userId: otp.userId });
 		await this.otpAttemptService.reset(otpAttemptPayload);
 
-		switch (input.type) {
-			case OtpType.FORGOT_PASSWORD:
-				return this.tokenService.reissue({
+		switch (otp.type) {
+			case OtpType.FORGOT_PASSWORD: {
+				const { tokenId, token } = await this.tokenService.reissue({
 					userId: user.id,
 					type: TokenType.PASSWORD_RESET,
 				});
+
+				return { nextStep: `reset-password?tokenId=${tokenId}&token=${token}` };
+			}
+
+			case OtpType.PASSWORD_RESET: {
+				const { tokenId, token } = await this.tokenService.reissue({
+					userId: user.id,
+					type: TokenType.PASSWORD_RESET,
+				});
+
+				return { nextStep: `reset-password?tokenId=${tokenId}&token=${token}` };
+			}
 
 			default:
 				return true;

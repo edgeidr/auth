@@ -1,7 +1,4 @@
-import { OtpType } from "../../generated/prisma/enums";
-
 export interface VerifyOtpInput {
-	email: string;
+	id: string;
 	code: string;
-	type: OtpType;
 }

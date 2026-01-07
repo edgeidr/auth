@@ -28,18 +28,20 @@ export class OtpAttemptService {
 	}
 
 	async increase(input: OtpAttemptInput) {
+		const now = new Date();
+
 		return this.prismaService.otpAttempt.upsert({
 			where: { userId_type: input },
 			create: {
 				userId: input.userId,
 				type: input.type,
 				failedAttempts: 1,
-				lastAttemptAt: new Date(),
+				lastAttemptAt: now,
 				lockedUntil: null,
 			},
 			update: {
 				failedAttempts: { increment: 1 },
-				lastAttemptAt: new Date(),
+				lastAttemptAt: now,
 			},
 		});
 	}
@@ -61,11 +63,20 @@ export class OtpAttemptService {
 	}
 
 	async reset(input: OtpAttemptInput) {
-		await this.prismaService.otpAttempt.update({
+		const now = new Date();
+
+		await this.prismaService.otpAttempt.upsert({
 			where: { userId_type: input },
-			data: {
+			create: {
+				userId: input.userId,
+				type: input.type,
 				failedAttempts: 0,
-				lastAttemptAt: null,
+				lastAttemptAt: now,
+				lockedUntil: null,
+			},
+			update: {
+				failedAttempts: 0,
+				lastAttemptAt: now,
 				lockedUntil: null,
 			},
 		});
