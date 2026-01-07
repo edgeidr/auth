@@ -2,6 +2,7 @@ import { Body, Controller, Post } from "@nestjs/common";
 import { OtpService } from "./otp.service";
 import { VerifyOtpDto } from "./dto/verify-otp.dto";
 import { VerifyOtpInput } from "./inputs/verify-otp.input";
+import { ResendOtpDto } from "./dto/resend-otp.dto";
 
 @Controller("otps")
 export class OtpController {
@@ -15,5 +16,10 @@ export class OtpController {
 		};
 
 		return this.otpService.verifyCode(payload);
+	}
+
+	@Post("resend")
+	resend(@Body() resendOtpDto: ResendOtpDto) {
+		return this.otpService.resendViaEmail(resendOtpDto.token);
 	}
 }

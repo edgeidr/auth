@@ -150,7 +150,6 @@ export class AuthService {
 		if (!user?.email) throw new BadRequestException("common.message.tryAgain");
 
 		return this.otpService.sendViaEmail({
-			subject: "Reset Your Password - OTP Verification",
 			email: user.email,
 			type: OtpType.PASSWORD_RESET,
 		});
@@ -162,7 +161,6 @@ export class AuthService {
 		if (!user?.email) throw new BadRequestException("common.message.tryAgain");
 
 		return this.otpService.sendViaEmail({
-			subject: "Reset Your Password - OTP Verification",
 			email: user.email,
 			type: OtpType.PASSWORD_RESET,
 		});

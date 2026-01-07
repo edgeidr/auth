@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from "@nestjs/common";
+import { BadRequestException, ConflictException, Injectable } from "@nestjs/common";
 import { SendOtpViaEmailInput } from "./inputs/send-otp-via-email.input";
 import { UserService } from "../user/user.service";
 import { ConfigService } from "@nestjs/config";
@@ -18,6 +18,7 @@ import cuid from "cuid";
 export class OtpService {
 	private readonly OTP_DURATION: number;
 	private readonly OTP_LENGTH: number;
+	private readonly MAIL_SUBJECT = "Your verification code";
 
 	constructor(
 		private readonly configService: ConfigService,
@@ -38,6 +39,25 @@ export class OtpService {
 				expiresAt: { gte: new Date() },
 			},
 		});
+	}
+
+	async updateCode(id: string) {
+		const expiry = new Date(Date.now() + this.OTP_DURATION);
+		const code = this.generate();
+		const hashedCode = await hash(code);
+
+		const otp = await this.prismaService.otp.update({
+			where: { id },
+			data: {
+				code: hashedCode,
+				expiresAt: expiry,
+			},
+		});
+
+		return {
+			code,
+			id: otp.id,
+		};
 	}
 
 	async reissue(input: OtpInput) {
@@ -82,7 +102,7 @@ export class OtpService {
 			const otp = await this.reissue({ userId: user.id, type: input.type });
 
 			await this.mailTemplateService.sendOtp({
-				subject: input.subject,
+				subject: this.MAIL_SUBJECT,
 				recipients: [input.email],
 				code: otp.code,
 			});
@@ -134,6 +154,24 @@ export class OtpService {
 
 			default:
 				return true;
+		}
+	}
+
+	async resendViaEmail(id: string) {
+		const otp = await this.findOne(id);
+
+		if (!otp) return;
+
+		const user = await this.userService.findOne(otp.userId);
+
+		if (user?.email) {
+			const otp = await this.updateCode(id);
+
+			await this.mailTemplateService.sendOtp({
+				subject: this.MAIL_SUBJECT,
+				recipients: [user.email],
+				code: otp.code,
+			});
 		}
 	}
 
