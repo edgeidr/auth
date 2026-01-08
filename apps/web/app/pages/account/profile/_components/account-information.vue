@@ -5,7 +5,7 @@
 		<template #subtitle>{{ $t("account.profile.accountInformation.subtitle") }} </template>
 
 		<template #content>
-			<div class="columns-2 space-y-4">
+			<div class="space-y-4">
 				<div>
 					<label class="text-muted-color text-sm">
 						{{ $t("account.profile.accountInformation.labels.accountId") }}

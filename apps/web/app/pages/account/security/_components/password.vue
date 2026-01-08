@@ -6,7 +6,7 @@
 
 		<template #content>
 			<div class="-m-2">
-				<div class="hover:bg-surface-50 flex items-center gap-4 rounded-lg p-2">
+				<div class="flex items-center gap-4 rounded-lg p-2">
 					<div class="flex aspect-square place-items-center rounded-lg p-3">
 						<Icon :name="Icons.key" size="large" />
 					</div>
@@ -29,7 +29,7 @@
 
 					<Button
 						@click="sendCode()"
-						:label="t('common.actions.resetPassword')"
+						:label="t('common.actions.change')"
 						:disabled="!user?.email || pending"
 						:loading="pending"
 						severity="secondary" />

@@ -72,7 +72,6 @@
 			"signUp": "Sign Up",
 			"createAccount": "Create Account",
 			"forgotPassword": "Forgot Password?",
-			"resetPassword": "Reset Password",
 			"resend": "Resend {timer}",
 			"sendCode": "Send Code",
 			"revoke": "Revoke",

@@ -6,38 +6,36 @@
 
 		<template #content>
 			<form @submit.prevent="onSubmit()" id="personalInformation" class="space-y-4">
-				<div class="flex gap-4">
-					<div class="flex-1">
-						<FloatLabel variant="in">
-							<InputText
-								v-model="form.firstName"
-								:invalid="hasError('firstName')"
-								@input="clearError('firstName')"
-								name="firstName"
-								required
-								fluid />
-							<label for="firstName">
-								{{ $t("common.inputs.firstName") }}
-							</label>
-						</FloatLabel>
-						<FieldError :error="getError('firstName')" />
-					</div>
+				<div>
+					<FloatLabel variant="in">
+						<InputText
+							v-model="form.firstName"
+							:invalid="hasError('firstName')"
+							@input="clearError('firstName')"
+							name="firstName"
+							required
+							fluid />
+						<label for="firstName">
+							{{ $t("common.inputs.firstName") }}
+						</label>
+					</FloatLabel>
+					<FieldError :error="getError('firstName')" />
+				</div>
 
-					<div class="flex-1">
-						<FloatLabel variant="in">
-							<InputText
-								v-model="form.lastName"
-								name="lastName"
-								:invalid="hasError('lastName')"
-								@input="clearError('lastName')"
-								required
-								fluid />
-							<label for="lastName">
-								{{ $t("common.inputs.lastName") }}
-							</label>
-						</FloatLabel>
-						<FieldError :error="getError('lastName')" />
-					</div>
+				<div>
+					<FloatLabel variant="in">
+						<InputText
+							v-model="form.lastName"
+							name="lastName"
+							:invalid="hasError('lastName')"
+							@input="clearError('lastName')"
+							required
+							fluid />
+						<label for="lastName">
+							{{ $t("common.inputs.lastName") }}
+						</label>
+					</FloatLabel>
+					<FieldError :error="getError('lastName')" />
 				</div>
 			</form>
 		</template>

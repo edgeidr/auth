@@ -1,8 +1,8 @@
 <template>
 	<header class="bg-surface-0 fixed inset-x-0 z-50 h-16 shadow duration-200">
-		<div class="container mx-auto h-full">
-			<nav class="grid h-full grid-cols-12 items-center gap-4 py-2 duration-200">
-				<div class="col-span-3 justify-items-start">
+		<div class="mx-auto h-full px-8">
+			<nav class="flex h-full items-center justify-between gap-4 py-2 duration-200">
+				<div class="w-sm justify-items-start">
 					<div>
 						<NuxtLink to="/">
 							<img :src="Images.TransparentLogo" class="h-10" />
@@ -10,9 +10,9 @@
 					</div>
 				</div>
 
-				<div class="col-span-6 h-full justify-items-center"></div>
+				<div class="h-full w-xl justify-items-center"></div>
 
-				<div class="col-span-3 justify-items-end">
+				<div class="w-sm justify-items-end">
 					<ul class="flex items-center gap-4">
 						<li>
 							<div class="flex">

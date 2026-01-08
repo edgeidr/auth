@@ -2,8 +2,8 @@
 	<TheHeader />
 
 	<TheMain>
-		<div class="relative container mx-auto grid grid-cols-12 gap-4">
-			<aside v-if="hasLeftSidebar" class="sticky top-0 col-span-3 h-screen pt-16">
+		<div class="relative mx-auto flex justify-between gap-4 px-8">
+			<aside class="sticky top-0 h-screen w-sm pt-16">
 				<ScrollPanel :pt="passthrough.sidebar">
 					<div class="space-y-4 pt-8 pb-8">
 						<slot name="sidebar-left" />
@@ -11,21 +11,13 @@
 				</ScrollPanel>
 			</aside>
 
-			<section
-				:class="[
-					{
-						'col-span-6': sidebarCount === 2,
-						'col-span-9': sidebarCount === 1,
-						'col-span-12': sidebarCount === 0,
-					},
-					'pt-16',
-				]">
+			<section class="w-xl pt-16">
 				<div class="relative min-h-full pt-8 pb-8">
 					<slot />
 				</div>
 			</section>
 
-			<aside v-if="hasRightSidebar" class="sticky top-0 col-span-3 h-screen pt-16">
+			<aside class="sticky top-0 h-screen w-sm pt-16">
 				<ScrollPanel :pt="passthrough.sidebar">
 					<div class="space-y-4 pt-8 pb-8">
 						<slot name="sidebar-right" />
