@@ -10,8 +10,10 @@
 	import CommunicationChannels from "./_components/communication-channels.vue";
 	import SecurityAlerts from "./_components/security-alerts.vue";
 	import AccountActivity from "./_components/account-activity.vue";
+	import { Access } from "@repo/shared";
 
 	definePageMeta({
 		layout: "account",
+		access: [Access.AUTHENTICATED],
 	});
 </script>
