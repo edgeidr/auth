@@ -173,4 +173,15 @@ export class AuthService {
 			type: OtpType.PASSWORD_RESET,
 		});
 	}
+
+	async requestPasswordDisable(userId: string) {
+		const user = await this.userService.findOne(userId);
+
+		if (!user?.email) throw new BadRequestException("common.message.tryAgain");
+
+		return this.otpService.sendViaEmail({
+			email: user.email,
+			type: OtpType.PASSWORD_DISABLE,
+		});
+	}
 }

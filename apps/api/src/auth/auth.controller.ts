@@ -218,6 +218,14 @@ export class AuthController {
 		return this.authService.requestPasswordChange(userId);
 	}
 
+	@UseGuards(JwtAccessGuard)
+	@Post("password/disable/request")
+	async requestPasswordDisable(@Req() request: Request) {
+		const { userId } = request.user as { userId: string };
+
+		return this.authService.requestPasswordDisable(userId);
+	}
+
 	private getCookieOptions(options: { maxAge?: number; httpOnly?: boolean } = {}): CookieOptions {
 		const secureEnvironments = ["production", "staging"];
 		const useSecure = secureEnvironments.includes(

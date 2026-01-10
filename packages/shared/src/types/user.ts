@@ -3,7 +3,7 @@ export interface User {
 	email: string;
 	publicId: string;
 	passwordEnabled: boolean;
-	passwordChangedAt: Date;
+	passwordUpdatedAt: Date;
 	isActive: boolean;
 	userProfile?: UserProfile;
 }

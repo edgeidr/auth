@@ -68,8 +68,9 @@
 		access: [Access.AUTHENTICATED, Access.GUEST],
 	});
 
-	const { hasUser } = useCurrentUser();
+	const { hasUser, getCurrentUser } = useCurrentUser();
 	const { t } = useI18n();
+	const toast = useToast();
 	const config = useRuntimeConfig();
 	const route = useRoute();
 	const resendExpiry = ref<Date | null>(null);
@@ -97,9 +98,24 @@
 		onResponse: async ({ response }) => {
 			if (!response.ok) return;
 
-			const { nextStep } = response._data as { nextStep: string };
+			const { nextStep, refreshUser, message } = response._data as {
+				nextStep: string;
+				refreshUser?: boolean;
+				message?: string;
+			};
 
-			navigateTo(nextStep);
+			if (refreshUser) await getCurrentUser();
+
+			if (message) {
+				toast.add({
+					summary: t("common.status.success"),
+					detail: t(message),
+					severity: "success",
+					life: config.public.toastLife,
+				});
+			}
+
+			await navigateTo(nextStep);
 		},
 		onResponseError: ({ response }) => {
 			const { message } = response._data as { message: any };

@@ -31,15 +31,15 @@
 							</Tag>
 						</div>
 
-						<p class="text-muted-color text-sm">{{ passwordLastChanged }}</p>
+						<p class="text-muted-color text-sm">{{ passwordLastUpdated }}</p>
 					</div>
 
 					<div>
 						<Button
 							@click="menu?.toggle"
 							severity="secondary"
-							:disabled="!user?.email || pending"
-							:loading="pending">
+							:disabled="!user?.email || pendingChange || pendingDisable"
+							:loading="pendingChange || pendingDisable">
 							<template #icon>
 								<Icon :name="Icons.moreVertical" size="large" />
 							</template>
@@ -66,29 +66,46 @@
 	const menu = ref();
 	const menuItemsEnabled = ref<MenuItem[]>([
 		{ label: "Change", command: () => onChange() },
-		{ label: "Disable" },
+		{ label: "Disable", command: () => onDisable() },
 	]);
 	const menuItemsDisabled = ref<MenuItem[]>([
 		{ label: "Set Password", command: () => onChange() },
 	]);
 
-	const { execute: onChange, pending } = useCustomFetch("/auth/password/change/request", {
-		method: "POST",
-		onResponse: ({ response }) => {
-			if (!response.ok) return;
+	const { execute: onChange, pending: pendingChange } = useCustomFetch(
+		"/auth/password/change/request",
+		{
+			method: "POST",
+			onResponse: ({ response }) => {
+				if (!response.ok) return;
 
-			const { token } = response._data as { token: string };
+				const { token } = response._data as { token: string };
 
-			navigateTo(`/verify-otp?token=${token}`);
+				navigateTo(`/verify-otp?token=${token}`);
+			},
 		},
-	});
+	);
 
-	const passwordLastChanged = computed(() => {
-		if (!user.value?.passwordEnabled && !user.value?.passwordChangedAt) {
+	const { execute: onDisable, pending: pendingDisable } = useCustomFetch(
+		"/auth/password/disable/request",
+		{
+			method: "POST",
+			onResponse: ({ response }) => {
+				if (!response.ok) return;
+
+				const { token } = response._data as { token: string };
+
+				navigateTo(`/verify-otp?token=${token}`);
+			},
+		},
+	);
+
+	const passwordLastUpdated = computed(() => {
+		if (!user.value?.passwordEnabled && !user.value?.passwordUpdatedAt) {
 			return t("account.security.password.passwordNeverSet");
 		}
 
-		const { value } = useTimeAgo(user.value.passwordChangedAt);
-		return t("common.timestamps.lastChanged", { time: value });
+		const { value } = useTimeAgo(user.value.passwordUpdatedAt);
+		return t("common.timestamps.lastUpdated", { time: value });
 	});
 </script>

@@ -33,7 +33,7 @@ export class UserService {
 			data: {
 				email: input.email,
 				password: input.password ? await hash(input.password) : null,
-				passwordChangedAt: new Date(),
+				passwordUpdatedAt: new Date(),
 				googleSub: input.googleSub,
 				githubId: input.githubId,
 				userProfile: {
@@ -161,7 +161,21 @@ export class UserService {
 			where: { id },
 			data: {
 				password: hashedPassword,
-				passwordChangedAt: new Date(),
+				passwordUpdatedAt: new Date(),
+			},
+		});
+	}
+
+	async disablePassword(id: string) {
+		const user = await this.findOne(id);
+
+		if (!user) throw new BadRequestException("common.message.tryAgain");
+
+		await this.prismaService.user.update({
+			where: { id },
+			data: {
+				password: null,
+				passwordUpdatedAt: new Date(),
 			},
 		});
 	}

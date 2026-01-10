@@ -152,6 +152,16 @@ export class OtpService {
 				return { nextStep: `reset-password?tokenId=${tokenId}&token=${token}` };
 			}
 
+			case OtpType.PASSWORD_DISABLE: {
+				await this.userService.disablePassword(user.id);
+
+				return {
+					nextStep: "/",
+					refreshUser: true,
+					message: "common.message.passwordDisableSuccess",
+				};
+			}
+
 			default:
 				return true;
 		}

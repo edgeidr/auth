@@ -17,6 +17,7 @@ export type ActionScope = (typeof ActionScope)[keyof typeof ActionScope];
 
 export const OtpType = {
 	PASSWORD_RESET: "PASSWORD_RESET",
+	PASSWORD_DISABLE: "PASSWORD_DISABLE",
 } as const;
 
 export type OtpType = (typeof OtpType)[keyof typeof OtpType];
