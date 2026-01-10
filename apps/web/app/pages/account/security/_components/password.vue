@@ -31,7 +31,7 @@
 							</Tag>
 						</div>
 
-						<p class="text-muted-color text-sm">{{ passwordLastUpdated }}</p>
+						<p class="text-muted-color text-sm">{{ lastUpdatedLabel }}</p>
 					</div>
 
 					<div>
@@ -100,7 +100,7 @@
 		},
 	);
 
-	const passwordLastUpdated = computed(() => {
+	const lastUpdatedLabel = computed(() => {
 		if (!user.value?.passwordEnabled && !user.value?.passwordUpdatedAt) {
 			return t("account.security.password.passwordNeverSet");
 		}
