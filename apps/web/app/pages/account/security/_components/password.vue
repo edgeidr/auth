@@ -65,11 +65,11 @@
 
 	const menu = ref();
 	const menuItemsEnabled = ref<MenuItem[]>([
-		{ label: "Change", command: () => onChange() },
-		{ label: "Disable", command: () => onDisable() },
+		{ label: t("common.actions.change"), command: () => onChange() },
+		{ label: t("common.actions.disable"), command: () => onDisable() },
 	]);
 	const menuItemsDisabled = ref<MenuItem[]>([
-		{ label: "Set Password", command: () => onChange() },
+		{ label: t("common.actions.setPassword"), command: () => onChange() },
 	]);
 
 	const { execute: onChange, pending: pendingChange } = useCustomFetch(

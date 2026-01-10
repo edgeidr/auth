@@ -81,7 +81,9 @@
 			"addEmail": "Add Email",
 			"connect": "Connect",
 			"disconnect": "Disconnect",
-			"resetPassword": "Reset Password"
+			"resetPassword": "Reset Password",
+			"disable": "Disable",
+			"setPassword": "Set Password"
 		},
 		"tags": {
 			"verified": "Verified",
