@@ -1,5 +1,6 @@
 export const Icons = {
-	check: "hugeicons:checkmark-circle-03",
+	disabled: "hugeicons:unavailable",
+	enabled: "hugeicons:checkmark-circle-03",
 	file: "hugeicons:file-02",
 	email: "hugeicons:at",
 	github: "hugeicons:github-01",
@@ -22,4 +23,5 @@ export const Icons = {
 	computer: "hugeicons:computer",
 	googleLogo: "logos:google-icon",
 	githubLogo: "logos:github-icon",
+	moreVertical: "hugeicons:more-vertical",
 };

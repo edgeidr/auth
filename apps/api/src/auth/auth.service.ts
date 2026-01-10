@@ -70,12 +70,20 @@ export class AuthService {
 
 	async getMe(userId: string) {
 		const user = await this.userService.findOne(userId, {
-			include: { userProfile: true },
+			include: {
+				userProfile: true,
+				password: true,
+			},
 		});
 
 		if (!user) throw new UnauthorizedException("common.message.accessDenied");
 
-		return user;
+		const { password, ...userData } = user;
+
+		return {
+			...userData,
+			passwordEnabled: !!password,
+		};
 	}
 
 	async logout(input: LogoutInput) {

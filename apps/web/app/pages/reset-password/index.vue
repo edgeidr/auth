@@ -74,7 +74,7 @@
 
 	const toast = useToast();
 	const route = useRoute();
-	const { hasUser } = useCurrentUser();
+	const { hasUser, getCurrentUser } = useCurrentUser();
 	const { t } = useI18n();
 	const { form, setErrors, hasError, getError, clearError } = useForm({
 		tokenId: route.query.tokenId,
@@ -99,6 +99,8 @@
 				severity: "success",
 				life: useRuntimeConfig().public.toastLife,
 			});
+
+			if (hasUser) await getCurrentUser();
 		},
 		onResponseError: ({ response }) => {
 			const { message } = response._data as { message: any };

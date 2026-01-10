@@ -28,13 +28,14 @@ enum TokenType {
 }
 
 model User {
-    id        String  @id @default(cuid())
-    publicId  String  @unique @default(nanoid(6))
-    email     String? @unique
-    password  String?
-    googleSub String? @unique
-    githubId  String? @unique
-    isActive  Boolean @default(true)
+    id                String    @id @default(cuid())
+    publicId          String    @unique @default(nanoid(6))
+    email             String?   @unique
+    password          String?
+    passwordChangedAt DateTime?
+    googleSub         String?   @unique
+    githubId          String?   @unique
+    isActive          Boolean   @default(true)
 
     createdAt DateTime  @default(now())
     updatedAt DateTime  @updatedAt

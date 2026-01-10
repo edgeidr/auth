@@ -19,7 +19,7 @@
 							severity="secondary"
 							:value="$t('common.tags.connected')">
 							<template #icon>
-								<Icon :name="Icons.check" class="text-green-500" />
+								<Icon :name="Icons.enabled" class="text-green-500" />
 							</template>
 						</Tag>
 					</div>

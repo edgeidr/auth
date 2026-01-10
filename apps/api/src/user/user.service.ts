@@ -33,6 +33,7 @@ export class UserService {
 			data: {
 				email: input.email,
 				password: input.password ? await hash(input.password) : null,
+				passwordChangedAt: new Date(),
 				googleSub: input.googleSub,
 				githubId: input.githubId,
 				userProfile: {
@@ -158,7 +159,10 @@ export class UserService {
 
 		await this.prismaService.user.update({
 			where: { id },
-			data: { password: hashedPassword },
+			data: {
+				password: hashedPassword,
+				passwordChangedAt: new Date(),
+			},
 		});
 	}
 

@@ -79,7 +79,8 @@
 			"change": "Change",
 			"addEmail": "Add Email",
 			"connect": "Connect",
-			"disconnect": "Disconnect"
+			"disconnect": "Disconnect",
+			"resetPassword": "Reset Password"
 		},
 		"tags": {
 			"verified": "Verified",
@@ -185,7 +186,8 @@
 			"password": {
 				"title": "Password",
 				"subtitle": "Traditional password-based authentication",
-				"passwordSignIn": "Password Sign-In"
+				"passwordSignIn": "Password Sign-In",
+				"passwordNeverSet": "Password has not been set"
 			},
 			"socialAccounts": {
 				"title": "Social Accounts",

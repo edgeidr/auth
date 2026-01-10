@@ -2,6 +2,8 @@ export interface User {
 	id: string;
 	email: string;
 	publicId: string;
+	passwordEnabled: boolean;
+	passwordChangedAt: Date;
 	isActive: boolean;
 	userProfile?: UserProfile;
 }

@@ -29,6 +29,7 @@ export type UserMinAggregateOutputType = {
   publicId: string | null
   email: string | null
   password: string | null
+  passwordChangedAt: Date | null
   googleSub: string | null
   githubId: string | null
   isActive: boolean | null
@@ -42,6 +43,7 @@ export type UserMaxAggregateOutputType = {
   publicId: string | null
   email: string | null
   password: string | null
+  passwordChangedAt: Date | null
   googleSub: string | null
   githubId: string | null
   isActive: boolean | null
@@ -55,6 +57,7 @@ export type UserCountAggregateOutputType = {
   publicId: number
   email: number
   password: number
+  passwordChangedAt: number
   googleSub: number
   githubId: number
   isActive: number
@@ -70,6 +73,7 @@ export type UserMinAggregateInputType = {
   publicId?: true
   email?: true
   password?: true
+  passwordChangedAt?: true
   googleSub?: true
   githubId?: true
   isActive?: true
@@ -83,6 +87,7 @@ export type UserMaxAggregateInputType = {
   publicId?: true
   email?: true
   password?: true
+  passwordChangedAt?: true
   googleSub?: true
   githubId?: true
   isActive?: true
@@ -96,6 +101,7 @@ export type UserCountAggregateInputType = {
   publicId?: true
   email?: true
   password?: true
+  passwordChangedAt?: true
   googleSub?: true
   githubId?: true
   isActive?: true
@@ -182,6 +188,7 @@ export type UserGroupByOutputType = {
   publicId: string
   email: string | null
   password: string | null
+  passwordChangedAt: Date | null
   googleSub: string | null
   githubId: string | null
   isActive: boolean
@@ -216,6 +223,7 @@ export type UserWhereInput = {
   publicId?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringNullableFilter<"User"> | string | null
   password?: Prisma.StringNullableFilter<"User"> | string | null
+  passwordChangedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   googleSub?: Prisma.StringNullableFilter<"User"> | string | null
   githubId?: Prisma.StringNullableFilter<"User"> | string | null
   isActive?: Prisma.BoolFilter<"User"> | boolean
@@ -235,6 +243,7 @@ export type UserOrderByWithRelationInput = {
   publicId?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   password?: Prisma.SortOrderInput | Prisma.SortOrder
+  passwordChangedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   googleSub?: Prisma.SortOrderInput | Prisma.SortOrder
   githubId?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -259,6 +268,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   password?: Prisma.StringNullableFilter<"User"> | string | null
+  passwordChangedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   isActive?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -276,6 +286,7 @@ export type UserOrderByWithAggregationInput = {
   publicId?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   password?: Prisma.SortOrderInput | Prisma.SortOrder
+  passwordChangedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   googleSub?: Prisma.SortOrderInput | Prisma.SortOrder
   githubId?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -295,6 +306,7 @@ export type UserScalarWhereWithAggregatesInput = {
   publicId?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   password?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  passwordChangedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   googleSub?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   githubId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   isActive?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
@@ -308,6 +320,7 @@ export type UserCreateInput = {
   publicId?: string
   email?: string | null
   password?: string | null
+  passwordChangedAt?: Date | string | null
   googleSub?: string | null
   githubId?: string | null
   isActive?: boolean
@@ -327,6 +340,7 @@ export type UserUncheckedCreateInput = {
   publicId?: string
   email?: string | null
   password?: string | null
+  passwordChangedAt?: Date | string | null
   googleSub?: string | null
   githubId?: string | null
   isActive?: boolean
@@ -346,6 +360,7 @@ export type UserUpdateInput = {
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -365,6 +380,7 @@ export type UserUncheckedUpdateInput = {
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -384,6 +400,7 @@ export type UserCreateManyInput = {
   publicId?: string
   email?: string | null
   password?: string | null
+  passwordChangedAt?: Date | string | null
   googleSub?: string | null
   githubId?: string | null
   isActive?: boolean
@@ -397,6 +414,7 @@ export type UserUpdateManyMutationInput = {
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -410,6 +428,7 @@ export type UserUncheckedUpdateManyInput = {
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -423,6 +442,7 @@ export type UserCountOrderByAggregateInput = {
   publicId?: Prisma.SortOrder
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
+  passwordChangedAt?: Prisma.SortOrder
   googleSub?: Prisma.SortOrder
   githubId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -436,6 +456,7 @@ export type UserMaxOrderByAggregateInput = {
   publicId?: Prisma.SortOrder
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
+  passwordChangedAt?: Prisma.SortOrder
   googleSub?: Prisma.SortOrder
   githubId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -449,6 +470,7 @@ export type UserMinOrderByAggregateInput = {
   publicId?: Prisma.SortOrder
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
+  passwordChangedAt?: Prisma.SortOrder
   googleSub?: Prisma.SortOrder
   githubId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -470,16 +492,16 @@ export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
-}
-
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
 }
 
 export type UserCreateNestedOneWithoutUserProfileInput = {
@@ -571,6 +593,7 @@ export type UserCreateWithoutUserProfileInput = {
   publicId?: string
   email?: string | null
   password?: string | null
+  passwordChangedAt?: Date | string | null
   googleSub?: string | null
   githubId?: string | null
   isActive?: boolean
@@ -589,6 +612,7 @@ export type UserUncheckedCreateWithoutUserProfileInput = {
   publicId?: string
   email?: string | null
   password?: string | null
+  passwordChangedAt?: Date | string | null
   googleSub?: string | null
   githubId?: string | null
   isActive?: boolean
@@ -623,6 +647,7 @@ export type UserUpdateWithoutUserProfileInput = {
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -641,6 +666,7 @@ export type UserUncheckedUpdateWithoutUserProfileInput = {
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -659,6 +685,7 @@ export type UserCreateWithoutSessionsInput = {
   publicId?: string
   email?: string | null
   password?: string | null
+  passwordChangedAt?: Date | string | null
   googleSub?: string | null
   githubId?: string | null
   isActive?: boolean
@@ -677,6 +704,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   publicId?: string
   email?: string | null
   password?: string | null
+  passwordChangedAt?: Date | string | null
   googleSub?: string | null
   githubId?: string | null
   isActive?: boolean
@@ -711,6 +739,7 @@ export type UserUpdateWithoutSessionsInput = {
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -729,6 +758,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -747,6 +777,7 @@ export type UserCreateWithoutUserAuthStatesInput = {
   publicId?: string
   email?: string | null
   password?: string | null
+  passwordChangedAt?: Date | string | null
   googleSub?: string | null
   githubId?: string | null
   isActive?: boolean
@@ -765,6 +796,7 @@ export type UserUncheckedCreateWithoutUserAuthStatesInput = {
   publicId?: string
   email?: string | null
   password?: string | null
+  passwordChangedAt?: Date | string | null
   googleSub?: string | null
   githubId?: string | null
   isActive?: boolean
@@ -799,6 +831,7 @@ export type UserUpdateWithoutUserAuthStatesInput = {
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -817,6 +850,7 @@ export type UserUncheckedUpdateWithoutUserAuthStatesInput = {
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -835,6 +869,7 @@ export type UserCreateWithoutOtpsInput = {
   publicId?: string
   email?: string | null
   password?: string | null
+  passwordChangedAt?: Date | string | null
   googleSub?: string | null
   githubId?: string | null
   isActive?: boolean
@@ -853,6 +888,7 @@ export type UserUncheckedCreateWithoutOtpsInput = {
   publicId?: string
   email?: string | null
   password?: string | null
+  passwordChangedAt?: Date | string | null
   googleSub?: string | null
   githubId?: string | null
   isActive?: boolean
@@ -887,6 +923,7 @@ export type UserUpdateWithoutOtpsInput = {
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -905,6 +942,7 @@ export type UserUncheckedUpdateWithoutOtpsInput = {
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -923,6 +961,7 @@ export type UserCreateWithoutOtpAttemptsInput = {
   publicId?: string
   email?: string | null
   password?: string | null
+  passwordChangedAt?: Date | string | null
   googleSub?: string | null
   githubId?: string | null
   isActive?: boolean
@@ -941,6 +980,7 @@ export type UserUncheckedCreateWithoutOtpAttemptsInput = {
   publicId?: string
   email?: string | null
   password?: string | null
+  passwordChangedAt?: Date | string | null
   googleSub?: string | null
   githubId?: string | null
   isActive?: boolean
@@ -975,6 +1015,7 @@ export type UserUpdateWithoutOtpAttemptsInput = {
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -993,6 +1034,7 @@ export type UserUncheckedUpdateWithoutOtpAttemptsInput = {
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1011,6 +1053,7 @@ export type UserCreateWithoutTokensInput = {
   publicId?: string
   email?: string | null
   password?: string | null
+  passwordChangedAt?: Date | string | null
   googleSub?: string | null
   githubId?: string | null
   isActive?: boolean
@@ -1029,6 +1072,7 @@ export type UserUncheckedCreateWithoutTokensInput = {
   publicId?: string
   email?: string | null
   password?: string | null
+  passwordChangedAt?: Date | string | null
   googleSub?: string | null
   githubId?: string | null
   isActive?: boolean
@@ -1063,6 +1107,7 @@ export type UserUpdateWithoutTokensInput = {
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1081,6 +1126,7 @@ export type UserUncheckedUpdateWithoutTokensInput = {
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   googleSub?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   githubId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1157,6 +1203,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   publicId?: boolean
   email?: boolean
   password?: boolean
+  passwordChangedAt?: boolean
   googleSub?: boolean
   githubId?: boolean
   isActive?: boolean
@@ -1177,6 +1224,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   publicId?: boolean
   email?: boolean
   password?: boolean
+  passwordChangedAt?: boolean
   googleSub?: boolean
   githubId?: boolean
   isActive?: boolean
@@ -1190,6 +1238,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   publicId?: boolean
   email?: boolean
   password?: boolean
+  passwordChangedAt?: boolean
   googleSub?: boolean
   githubId?: boolean
   isActive?: boolean
@@ -1203,6 +1252,7 @@ export type UserSelectScalar = {
   publicId?: boolean
   email?: boolean
   password?: boolean
+  passwordChangedAt?: boolean
   googleSub?: boolean
   githubId?: boolean
   isActive?: boolean
@@ -1211,7 +1261,7 @@ export type UserSelectScalar = {
   deletedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "publicId" | "email" | "password" | "googleSub" | "githubId" | "isActive" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "publicId" | "email" | "password" | "passwordChangedAt" | "googleSub" | "githubId" | "isActive" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   userProfile?: boolean | Prisma.User$userProfileArgs<ExtArgs>
   userAuthStates?: boolean | Prisma.User$userAuthStatesArgs<ExtArgs>
@@ -1239,6 +1289,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     publicId: string
     email: string | null
     password: string | null
+    passwordChangedAt: Date | null
     googleSub: string | null
     githubId: string | null
     isActive: boolean
@@ -1678,6 +1729,7 @@ export interface UserFieldRefs {
   readonly publicId: Prisma.FieldRef<"User", 'String'>
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly password: Prisma.FieldRef<"User", 'String'>
+  readonly passwordChangedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly googleSub: Prisma.FieldRef<"User", 'String'>
   readonly githubId: Prisma.FieldRef<"User", 'String'>
   readonly isActive: Prisma.FieldRef<"User", 'Boolean'>
