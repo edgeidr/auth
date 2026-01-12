@@ -11,14 +11,25 @@
 
 	const { hasUser } = useCurrentUser();
 	const route = useRoute();
-	const access = route.meta.access ?? [];
 
-	watch(hasUser, (hasUserData) => {
-		if (hasUserData && access.length > 0 && !access.includes(Access.AUTHENTICATED)) {
+	watchEffect(() => {
+		const access = route.meta.access ?? [];
+
+		if (
+			hasUser.value &&
+			access.length > 0 &&
+			!access.includes(Access.AUTHENTICATED) &&
+			route.path !== "/"
+		) {
 			return navigateTo("/");
 		}
 
-		if (!hasUserData && access.length > 0 && !access.includes(Access.GUEST)) {
+		if (
+			!hasUser.value &&
+			access.length > 0 &&
+			!access.includes(Access.GUEST) &&
+			route.path !== "/login"
+		) {
 			return navigateTo("/login");
 		}
 	});
