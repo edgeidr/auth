@@ -15,6 +15,7 @@ import { RotateTokensInput } from "./inputs/rotate-tokens.input";
 import { OtpService } from "../otp/otp.service";
 import { OtpType } from "../generated/prisma/enums";
 import { ResetPasswordInput } from "./inputs/reset-password.input";
+import { AddEmailInput } from "./inputs/add-email.input";
 
 @Injectable()
 export class AuthService {
@@ -182,6 +183,46 @@ export class AuthService {
 		return this.otpService.sendViaEmail({
 			email: user.email,
 			type: OtpType.PASSWORD_DISABLE,
+		});
+	}
+
+	async requestEmailAddition(userId: string) {
+		const user = await this.userService.findOne(userId);
+
+		if (!user) throw new BadRequestException("common.message.tryAgain");
+
+		return this.tokenService.reissue({
+			type: OtpType.EMAIL_CHANGE,
+			userId,
+		});
+	}
+
+	async addEmail(input: AddEmailInput) {
+		const user = await this.userService.findOne(input.userId);
+
+		if (!user) throw new BadRequestException("common.message.tryAgain");
+
+		const emailExists = await this.userService.findOneByEmail(input.email);
+
+		if (emailExists) {
+			throw new ConflictException({
+				message: [{ field: "email", error: ["common.validation.emailTaken"] }],
+			});
+		}
+
+		const token = await this.tokenService.verifyOrThrow({
+			id: input.tokenId,
+			value: input.token,
+		});
+
+		await this.tokenService.remove({
+			type: token.type,
+			userId: token.userId,
+		});
+
+		await this.userService.updateEmail({
+			userId: input.userId,
+			email: input.email,
 		});
 	}
 }

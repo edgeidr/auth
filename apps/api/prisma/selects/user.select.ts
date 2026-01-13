@@ -5,5 +5,7 @@ export const userSelect = <Prisma.UserSelect>{
 	publicId: true,
 	passwordUpdatedAt: true,
 	email: true,
+	emailVerifiedAt: true,
+	emailUpdatedAt: true,
 	isActive: true,
 };

@@ -22,16 +22,20 @@ enum ActionScope {
 enum OtpType {
     PASSWORD_RESET
     PASSWORD_DISABLE
+    EMAIL_CHANGE
 }
 
 enum TokenType {
     PASSWORD_RESET
+    EMAIL_CHANGE
 }
 
 model User {
     id                String    @id @default(cuid())
     publicId          String    @unique @default(nanoid(6))
     email             String?   @unique
+    emailVerifiedAt   DateTime?
+    emailUpdatedAt    DateTime?
     password          String?
     passwordUpdatedAt DateTime?
     googleSub         String?   @unique

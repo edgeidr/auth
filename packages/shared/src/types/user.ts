@@ -1,9 +1,11 @@
 export interface User {
 	id: string;
 	email: string;
+	emailVerifiedAt?: Date;
+	emailUpdatedAt?: Date;
 	publicId: string;
 	passwordEnabled: boolean;
-	passwordUpdatedAt: Date;
+	passwordUpdatedAt?: Date;
 	isActive: boolean;
 	userProfile?: UserProfile;
 }

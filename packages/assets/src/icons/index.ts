@@ -1,4 +1,5 @@
 export const Icons = {
+	unverified: "hugeicons:alert-02",
 	disabled: "hugeicons:unavailable",
 	enabled: "hugeicons:checkmark-circle-03",
 	file: "hugeicons:file-02",

@@ -18,12 +18,14 @@ export type ActionScope = (typeof ActionScope)[keyof typeof ActionScope];
 export const OtpType = {
 	PASSWORD_RESET: "PASSWORD_RESET",
 	PASSWORD_DISABLE: "PASSWORD_DISABLE",
+	EMAIL_CHANGE: "EMAIL_CHANGE",
 } as const;
 
 export type OtpType = (typeof OtpType)[keyof typeof OtpType];
 
 export const TokenType = {
 	PASSWORD_RESET: "PASSWORD_RESET",
+	EMAIL_CHANGE: "EMAIL_CHANGE",
 } as const;
 
 export type TokenType = (typeof TokenType)[keyof typeof TokenType];

@@ -14,7 +14,8 @@
 			"registrationSuccess": "Account created successfully.",
 			"passwordResetSuccess": "Password has been reset successfully.",
 			"profileUpdateSuccess": "Profile updated successfully.",
-			"passwordDisableSuccess": "Password has been disabled successfully."
+			"passwordDisableSuccess": "Password has been disabled successfully.",
+			"emailAddSuccess": "Email added successfully."
 		},
 		"validation": {
 			"required": "This is required",
@@ -83,7 +84,8 @@
 			"disconnect": "Disconnect",
 			"resetPassword": "Reset Password",
 			"disable": "Disable",
-			"setPassword": "Set Password"
+			"setPassword": "Set Password",
+			"verify": "Verify"
 		},
 		"tags": {
 			"verified": "Verified",
@@ -184,13 +186,15 @@
 		"security": {
 			"emailAddress": {
 				"title": "Email Address",
-				"subtitle": "Manage your primary email address for sign-in and communications"
+				"subtitle": "Manage your primary email address for sign-in and communications",
+				"emailNotSet": "Email not set",
+				"hint": "Add an email address to enable sign-in and notifications"
 			},
 			"password": {
 				"title": "Password",
 				"subtitle": "Traditional password-based authentication",
 				"passwordSignIn": "Password Sign-In",
-				"passwordNeverSet": "Password has not been set"
+				"hint": "Set a password to enable password-based sign-in"
 			},
 			"socialAccounts": {
 				"title": "Social Accounts",
@@ -257,6 +261,12 @@
 					}
 				}
 			}
+		}
+	},
+	"addEmail": {
+		"header": {
+			"title": "Add a New Email",
+			"subtitle": "Enter the email you want to use for your account"
 		}
 	}
 }

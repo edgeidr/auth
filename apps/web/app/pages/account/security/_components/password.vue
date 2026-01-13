@@ -102,10 +102,10 @@
 
 	const lastUpdatedLabel = computed(() => {
 		if (!user.value?.passwordEnabled && !user.value?.passwordUpdatedAt) {
-			return t("account.security.password.passwordNeverSet");
+			return t("account.security.password.hint");
 		}
 
-		const { value } = useTimeAgo(user.value.passwordUpdatedAt);
+		const { value } = useTimeAgo(user.value.passwordUpdatedAt!);
 		return t("common.timestamps.lastUpdated", { time: value });
 	});
 </script>

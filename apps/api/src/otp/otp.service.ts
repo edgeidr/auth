@@ -1,4 +1,4 @@
-import { BadRequestException, ConflictException, Injectable } from "@nestjs/common";
+import { ConflictException, Injectable } from "@nestjs/common";
 import { SendOtpViaEmailInput } from "./inputs/send-otp-via-email.input";
 import { UserService } from "../user/user.service";
 import { ConfigService } from "@nestjs/config";
@@ -161,6 +161,10 @@ export class OtpService {
 					message: "common.message.passwordDisableSuccess",
 				};
 			}
+
+			// case OtpType.EMAIL_CHANGE: {
+			// 	await this.userService.updateEmail({userId: user.id})
+			// }
 
 			default:
 				return true;

@@ -10,6 +10,7 @@ import { userProfileSelect } from "../../prisma/selects/user-profile.select";
 import { UpdatePasswordInput } from "./inputs/update-password.input";
 import { LinkGoogleInput } from "./inputs/link-google.input";
 import { UpdateUserProfileInput } from "./inputs/update-user-profile.input";
+import { UpdateEmailInput } from "./inputs/update-email.input";
 
 @Injectable()
 export class UserService {
@@ -190,6 +191,21 @@ export class UserService {
 		await this.prismaService.user.update({
 			where: { id: input.userId },
 			data: { googleSub: input.googleSub },
+		});
+	}
+
+	async updateEmail(input: UpdateEmailInput) {
+		const user = await this.findOne(input.userId);
+
+		if (!user) throw new BadRequestException("common.message.tryAgain");
+
+		await this.prismaService.user.update({
+			where: { id: user.id },
+			data: {
+				email: input.email,
+				emailUpdatedAt: new Date(),
+				emailVerifiedAt: null,
+			},
 		});
 	}
 }
