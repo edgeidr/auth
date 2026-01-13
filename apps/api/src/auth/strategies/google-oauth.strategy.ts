@@ -39,8 +39,12 @@ export class GoogleOauthStrategy extends PassportStrategy(Strategy, "google") {
 			user = await this.userService.findOneByEmail(email, { include: { inactive: true } });
 
 			if (!user) {
+				const now = new Date();
+
 				user = await this.userService.create({
 					email,
+					emailUpdatedAt: now,
+					emailVerifiedAt: now,
 					firstName,
 					lastName,
 					photoUrl,
@@ -49,7 +53,7 @@ export class GoogleOauthStrategy extends PassportStrategy(Strategy, "google") {
 			} else {
 				if (!user.isActive) return { error: "common.message.accountInactive" };
 
-				await this.userService.linkGoogle({ userId: user.id, googleSub });
+				return { error: "common.message.googleAccountNotLinked" };
 			}
 		}
 

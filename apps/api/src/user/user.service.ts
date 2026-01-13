@@ -33,6 +33,8 @@ export class UserService {
 		return this.prismaService.user.create({
 			data: {
 				email: input.email,
+				emailVerifiedAt: input.emailUpdatedAt,
+				emailUpdatedAt: input.emailUpdatedAt,
 				password: input.password ? await hash(input.password) : null,
 				passwordUpdatedAt: new Date(),
 				googleSub: input.googleSub,
