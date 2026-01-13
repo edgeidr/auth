@@ -13,7 +13,7 @@ import { RegisterInput } from "./inputs/register.input";
 import { LogoutInput } from "./inputs/logout.input";
 import { RotateTokensInput } from "./inputs/rotate-tokens.input";
 import { OtpService } from "../otp/otp.service";
-import { OtpType } from "../generated/prisma/enums";
+import { OtpType, TokenType } from "../generated/prisma/enums";
 import { ResetPasswordInput } from "./inputs/reset-password.input";
 import { AddEmailInput } from "./inputs/add-email.input";
 
@@ -192,7 +192,7 @@ export class AuthService {
 		if (!user) throw new BadRequestException("common.message.tryAgain");
 
 		return this.tokenService.reissue({
-			type: OtpType.EMAIL_CHANGE,
+			type: TokenType.EMAIL_CHANGE,
 			userId,
 		});
 	}
