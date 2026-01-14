@@ -1,6 +1,7 @@
 import {
 	BadRequestException,
 	ConflictException,
+	ForbiddenException,
 	Injectable,
 	UnauthorizedException,
 } from "@nestjs/common";
@@ -59,8 +60,8 @@ export class UserService {
 		});
 	}
 
-	findOne(id: string, options: FindUserOptions = {}) {
-		return this.prismaService.user.findUnique({
+	async findOne(id: string, options: FindUserOptions = {}) {
+		const user = await this.prismaService.user.findUnique({
 			where: {
 				id,
 				isActive: options.include?.inactive ? undefined : true,
@@ -68,10 +69,16 @@ export class UserService {
 			},
 			select: this.buildSelect(options),
 		});
+
+		if (!user?.emailVerifiedAt && !options.include?.unverifiedEmail) {
+			throw new ForbiddenException("common.message.emailUnverified");
+		}
+
+		return user;
 	}
 
-	findOneByEmail(email: string, options: FindUserOptions = {}) {
-		return this.prismaService.user.findUnique({
+	async findOneByEmail(email: string, options: FindUserOptions = {}) {
+		const user = await this.prismaService.user.findUnique({
 			where: {
 				email,
 				isActive: options.include?.inactive ? undefined : true,
@@ -79,6 +86,12 @@ export class UserService {
 			},
 			select: this.buildSelect(options),
 		});
+
+		if (!user?.emailVerifiedAt && !options.include?.unverifiedEmail) {
+			throw new ForbiddenException("common.message.emailUnverified");
+		}
+
+		return user;
 	}
 
 	findOneByGoogleSub(googleSub: string, options: FindUserOptions = {}) {
@@ -105,7 +118,7 @@ export class UserService {
 
 	async validateCredentials(input: ValidateCredentialsInput) {
 		const user = await this.findOneByEmail(input.email, {
-			include: { password: true },
+			include: { password: true, unverifiedEmail: true },
 		});
 
 		if (!user) throw new UnauthorizedException("common.message.invalidCredentials");
@@ -115,6 +128,7 @@ export class UserService {
 		const passwordMatches = !!user.password && (await verify(user.password, input.password));
 
 		if (!passwordMatches) await this.userAuthStateService.handleFailure(user.id);
+		if (!user.emailVerifiedAt) throw new ForbiddenException("common.message.emailUnverified");
 
 		await this.userAuthStateService.resetLoginAttempts(user.id);
 
@@ -189,7 +203,9 @@ export class UserService {
 	}
 
 	async verifyEmail(userId: string) {
-		const user = await this.findOne(userId);
+		const user = await this.findOne(userId, {
+			include: { unverifiedEmail: true },
+		});
 
 		if (!user) throw new BadRequestException("common.message.tryAgain");
 
@@ -205,7 +221,9 @@ export class UserService {
 		const user = await this.findOne(input.userId);
 		if (!user) throw new BadRequestException("common.message.tryAgain");
 
-		const emailExists = await this.findOneByEmail(input.email, { include: { inactive: true } });
+		const emailExists = await this.findOneByEmail(input.email, {
+			include: { inactive: true, unverifiedEmail: true },
+		});
 
 		if (emailExists) {
 			throw new ConflictException({

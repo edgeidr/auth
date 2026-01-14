@@ -8,7 +8,7 @@
 			"accountLocked": "Account is temporarily locked. Try again in {minutes} minute(s).",
 			"tryAgain": "Something went wrong. Try again later.",
 			"accessDenied": "Access denied.",
-			"emailUnverified": "No verified email found. Please use a different account.",
+			"noVerifiedEmail": "No verified email found. Please use a different account.",
 			"maxOtpAttempts": "Max OTP attempts reached. Try again in {minutes} minute(s).",
 			"accountInactive": "Account has been deactivated. Please contact support.",
 			"registrationSuccess": "Account created successfully.",
@@ -17,7 +17,8 @@
 			"passwordDisableSuccess": "Password has been disabled successfully.",
 			"emailAddSuccess": "Email added successfully.",
 			"emailVerifySuccess": "Email verified successfully.",
-			"emailChangeSuccess": "Email changed successfully."
+			"emailChangeSuccess": "Email changed successfully.",
+			"emailUnverified": "Email not verified."
 		},
 		"validation": {
 			"required": "This is required",

@@ -29,7 +29,7 @@ export class GoogleOauthStrategy extends PassportStrategy(Strategy, "google") {
 		const lastName = name?.familyName ?? "User";
 		const photoUrl = photos?.[0].value ?? undefined;
 
-		if (!email) return { error: "common.message.emailUnverified" };
+		if (!email) return { error: "common.message.noVerifiedEmail" };
 
 		let user = await this.userService.findOneByGoogleSub(googleSub, {
 			include: { inactive: true },

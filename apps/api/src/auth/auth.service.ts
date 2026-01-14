@@ -72,6 +72,7 @@ export class AuthService {
 			include: {
 				userProfile: true,
 				password: true,
+				unverifiedEmail: true,
 			},
 		});
 
@@ -175,7 +176,9 @@ export class AuthService {
 	}
 
 	async requestEmailVerification(userId: string) {
-		const user = await this.userService.findOne(userId);
+		const user = await this.userService.findOne(userId, {
+			include: { unverifiedEmail: true },
+		});
 
 		if (!user?.email) throw new BadRequestException("common.message.tryAgain");
 

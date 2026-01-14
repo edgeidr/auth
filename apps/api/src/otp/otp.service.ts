@@ -95,7 +95,10 @@ export class OtpService {
 	}
 
 	async sendViaEmail(input: SendOtpViaEmailInput) {
-		const user = await this.userService.findOneByEmail(input.email);
+		const user = await this.userService.findOneByEmail(input.email, {
+			include: { unverifiedEmail: true },
+		});
+
 		let token = cuid();
 
 		if (user) {
@@ -122,7 +125,9 @@ export class OtpService {
 			});
 		}
 
-		const user = await this.userService.findOne(otp.userId);
+		const user = await this.userService.findOne(otp.userId, {
+			include: { unverifiedEmail: true },
+		});
 
 		if (!user) {
 			throw new ConflictException({
@@ -191,7 +196,9 @@ export class OtpService {
 
 		if (!otp) return;
 
-		const user = await this.userService.findOne(otp.userId);
+		const user = await this.userService.findOne(otp.userId, {
+			include: { unverifiedEmail: true },
+		});
 
 		if (user?.email) {
 			const otp = await this.updateCode(id);

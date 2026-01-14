@@ -5,5 +5,6 @@ export interface FindUserOptions {
 		userProfile?: boolean;
 		googleSub?: boolean;
 		githubId?: boolean;
+		unverifiedEmail?: boolean;
 	};
 }

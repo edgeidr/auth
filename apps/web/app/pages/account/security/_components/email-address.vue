@@ -74,7 +74,11 @@
 		{ label: t("common.actions.change"), command: () => onChange() },
 	]);
 	const menuItemsUnverified = ref<MenuItem[]>([
-		{ label: t("common.actions.change"), command: () => onChange() },
+		{
+			label: t("common.actions.change"),
+			disabled: !user.value?.emailVerifiedAt,
+			command: () => onChange(),
+		},
 		{ label: t("common.actions.verify"), command: () => onVerify() },
 	]);
 
