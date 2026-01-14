@@ -172,6 +172,15 @@ export class OtpService {
 				};
 			}
 
+			case OtpType.EMAIL_CHANGE: {
+				const { tokenId, token } = await this.tokenService.reissue({
+					userId: user.id,
+					type: TokenType.EMAIL_CHANGE,
+				});
+
+				return { nextStep: `change-email?tokenId=${tokenId}&token=${token}` };
+			}
+
 			default:
 				return true;
 		}

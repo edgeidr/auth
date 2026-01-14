@@ -16,7 +16,8 @@
 			"profileUpdateSuccess": "Profile updated successfully.",
 			"passwordDisableSuccess": "Password has been disabled successfully.",
 			"emailAddSuccess": "Email added successfully.",
-			"emailVerifySuccess": "Email verified successfully."
+			"emailVerifySuccess": "Email verified successfully.",
+			"emailChangeSuccess": "Email changed successfully."
 		},
 		"validation": {
 			"required": "This is required",
@@ -268,6 +269,12 @@
 		"header": {
 			"title": "Add your email address",
 			"subtitle": "Enter the email you want to use for your account"
+		}
+	},
+	"changeEmail": {
+		"header": {
+			"title": "Change your email address",
+			"subtitle": "Update the email associated with your account"
 		}
 	}
 }

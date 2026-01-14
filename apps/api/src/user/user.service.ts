@@ -16,7 +16,6 @@ import { UpdatePasswordInput } from "./inputs/update-password.input";
 import { LinkGoogleInput } from "./inputs/link-google.input";
 import { UpdateUserProfileInput } from "./inputs/update-user-profile.input";
 import { UpdateEmailInput } from "./inputs/update-email.input";
-import { AddEmailInput } from "./inputs/add-email.input";
 import { TokenService } from "../token/token.service";
 import { ResetPasswordInput } from "./inputs/reset-password.input";
 
@@ -189,21 +188,6 @@ export class UserService {
 		});
 	}
 
-	async updateEmail(input: UpdateEmailInput) {
-		const user = await this.findOne(input.userId);
-
-		if (!user) throw new BadRequestException("common.message.tryAgain");
-
-		await this.prismaService.user.update({
-			where: { id: user.id },
-			data: {
-				email: input.email,
-				emailUpdatedAt: new Date(),
-				emailVerifiedAt: null,
-			},
-		});
-	}
-
 	async verifyEmail(userId: string) {
 		const user = await this.findOne(userId);
 
@@ -217,12 +201,11 @@ export class UserService {
 		});
 	}
 
-	async addEmail(input: AddEmailInput) {
+	async updateEmail(input: UpdateEmailInput) {
 		const user = await this.findOne(input.userId);
-
 		if (!user) throw new BadRequestException("common.message.tryAgain");
 
-		const emailExists = await this.findOneByEmail(input.email);
+		const emailExists = await this.findOneByEmail(input.email, { include: { inactive: true } });
 
 		if (emailExists) {
 			throw new ConflictException({
@@ -240,9 +223,13 @@ export class UserService {
 			userId: token.userId,
 		});
 
-		await this.updateEmail({
-			userId: input.userId,
-			email: input.email,
+		await this.prismaService.user.update({
+			where: { id: user.id },
+			data: {
+				email: input.email,
+				emailUpdatedAt: new Date(),
+				emailVerifiedAt: null,
+			},
 		});
 	}
 

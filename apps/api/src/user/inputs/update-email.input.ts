@@ -1,4 +1,6 @@
 export interface UpdateEmailInput {
-	userId: string;
 	email: string;
+	userId: string;
+	token: string;
+	tokenId: string;
 }

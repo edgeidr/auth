@@ -103,16 +103,19 @@
 		},
 	});
 
-	const { execute: onChange, pending: pendingChange } = useCustomFetch("", {
-		method: "POST",
-		onResponse: ({ response }) => {
-			if (!response.ok) return;
+	const { execute: onChange, pending: pendingChange } = useCustomFetch(
+		"/auth/email/change/request",
+		{
+			method: "POST",
+			onResponse: ({ response }) => {
+				if (!response.ok) return;
 
-			const { token } = response._data as { token: string };
+				const { token } = response._data as { token: string };
 
-			navigateTo(`/verify-otp?token=${token}`);
+				navigateTo(`/verify-otp?token=${token}`);
+			},
 		},
-	});
+	);
 
 	const { execute: onVerify, pending: pendingVerify } = useCustomFetch(
 		"/auth/email/verify/request",

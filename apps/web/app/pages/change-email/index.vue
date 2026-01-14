@@ -1,8 +1,8 @@
 <template>
 	<Card>
-		<template #title>{{ $t("addEmail.header.title") }}</template>
+		<template #title>{{ $t("changeEmail.header.title") }}</template>
 
-		<template #subtitle>{{ $t("addEmail.header.subtitle") }}</template>
+		<template #subtitle>{{ $t("changeEmail.header.subtitle") }}</template>
 
 		<template #content>
 			<form @submit.prevent="onSubmit()">
@@ -66,7 +66,7 @@
 	});
 
 	const { execute: onSubmit, pending } = useCustomFetch("/users/me/email", {
-		method: "POST",
+		method: "PATCH",
 		body: form,
 		onResponse: async ({ response }) => {
 			if (!response.ok) return;

@@ -184,4 +184,15 @@ export class AuthService {
 			type: OtpType.EMAIL_VERIFICATION,
 		});
 	}
+
+	async requestEmailChange(userId: string) {
+		const user = await this.userService.findOne(userId);
+
+		if (!user?.email) throw new BadRequestException("common.message.tryAgain");
+
+		return this.otpService.sendViaEmail({
+			email: user.email,
+			type: OtpType.EMAIL_CHANGE,
+		});
+	}
 }

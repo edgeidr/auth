@@ -4,10 +4,10 @@ import { UpdateMyProfileDto } from "./dto/update-my-profile.dto";
 import { Request } from "express";
 import { JwtAccessGuard } from "../jwt/jwt.guard";
 import { UpdateUserProfileInput } from "./inputs/update-user-profile.input";
-import { AddEmailDto } from "./dto/add-email.dto.";
-import { AddEmailInput } from "./inputs/add-email.input";
+import { UpdateEmailDto } from "./dto/update-email.dto.";
 import { ResetPasswordDto } from "./dto/reset-password.dto";
 import { ResetPasswordInput } from "./inputs/reset-password.input";
+import { UpdateEmailInput } from "./inputs/update-email.input";
 
 @Controller("users")
 export class UserController {
@@ -29,19 +29,35 @@ export class UserController {
 	}
 
 	@UseGuards(JwtAccessGuard)
-	@Post("me/email/add")
-	async addEmail(@Body() dto: AddEmailDto, @Req() request: Request) {
+	@Post("me/email")
+	async addEmail(@Body() dto: UpdateEmailDto, @Req() request: Request) {
 		const { userId } = request.user as { userId: string };
-		const payload: AddEmailInput = {
+		const payload: UpdateEmailInput = {
 			userId,
 			email: dto.email,
 			token: dto.token,
 			tokenId: dto.tokenId,
 		};
 
-		await this.userService.addEmail(payload);
+		await this.userService.updateEmail(payload);
 
 		return { message: "common.message.emailAddSuccess" };
+	}
+
+	@UseGuards(JwtAccessGuard)
+	@Patch("me/email")
+	async changeEmail(@Body() dto: UpdateEmailDto, @Req() request: Request) {
+		const { userId } = request.user as { userId: string };
+		const payload: UpdateEmailInput = {
+			userId,
+			email: dto.email,
+			token: dto.token,
+			tokenId: dto.tokenId,
+		};
+
+		await this.userService.updateEmail(payload);
+
+		return { message: "common.message.emailChangeSuccess" };
 	}
 
 	@Post("reset-password")

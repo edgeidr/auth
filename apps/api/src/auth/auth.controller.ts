@@ -227,6 +227,14 @@ export class AuthController {
 		return this.authService.requestEmailVerification(userId);
 	}
 
+	@UseGuards(JwtAccessGuard)
+	@Post("email/change/request")
+	async requestEmailChange(@Req() request: Request) {
+		const { userId } = request.user as { userId: string };
+
+		return this.authService.requestEmailChange(userId);
+	}
+
 	private getCookieOptions(options: { maxAge?: number; httpOnly?: boolean } = {}): CookieOptions {
 		const secureEnvironments = ["production", "staging"];
 		const useSecure = secureEnvironments.includes(
