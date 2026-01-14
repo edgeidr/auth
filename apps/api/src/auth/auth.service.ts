@@ -48,7 +48,7 @@ export class AuthService {
 
 	async register(input: RegisterInput) {
 		const userExists = await this.userService.findOneByEmail(input.email, {
-			include: { inactive: true },
+			include: { inactive: true, unverifiedEmail: true },
 		});
 
 		if (userExists) {

@@ -128,7 +128,6 @@ export class UserService {
 		const passwordMatches = !!user.password && (await verify(user.password, input.password));
 
 		if (!passwordMatches) await this.userAuthStateService.handleFailure(user.id);
-		if (!user.emailVerifiedAt) throw new ForbiddenException("common.message.emailUnverified");
 
 		await this.userAuthStateService.resetLoginAttempts(user.id);
 
