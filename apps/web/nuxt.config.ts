@@ -20,7 +20,7 @@ export default defineNuxtConfig({
 	},
 	app: {
 		head: {
-			title: process.env.NUXT_APP_NAME,
+			title: process.env.APP_NAME,
 			link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
 		},
 	},
