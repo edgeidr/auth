@@ -266,7 +266,7 @@
 	},
 	"addEmail": {
 		"header": {
-			"title": "Add a New Email",
+			"title": "Add your email address",
 			"subtitle": "Enter the email you want to use for your account"
 		}
 	}
