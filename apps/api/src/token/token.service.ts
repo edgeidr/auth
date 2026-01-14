@@ -22,15 +22,22 @@ export class TokenService {
 		this.TOKEN_DURATION = configService.get<number>("TOKEN_DURATION_IN_MINUTES", 5) * 1000 * 60;
 	}
 
+	findOne(id: string) {
+		return this.prismaService.token.findUnique({
+			where: {
+				id,
+				expiresAt: { gte: new Date() },
+			},
+		});
+	}
+
 	async reissue(input: TokenInput) {
 		await this.remove(input);
 		return this.create(input);
 	}
 
 	async verifyOrThrow(input: VerifyTokenInput) {
-		const token = await this.prismaService.token.findUnique({
-			where: { id: input.id },
-		});
+		const token = await this.findOne(input.id);
 
 		if (!token || !(await verify(token.value, input.value))) {
 			throw new BadRequestException("common.message.tryAgain");
