@@ -1,12 +1,20 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
+import { getMinutesRemaining } from "../common/utils/date.utils";
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class UserAuthStateService {
 	private readonly MAX_LOGIN_ATTEMPTS = 3;
-	private readonly FAILED_LOGIN_LOCK_DURATION_IN_MINUTES = 15;
+	private readonly FAILED_LOGIN_LOCK_DURATION: number;
 
-	constructor(private readonly prismaService: PrismaService) {}
+	constructor(
+		private readonly prismaService: PrismaService,
+		private readonly configService: ConfigService,
+	) {
+		this.FAILED_LOGIN_LOCK_DURATION =
+			this.configService.get<number>("FAILED_LOGIN_LOCK_DURATION_IN_MINUTES", 15) * 1000 * 60;
+	}
 
 	find(userId: string) {
 		return this.prismaService.userAuthState.findUnique({
@@ -14,43 +22,18 @@ export class UserAuthStateService {
 		});
 	}
 
-	create(userId: string) {
-		return this.prismaService.userAuthState.create({
-			data: { userId },
-		});
-	}
-
-	async findOrCreate(userId: string) {
-		let userAuthState = await this.find(userId);
-
-		if (!userAuthState) userAuthState = await this.create(userId);
-
-		return userAuthState;
-	}
-
-	async isAccountLocked(userId: string) {
-		const userAuthState = await this.findOrCreate(userId);
-
-		return (
-			userAuthState.failedLoginAttempts >= this.MAX_LOGIN_ATTEMPTS &&
-			userAuthState.lockedUntil &&
-			userAuthState.lockedUntil > new Date()
-		);
-	}
-
 	async incrementFailedLoginAttempts(userId: string) {
-		const userAuthState = await this.findOrCreate(userId);
+		const now = new Date();
 
-		const lockedUntil =
-			userAuthState.failedLoginAttempts >= this.MAX_LOGIN_ATTEMPTS - 1
-				? new Date(Date.now() + this.FAILED_LOGIN_LOCK_DURATION_IN_MINUTES * 60 * 1000)
-				: null;
-
-		await this.prismaService.userAuthState.update({
+		return this.prismaService.userAuthState.upsert({
 			where: { userId },
-			data: {
+			create: {
+				userId: userId,
+				lastAttemptAt: now,
+			},
+			update: {
 				failedLoginAttempts: { increment: 1 },
-				lockedUntil,
+				lastAttemptAt: now,
 			},
 		});
 	}
@@ -59,6 +42,40 @@ export class UserAuthStateService {
 		await this.prismaService.userAuthState.update({
 			where: { userId },
 			data: { failedLoginAttempts: 0, lockedUntil: null },
+		});
+	}
+
+	async throwIfLocked(userId: string) {
+		const now = new Date();
+		const userAuthState = await this.find(userId);
+
+		if (userAuthState && userAuthState.lockedUntil && userAuthState.lockedUntil > now) {
+			throw new UnauthorizedException({
+				message: "common.message.accountLocked",
+				payload: { minutes: getMinutesRemaining(userAuthState.lockedUntil) },
+			});
+		}
+	}
+
+	async handleFailure(userId: string) {
+		const { failedLoginAttempts } = await this.incrementFailedLoginAttempts(userId);
+
+		if (failedLoginAttempts >= this.MAX_LOGIN_ATTEMPTS) await this.lockAndThrow(userId);
+
+		throw new UnauthorizedException("common.message.invalidCredentials");
+	}
+
+	async lockAndThrow(userId: string) {
+		const lockedUntil = new Date(Date.now() + this.FAILED_LOGIN_LOCK_DURATION);
+
+		await this.prismaService.userAuthState.update({
+			where: { userId },
+			data: { lockedUntil },
+		});
+
+		throw new UnauthorizedException({
+			message: "common.message.accountLocked",
+			payload: { minutes: getMinutesRemaining(lockedUntil) },
 		});
 	}
 }

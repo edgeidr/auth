@@ -106,15 +106,11 @@ export class UserService {
 
 		if (!user) throw new UnauthorizedException("common.message.invalidCredentials");
 
-		const isAccountLocked = await this.userAuthStateService.isAccountLocked(user.id);
-		if (isAccountLocked) throw new UnauthorizedException("common.message.accountLocked");
+		await this.userAuthStateService.throwIfLocked(user.id);
 
 		const passwordMatches = !!user.password && (await verify(user.password, input.password));
 
-		if (!passwordMatches) {
-			await this.userAuthStateService.incrementFailedLoginAttempts(user.id);
-			throw new UnauthorizedException("common.message.invalidCredentials");
-		}
+		if (!passwordMatches) await this.userAuthStateService.handleFailure(user.id);
 
 		await this.userAuthStateService.resetFailedLoginAttempts(user.id);
 

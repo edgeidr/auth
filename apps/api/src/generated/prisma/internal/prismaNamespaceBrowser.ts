@@ -187,6 +187,7 @@ export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[k
 export const UserAuthStateScalarFieldEnum = {
   userId: 'userId',
   failedLoginAttempts: 'failedLoginAttempts',
+  lastAttemptAt: 'lastAttemptAt',
   lockedUntil: 'lockedUntil',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

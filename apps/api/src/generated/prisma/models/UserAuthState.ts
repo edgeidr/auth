@@ -37,6 +37,7 @@ export type UserAuthStateSumAggregateOutputType = {
 export type UserAuthStateMinAggregateOutputType = {
   userId: string | null
   failedLoginAttempts: number | null
+  lastAttemptAt: Date | null
   lockedUntil: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -45,6 +46,7 @@ export type UserAuthStateMinAggregateOutputType = {
 export type UserAuthStateMaxAggregateOutputType = {
   userId: string | null
   failedLoginAttempts: number | null
+  lastAttemptAt: Date | null
   lockedUntil: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -53,6 +55,7 @@ export type UserAuthStateMaxAggregateOutputType = {
 export type UserAuthStateCountAggregateOutputType = {
   userId: number
   failedLoginAttempts: number
+  lastAttemptAt: number
   lockedUntil: number
   createdAt: number
   updatedAt: number
@@ -71,6 +74,7 @@ export type UserAuthStateSumAggregateInputType = {
 export type UserAuthStateMinAggregateInputType = {
   userId?: true
   failedLoginAttempts?: true
+  lastAttemptAt?: true
   lockedUntil?: true
   createdAt?: true
   updatedAt?: true
@@ -79,6 +83,7 @@ export type UserAuthStateMinAggregateInputType = {
 export type UserAuthStateMaxAggregateInputType = {
   userId?: true
   failedLoginAttempts?: true
+  lastAttemptAt?: true
   lockedUntil?: true
   createdAt?: true
   updatedAt?: true
@@ -87,6 +92,7 @@ export type UserAuthStateMaxAggregateInputType = {
 export type UserAuthStateCountAggregateInputType = {
   userId?: true
   failedLoginAttempts?: true
+  lastAttemptAt?: true
   lockedUntil?: true
   createdAt?: true
   updatedAt?: true
@@ -182,6 +188,7 @@ export type UserAuthStateGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
 export type UserAuthStateGroupByOutputType = {
   userId: string
   failedLoginAttempts: number
+  lastAttemptAt: Date | null
   lockedUntil: Date | null
   createdAt: Date
   updatedAt: Date
@@ -213,6 +220,7 @@ export type UserAuthStateWhereInput = {
   NOT?: Prisma.UserAuthStateWhereInput | Prisma.UserAuthStateWhereInput[]
   userId?: Prisma.StringFilter<"UserAuthState"> | string
   failedLoginAttempts?: Prisma.IntFilter<"UserAuthState"> | number
+  lastAttemptAt?: Prisma.DateTimeNullableFilter<"UserAuthState"> | Date | string | null
   lockedUntil?: Prisma.DateTimeNullableFilter<"UserAuthState"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"UserAuthState"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"UserAuthState"> | Date | string
@@ -222,6 +230,7 @@ export type UserAuthStateWhereInput = {
 export type UserAuthStateOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   failedLoginAttempts?: Prisma.SortOrder
+  lastAttemptAt?: Prisma.SortOrderInput | Prisma.SortOrder
   lockedUntil?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -234,6 +243,7 @@ export type UserAuthStateWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.UserAuthStateWhereInput[]
   NOT?: Prisma.UserAuthStateWhereInput | Prisma.UserAuthStateWhereInput[]
   failedLoginAttempts?: Prisma.IntFilter<"UserAuthState"> | number
+  lastAttemptAt?: Prisma.DateTimeNullableFilter<"UserAuthState"> | Date | string | null
   lockedUntil?: Prisma.DateTimeNullableFilter<"UserAuthState"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"UserAuthState"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"UserAuthState"> | Date | string
@@ -243,6 +253,7 @@ export type UserAuthStateWhereUniqueInput = Prisma.AtLeast<{
 export type UserAuthStateOrderByWithAggregationInput = {
   userId?: Prisma.SortOrder
   failedLoginAttempts?: Prisma.SortOrder
+  lastAttemptAt?: Prisma.SortOrderInput | Prisma.SortOrder
   lockedUntil?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -259,6 +270,7 @@ export type UserAuthStateScalarWhereWithAggregatesInput = {
   NOT?: Prisma.UserAuthStateScalarWhereWithAggregatesInput | Prisma.UserAuthStateScalarWhereWithAggregatesInput[]
   userId?: Prisma.StringWithAggregatesFilter<"UserAuthState"> | string
   failedLoginAttempts?: Prisma.IntWithAggregatesFilter<"UserAuthState"> | number
+  lastAttemptAt?: Prisma.DateTimeNullableWithAggregatesFilter<"UserAuthState"> | Date | string | null
   lockedUntil?: Prisma.DateTimeNullableWithAggregatesFilter<"UserAuthState"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"UserAuthState"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"UserAuthState"> | Date | string
@@ -266,6 +278,7 @@ export type UserAuthStateScalarWhereWithAggregatesInput = {
 
 export type UserAuthStateCreateInput = {
   failedLoginAttempts?: number
+  lastAttemptAt?: Date | string | null
   lockedUntil?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -275,6 +288,7 @@ export type UserAuthStateCreateInput = {
 export type UserAuthStateUncheckedCreateInput = {
   userId: string
   failedLoginAttempts?: number
+  lastAttemptAt?: Date | string | null
   lockedUntil?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -282,6 +296,7 @@ export type UserAuthStateUncheckedCreateInput = {
 
 export type UserAuthStateUpdateInput = {
   failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  lastAttemptAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -291,6 +306,7 @@ export type UserAuthStateUpdateInput = {
 export type UserAuthStateUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  lastAttemptAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -299,6 +315,7 @@ export type UserAuthStateUncheckedUpdateInput = {
 export type UserAuthStateCreateManyInput = {
   userId: string
   failedLoginAttempts?: number
+  lastAttemptAt?: Date | string | null
   lockedUntil?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -306,6 +323,7 @@ export type UserAuthStateCreateManyInput = {
 
 export type UserAuthStateUpdateManyMutationInput = {
   failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  lastAttemptAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -314,6 +332,7 @@ export type UserAuthStateUpdateManyMutationInput = {
 export type UserAuthStateUncheckedUpdateManyInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  lastAttemptAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -327,6 +346,7 @@ export type UserAuthStateNullableScalarRelationFilter = {
 export type UserAuthStateCountOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   failedLoginAttempts?: Prisma.SortOrder
+  lastAttemptAt?: Prisma.SortOrder
   lockedUntil?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -339,6 +359,7 @@ export type UserAuthStateAvgOrderByAggregateInput = {
 export type UserAuthStateMaxOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   failedLoginAttempts?: Prisma.SortOrder
+  lastAttemptAt?: Prisma.SortOrder
   lockedUntil?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -347,6 +368,7 @@ export type UserAuthStateMaxOrderByAggregateInput = {
 export type UserAuthStateMinOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   failedLoginAttempts?: Prisma.SortOrder
+  lastAttemptAt?: Prisma.SortOrder
   lockedUntil?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -390,6 +412,7 @@ export type UserAuthStateUncheckedUpdateOneWithoutUserNestedInput = {
 
 export type UserAuthStateCreateWithoutUserInput = {
   failedLoginAttempts?: number
+  lastAttemptAt?: Date | string | null
   lockedUntil?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -397,6 +420,7 @@ export type UserAuthStateCreateWithoutUserInput = {
 
 export type UserAuthStateUncheckedCreateWithoutUserInput = {
   failedLoginAttempts?: number
+  lastAttemptAt?: Date | string | null
   lockedUntil?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -420,6 +444,7 @@ export type UserAuthStateUpdateToOneWithWhereWithoutUserInput = {
 
 export type UserAuthStateUpdateWithoutUserInput = {
   failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  lastAttemptAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -427,6 +452,7 @@ export type UserAuthStateUpdateWithoutUserInput = {
 
 export type UserAuthStateUncheckedUpdateWithoutUserInput = {
   failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  lastAttemptAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -437,6 +463,7 @@ export type UserAuthStateUncheckedUpdateWithoutUserInput = {
 export type UserAuthStateSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   userId?: boolean
   failedLoginAttempts?: boolean
+  lastAttemptAt?: boolean
   lockedUntil?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -446,6 +473,7 @@ export type UserAuthStateSelect<ExtArgs extends runtime.Types.Extensions.Interna
 export type UserAuthStateSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   userId?: boolean
   failedLoginAttempts?: boolean
+  lastAttemptAt?: boolean
   lockedUntil?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -455,6 +483,7 @@ export type UserAuthStateSelectCreateManyAndReturn<ExtArgs extends runtime.Types
 export type UserAuthStateSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   userId?: boolean
   failedLoginAttempts?: boolean
+  lastAttemptAt?: boolean
   lockedUntil?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -464,12 +493,13 @@ export type UserAuthStateSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
 export type UserAuthStateSelectScalar = {
   userId?: boolean
   failedLoginAttempts?: boolean
+  lastAttemptAt?: boolean
   lockedUntil?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserAuthStateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userId" | "failedLoginAttempts" | "lockedUntil" | "createdAt" | "updatedAt", ExtArgs["result"]["userAuthState"]>
+export type UserAuthStateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userId" | "failedLoginAttempts" | "lastAttemptAt" | "lockedUntil" | "createdAt" | "updatedAt", ExtArgs["result"]["userAuthState"]>
 export type UserAuthStateInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -488,6 +518,7 @@ export type $UserAuthStatePayload<ExtArgs extends runtime.Types.Extensions.Inter
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     userId: string
     failedLoginAttempts: number
+    lastAttemptAt: Date | null
     lockedUntil: Date | null
     createdAt: Date
     updatedAt: Date
@@ -917,6 +948,7 @@ export interface Prisma__UserAuthStateClient<T, Null = never, ExtArgs extends ru
 export interface UserAuthStateFieldRefs {
   readonly userId: Prisma.FieldRef<"UserAuthState", 'String'>
   readonly failedLoginAttempts: Prisma.FieldRef<"UserAuthState", 'Int'>
+  readonly lastAttemptAt: Prisma.FieldRef<"UserAuthState", 'DateTime'>
   readonly lockedUntil: Prisma.FieldRef<"UserAuthState", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"UserAuthState", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"UserAuthState", 'DateTime'>

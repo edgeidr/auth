@@ -5,7 +5,7 @@
 			"invalidCredentials": "Incorrect Email or Password.",
 			"googleAccountNotLinked": "This email is already registered. Sign in with your original method to link it later.",
 			"loginFailed": "Login Failed. Please try again.",
-			"accountLocked": "Account is temporarily locked. Please try again later.",
+			"accountLocked": "Account is temporarily locked. Try again in {minutes} minute(s).",
 			"tryAgain": "Something went wrong. Try again later.",
 			"accessDenied": "Access denied.",
 			"emailUnverified": "No verified email found. Please use a different account.",
