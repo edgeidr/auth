@@ -38,10 +38,22 @@ export class UserAuthStateService {
 		});
 	}
 
-	async resetFailedLoginAttempts(userId: string) {
-		await this.prismaService.userAuthState.update({
+	async resetLoginAttempts(userId: string) {
+		const now = new Date();
+
+		await this.prismaService.userAuthState.upsert({
 			where: { userId },
-			data: { failedLoginAttempts: 0, lockedUntil: null },
+			create: {
+				userId,
+				failedLoginAttempts: 0,
+				lastAttemptAt: now,
+				lockedUntil: null,
+			},
+			update: {
+				failedLoginAttempts: 0,
+				lastAttemptAt: now,
+				lockedUntil: null,
+			},
 		});
 	}
 

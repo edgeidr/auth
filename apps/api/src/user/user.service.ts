@@ -106,11 +106,7 @@ export class UserService {
 
 	async validateCredentials(input: ValidateCredentialsInput) {
 		const user = await this.findOneByEmail(input.email, {
-			include: {
-				password: true,
-				googleSub: true,
-				githubId: true,
-			},
+			include: { password: true },
 		});
 
 		if (!user) throw new UnauthorizedException("common.message.invalidCredentials");
@@ -121,7 +117,7 @@ export class UserService {
 
 		if (!passwordMatches) await this.userAuthStateService.handleFailure(user.id);
 
-		await this.userAuthStateService.resetFailedLoginAttempts(user.id);
+		await this.userAuthStateService.resetLoginAttempts(user.id);
 
 		const { password: _, ...safeUser } = user;
 
