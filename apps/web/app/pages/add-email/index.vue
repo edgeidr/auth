@@ -65,7 +65,7 @@
 		email: "",
 	});
 
-	const { execute: onSubmit, pending } = useCustomFetch("/auth/email/add", {
+	const { execute: onSubmit, pending } = useCustomFetch("/users/me/email/add", {
 		method: "POST",
 		body: form,
 		onResponse: async ({ response }) => {

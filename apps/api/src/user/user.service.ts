@@ -1,4 +1,9 @@
-import { BadRequestException, Injectable, UnauthorizedException } from "@nestjs/common";
+import {
+	BadRequestException,
+	ConflictException,
+	Injectable,
+	UnauthorizedException,
+} from "@nestjs/common";
 import { ValidateCredentialsInput } from "./inputs/validate-credentials.input";
 import { FindUserOptions } from "./types/find-user-options";
 import { PrismaService } from "../prisma/prisma.service";
@@ -11,12 +16,16 @@ import { UpdatePasswordInput } from "./inputs/update-password.input";
 import { LinkGoogleInput } from "./inputs/link-google.input";
 import { UpdateUserProfileInput } from "./inputs/update-user-profile.input";
 import { UpdateEmailInput } from "./inputs/update-email.input";
+import { AddEmailInput } from "./inputs/add-email.input";
+import { TokenService } from "../token/token.service";
+import { ResetPasswordInput } from "./inputs/reset-password.input";
 
 @Injectable()
 export class UserService {
 	constructor(
 		private readonly prismaService: PrismaService,
 		private readonly userAuthStateService: UserAuthStateService,
+		private readonly tokenService: TokenService,
 	) {}
 
 	private buildSelect(options: FindUserOptions = {}) {
@@ -209,6 +218,56 @@ export class UserService {
 			data: {
 				emailVerifiedAt: new Date(),
 			},
+		});
+	}
+
+	async addEmail(input: AddEmailInput) {
+		const user = await this.findOne(input.userId);
+
+		if (!user) throw new BadRequestException("common.message.tryAgain");
+
+		const emailExists = await this.findOneByEmail(input.email);
+
+		if (emailExists) {
+			throw new ConflictException({
+				message: [{ field: "email", error: ["common.validation.emailTaken"] }],
+			});
+		}
+
+		const token = await this.tokenService.verifyOrThrow({
+			id: input.tokenId,
+			value: input.token,
+		});
+
+		await this.tokenService.remove({
+			type: token.type,
+			userId: token.userId,
+		});
+
+		await this.updateEmail({
+			userId: input.userId,
+			email: input.email,
+		});
+	}
+
+	async resetPassword(input: ResetPasswordInput) {
+		const token = await this.tokenService.verifyOrThrow({
+			id: input.tokenId,
+			value: input.token,
+		});
+
+		const user = await this.findOne(token.userId);
+
+		if (!user) throw new BadRequestException("common.message.tryAgain");
+
+		await this.updatePassword(user.id, {
+			newPassword: input.newPassword,
+			skipOldPassword: true,
+		});
+
+		await this.tokenService.remove({
+			type: token.type,
+			userId: token.userId,
 		});
 	}
 }

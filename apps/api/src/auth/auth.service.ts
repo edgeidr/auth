@@ -14,8 +14,6 @@ import { LogoutInput } from "./inputs/logout.input";
 import { RotateTokensInput } from "./inputs/rotate-tokens.input";
 import { OtpService } from "../otp/otp.service";
 import { OtpType, TokenType } from "../generated/prisma/enums";
-import { ResetPasswordInput } from "./inputs/reset-password.input";
-import { AddEmailInput } from "./inputs/add-email.input";
 
 @Injectable()
 export class AuthService {
@@ -132,27 +130,6 @@ export class AuthService {
 		return { accessToken, refreshToken, sessionId: session.id };
 	}
 
-	async resetPassword(input: ResetPasswordInput) {
-		const token = await this.tokenService.verifyOrThrow({
-			id: input.tokenId,
-			value: input.token,
-		});
-
-		const user = await this.userService.findOne(token.userId);
-
-		if (!user) throw new BadRequestException("common.message.tryAgain");
-
-		await this.userService.updatePassword(user.id, {
-			newPassword: input.newPassword,
-			skipOldPassword: true,
-		});
-
-		await this.tokenService.remove({
-			type: token.type,
-			userId: token.userId,
-		});
-	}
-
 	async requestPasswordChange(userId: string) {
 		const user = await this.userService.findOne(userId);
 
@@ -194,35 +171,6 @@ export class AuthService {
 		return this.tokenService.reissue({
 			type: TokenType.EMAIL_CHANGE,
 			userId,
-		});
-	}
-
-	async addEmail(input: AddEmailInput) {
-		const user = await this.userService.findOne(input.userId);
-
-		if (!user) throw new BadRequestException("common.message.tryAgain");
-
-		const emailExists = await this.userService.findOneByEmail(input.email);
-
-		if (emailExists) {
-			throw new ConflictException({
-				message: [{ field: "email", error: ["common.validation.emailTaken"] }],
-			});
-		}
-
-		const token = await this.tokenService.verifyOrThrow({
-			id: input.tokenId,
-			value: input.token,
-		});
-
-		await this.tokenService.remove({
-			type: token.type,
-			userId: token.userId,
-		});
-
-		await this.userService.updateEmail({
-			userId: input.userId,
-			email: input.email,
 		});
 	}
 

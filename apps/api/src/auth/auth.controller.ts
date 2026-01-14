@@ -20,10 +20,6 @@ import { JwtAccessGuard, JwtRefreshGuard } from "../jwt/jwt.guard";
 import { GoogleOauthGuard } from "./guards/google-oauth.guard";
 import { GithubOauthGuard } from "./guards/github-oauth.guard";
 import { PasswordResetRequestDto } from "./dto/password-reset-request";
-import { ResetPasswordDto } from "./dto/reset-password.dto";
-import { ResetPasswordInput } from "./inputs/reset-password.input";
-import { AddEmailInput } from "./inputs/add-email.input";
-import { AddEmailDto } from "./dto/add-email.dto.";
 
 @Controller("auth")
 export class AuthController {
@@ -194,19 +190,6 @@ export class AuthController {
 		return response.redirect(redirectUrl);
 	}
 
-	@Post("reset-password")
-	async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
-		const payload: ResetPasswordInput = {
-			tokenId: resetPasswordDto.tokenId,
-			token: resetPasswordDto.token,
-			newPassword: resetPasswordDto.newPassword,
-		};
-
-		await this.authService.resetPassword(payload);
-
-		return { message: "common.message.passwordResetSuccess" };
-	}
-
 	@Post("password/reset/request")
 	async requestPasswordReset(@Body() passwordResetRequestDto: PasswordResetRequestDto) {
 		return this.authService.requestPasswordReset(passwordResetRequestDto.email);
@@ -234,22 +217,6 @@ export class AuthController {
 		const { userId } = request.user as { userId: string };
 
 		return this.authService.requestEmailAddition(userId);
-	}
-
-	@UseGuards(JwtAccessGuard)
-	@Post("email/add")
-	async addEmail(@Body() dto: AddEmailDto, @Req() request: Request) {
-		const { userId } = request.user as { userId: string };
-		const payload: AddEmailInput = {
-			userId,
-			email: dto.email,
-			token: dto.token,
-			tokenId: dto.tokenId,
-		};
-
-		await this.authService.addEmail(payload);
-
-		return { message: "common.message.emailAddSuccess" };
 	}
 
 	@UseGuards(JwtAccessGuard)

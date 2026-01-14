@@ -83,7 +83,7 @@
 		confirmNewPassword: "",
 	});
 
-	const { execute: onSubmit, pending } = useCustomFetch("/auth/reset-password", {
+	const { execute: onSubmit, pending } = useCustomFetch("/users/reset-password", {
 		method: "POST",
 		body: form,
 		onResponse: async ({ response }) => {
