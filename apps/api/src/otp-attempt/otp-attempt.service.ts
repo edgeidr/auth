@@ -2,6 +2,7 @@ import { BadRequestException, ConflictException, Injectable } from "@nestjs/comm
 import { OtpAttemptInput } from "./inputs/otp-attempt.input";
 import { PrismaService } from "../prisma/prisma.service";
 import { ConfigService } from "@nestjs/config";
+import { getMinutesRemaining } from "../common/utils/date.utils";
 
 @Injectable()
 export class OtpAttemptService {
@@ -57,7 +58,7 @@ export class OtpAttemptService {
 		throw new BadRequestException({
 			message: "common.message.maxOtpAttempts",
 			payload: {
-				minutes: this.getMinutesRemaining(lockedUntil),
+				minutes: getMinutesRemaining(lockedUntil),
 			},
 		});
 	}
@@ -93,16 +94,9 @@ export class OtpAttemptService {
 			throw new BadRequestException({
 				message: "common.message.maxOtpAttempts",
 				payload: {
-					minutes: this.getMinutesRemaining(otpAttempt.lockedUntil),
+					minutes: getMinutesRemaining(otpAttempt.lockedUntil),
 				},
 			});
 		}
 	}
-
-	getMinutesRemaining = (date: Date): number => {
-		const now = new Date();
-		const minutesRemaining = Math.ceil((date.getTime() - now.getTime()) / 60000);
-
-		return minutesRemaining;
-	};
 }
