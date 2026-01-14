@@ -106,18 +106,10 @@ export class UserService {
 
 		if (!user) throw new UnauthorizedException("common.message.invalidCredentials");
 
-		if (!user.password) {
-			if (user.googleSub || user.githubId) {
-				throw new UnauthorizedException("common.message.socialOnlyAccount");
-			} else {
-				throw new UnauthorizedException("common.message.loginFailed");
-			}
-		}
-
 		const isAccountLocked = await this.userAuthStateService.isAccountLocked(user.id);
 		if (isAccountLocked) throw new UnauthorizedException("common.message.accountLocked");
 
-		const passwordMatches = await verify(user.password, input.password);
+		const passwordMatches = !!user.password && (await verify(user.password, input.password));
 
 		if (!passwordMatches) {
 			await this.userAuthStateService.incrementFailedLoginAttempts(user.id);
