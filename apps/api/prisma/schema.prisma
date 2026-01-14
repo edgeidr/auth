@@ -23,6 +23,7 @@ enum OtpType {
     PASSWORD_RESET
     PASSWORD_DISABLE
     EMAIL_CHANGE
+    EMAIL_VERIFICATION
 }
 
 enum TokenType {

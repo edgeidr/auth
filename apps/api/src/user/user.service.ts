@@ -210,4 +210,17 @@ export class UserService {
 			},
 		});
 	}
+
+	async verifyEmail(userId: string) {
+		const user = await this.findOne(userId);
+
+		if (!user) throw new BadRequestException("common.message.tryAgain");
+
+		await this.prismaService.user.update({
+			where: { id: user.id },
+			data: {
+				emailVerifiedAt: new Date(),
+			},
+		});
+	}
 }

@@ -114,14 +114,17 @@
 		},
 	});
 
-	const { execute: onVerify, pending: pendingVerify } = useCustomFetch("", {
-		method: "POST",
-		onResponse: ({ response }) => {
-			if (!response.ok) return;
+	const { execute: onVerify, pending: pendingVerify } = useCustomFetch(
+		"/auth/email/verify/request",
+		{
+			method: "POST",
+			onResponse: ({ response }) => {
+				if (!response.ok) return;
 
-			const { token } = response._data as { token: string };
+				const { token } = response._data as { token: string };
 
-			navigateTo(`/verify-otp?token=${token}`);
+				navigateTo(`/verify-otp?token=${token}`);
+			},
 		},
-	});
+	);
 </script>

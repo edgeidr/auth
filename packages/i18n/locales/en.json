@@ -16,7 +16,8 @@
 			"passwordResetSuccess": "Password has been reset successfully.",
 			"profileUpdateSuccess": "Profile updated successfully.",
 			"passwordDisableSuccess": "Password has been disabled successfully.",
-			"emailAddSuccess": "Email added successfully."
+			"emailAddSuccess": "Email added successfully.",
+			"emailVerifySuccess": "Email verified successfully."
 		},
 		"validation": {
 			"required": "This is required",

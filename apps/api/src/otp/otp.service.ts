@@ -162,9 +162,15 @@ export class OtpService {
 				};
 			}
 
-			// case OtpType.EMAIL_CHANGE: {
-			// 	await this.userService.updateEmail({userId: user.id})
-			// }
+			case OtpType.EMAIL_VERIFICATION: {
+				await this.userService.verifyEmail(user.id);
+
+				return {
+					nextStep: "/",
+					refreshUser: true,
+					message: "common.message.emailVerifySuccess",
+				};
+			}
 
 			default:
 				return true;

@@ -252,6 +252,14 @@ export class AuthController {
 		return { message: "common.message.emailAddSuccess" };
 	}
 
+	@UseGuards(JwtAccessGuard)
+	@Post("email/verify/request")
+	async requestEmailVerification(@Req() request: Request) {
+		const { userId } = request.user as { userId: string };
+
+		return this.authService.requestEmailVerification(userId);
+	}
+
 	private getCookieOptions(options: { maxAge?: number; httpOnly?: boolean } = {}): CookieOptions {
 		const secureEnvironments = ["production", "staging"];
 		const useSecure = secureEnvironments.includes(
