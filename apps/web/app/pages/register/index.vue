@@ -171,9 +171,11 @@
 <script setup lang="ts">
 	import { NuxtLink } from "#components";
 	import { Icons } from "@repo/assets";
+	import { Access } from "@repo/shared";
 
 	definePageMeta({
 		layout: "auth",
+		access: [Access.GUEST],
 	});
 
 	const config = useRuntimeConfig();
