@@ -32,11 +32,13 @@ export class GoogleOauthStrategy extends PassportStrategy(Strategy, "google") {
 		if (!email) return { error: "common.message.noVerifiedEmail" };
 
 		let user = await this.userService.findOneByGoogleSub(googleSub, {
-			include: { inactive: true },
+			scope: { inactive: true },
 		});
 
 		if (!user) {
-			user = await this.userService.findOneByEmail(email, { include: { inactive: true } });
+			user = await this.userService.findOneByEmail(email, {
+				scope: { unverifiedEmail: true, inactive: true },
+			});
 
 			if (!user) {
 				const now = new Date();

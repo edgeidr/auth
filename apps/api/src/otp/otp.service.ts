@@ -96,7 +96,7 @@ export class OtpService {
 
 	async sendViaEmail(input: SendOtpViaEmailInput) {
 		const user = await this.userService.findOneByEmail(input.email, {
-			include: { unverifiedEmail: true },
+			scope: { unverifiedEmail: true },
 		});
 
 		let token = cuid();
@@ -126,7 +126,7 @@ export class OtpService {
 		}
 
 		const user = await this.userService.findOne(otp.userId, {
-			include: { unverifiedEmail: true },
+			scope: { unverifiedEmail: true },
 		});
 
 		if (!user) {
@@ -197,7 +197,7 @@ export class OtpService {
 		if (!otp) return;
 
 		const user = await this.userService.findOne(otp.userId, {
-			include: { unverifiedEmail: true },
+			scope: { unverifiedEmail: true },
 		});
 
 		if (user?.email) {

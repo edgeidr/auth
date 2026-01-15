@@ -31,14 +31,14 @@ export class UserService {
 	private buildSelect(options: FindUserOptions = {}) {
 		return {
 			...userSelect,
-			password: options.include?.password,
-			googleSub: options.include?.googleSub,
-			githubId: options.include?.githubId,
-			userProfile: options.include?.userProfile ? { select: userProfileSelect } : false,
+			password: options.with?.password,
+			googleSub: options.with?.authProviders,
+			githubId: options.with?.authProviders,
+			userProfile: options.with?.userProfile ? { select: userProfileSelect } : false,
 		};
 	}
 
-	async create(input: CreateUserInput) {
+	async create(input: CreateUserInput, options: FindUserOptions = {}) {
 		return this.prismaService.user.create({
 			data: {
 				email: input.email,
@@ -56,7 +56,7 @@ export class UserService {
 					},
 				},
 			},
-			select: this.buildSelect(),
+			select: this.buildSelect(options),
 		});
 	}
 
@@ -64,13 +64,13 @@ export class UserService {
 		const user = await this.prismaService.user.findUnique({
 			where: {
 				id,
-				isActive: options.include?.inactive ? undefined : true,
+				isActive: options.scope?.inactive ? undefined : true,
 				deletedAt: null,
 			},
 			select: this.buildSelect(options),
 		});
 
-		if (!user?.emailVerifiedAt && !options.include?.unverifiedEmail) {
+		if (!user?.emailVerifiedAt && !options.scope?.unverifiedEmail) {
 			throw new ForbiddenException("common.message.emailUnverified");
 		}
 
@@ -81,35 +81,35 @@ export class UserService {
 		const user = await this.prismaService.user.findUnique({
 			where: {
 				email,
-				isActive: options.include?.inactive ? undefined : true,
+				isActive: options.scope?.inactive ? undefined : true,
 				deletedAt: null,
 			},
 			select: this.buildSelect(options),
 		});
 
-		if (!user?.emailVerifiedAt && !options.include?.unverifiedEmail) {
+		if (!user?.emailVerifiedAt && !options.scope?.unverifiedEmail) {
 			throw new ForbiddenException("common.message.emailUnverified");
 		}
 
 		return user;
 	}
 
-	findOneByGoogleSub(googleSub: string, options: FindUserOptions = {}) {
+	async findOneByGoogleSub(googleSub: string, options: FindUserOptions = {}) {
 		return this.prismaService.user.findUnique({
 			where: {
 				googleSub,
-				isActive: options.include?.inactive ? undefined : true,
+				isActive: options.scope?.inactive ? undefined : true,
 				deletedAt: null,
 			},
 			select: this.buildSelect(options),
 		});
 	}
 
-	findOneByGithubId(githubId: string, options: FindUserOptions = {}) {
+	async findOneByGithubId(githubId: string, options: FindUserOptions = {}) {
 		return this.prismaService.user.findUnique({
 			where: {
 				githubId,
-				isActive: options.include?.inactive ? undefined : true,
+				isActive: options.scope?.inactive ? undefined : true,
 				deletedAt: null,
 			},
 			select: this.buildSelect(options),
@@ -118,7 +118,8 @@ export class UserService {
 
 	async validateCredentials(input: ValidateCredentialsInput) {
 		const user = await this.findOneByEmail(input.email, {
-			include: { password: true, unverifiedEmail: true },
+			with: { password: true },
+			scope: { unverifiedEmail: true },
 		});
 
 		if (!user) throw new UnauthorizedException("common.message.invalidCredentials");
@@ -203,7 +204,7 @@ export class UserService {
 
 	async verifyEmail(userId: string) {
 		const user = await this.findOne(userId, {
-			include: { unverifiedEmail: true },
+			scope: { unverifiedEmail: true },
 		});
 
 		if (!user) throw new BadRequestException("common.message.tryAgain");
@@ -226,7 +227,7 @@ export class UserService {
 		});
 
 		const emailExists = await this.findOneByEmail(input.email, {
-			include: { inactive: true, unverifiedEmail: true },
+			scope: { inactive: true, unverifiedEmail: true },
 		});
 
 		if (emailExists) {

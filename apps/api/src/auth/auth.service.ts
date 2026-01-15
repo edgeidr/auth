@@ -48,7 +48,7 @@ export class AuthService {
 
 	async register(input: RegisterInput) {
 		const userExists = await this.userService.findOneByEmail(input.email, {
-			include: { inactive: true, unverifiedEmail: true },
+			scope: { inactive: true, unverifiedEmail: true },
 		});
 
 		if (userExists) {
@@ -69,9 +69,12 @@ export class AuthService {
 
 	async getMe(userId: string) {
 		const user = await this.userService.findOne(userId, {
-			include: {
-				userProfile: true,
+			with: {
 				password: true,
+				userProfile: true,
+				authProviders: true,
+			},
+			scope: {
 				unverifiedEmail: true,
 			},
 		});
@@ -177,7 +180,7 @@ export class AuthService {
 
 	async requestEmailVerification(userId: string) {
 		const user = await this.userService.findOne(userId, {
-			include: { unverifiedEmail: true },
+			scope: { unverifiedEmail: true },
 		});
 
 		if (!user?.email) throw new BadRequestException("common.message.tryAgain");

@@ -1,10 +1,11 @@
 export interface FindUserOptions {
-	include?: {
+	with?: {
 		password?: boolean;
-		inactive?: boolean;
+		authProviders?: boolean;
 		userProfile?: boolean;
-		googleSub?: boolean;
-		githubId?: boolean;
+	};
+	scope?: {
+		inactive?: boolean;
 		unverifiedEmail?: boolean;
 	};
 }
