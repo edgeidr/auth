@@ -8,6 +8,8 @@ export interface User {
 	passwordUpdatedAt?: Date;
 	isActive: boolean;
 	userProfile?: UserProfile;
+	githubId: boolean;
+	googleSub: boolean;
 }
 
 export interface UserProfile {

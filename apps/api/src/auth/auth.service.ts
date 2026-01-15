@@ -86,6 +86,8 @@ export class AuthService {
 		return {
 			...userData,
 			passwordEnabled: !!password,
+			googleSub: !!userData.googleSub,
+			githubId: !!userData.githubId,
 		};
 	}
 
