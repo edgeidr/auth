@@ -115,7 +115,7 @@
 				});
 			}
 
-			await navigateTo(nextStep);
+			await navigateTo(nextStep, { replace: true });
 		},
 		onResponseError: ({ response }) => {
 			const { message } = response._data as { message: any };

@@ -91,7 +91,7 @@
 
 			const { message } = response._data as { message: string };
 
-			await navigateTo("/");
+			await navigateTo("/", { replace: true });
 
 			toast.add({
 				summary: t("common.status.success"),
