@@ -1,7 +1,7 @@
 {
 	"common": {
 		"message": {
-			"tokenExpired": "Session expired. Please re-login.",
+			"sessionExpired": "Session expired. Please re-login.",
 			"invalidCredentials": "Incorrect Email or Password.",
 			"googleAccountNotLinked": "This email is already registered. Sign in with your original method to link it later.",
 			"loginFailed": "Login Failed. Please try again.",
@@ -18,7 +18,8 @@
 			"emailAddSuccess": "Email added successfully.",
 			"emailVerifySuccess": "Email verified successfully.",
 			"emailChangeSuccess": "Email changed successfully.",
-			"emailUnverified": "Email not verified."
+			"emailUnverified": "Email not verified.",
+			"invalidToken": "Token is invalid. Please try again."
 		},
 		"validation": {
 			"required": "This is required",

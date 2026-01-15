@@ -40,7 +40,7 @@ export class TokenService {
 		const token = await this.findOne(input.id);
 
 		if (!token || !(await verify(token.value, input.value))) {
-			throw new BadRequestException("common.message.tryAgain");
+			throw new BadRequestException("common.message.invalidToken");
 		}
 
 		return token;

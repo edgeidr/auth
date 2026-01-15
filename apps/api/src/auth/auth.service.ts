@@ -102,7 +102,7 @@ export class AuthService {
 			refreshToken: refreshToken.value,
 		});
 
-		if (!session.refreshToken) throw new UnauthorizedException("common.message.tokenExpired");
+		if (!session.refreshToken) throw new UnauthorizedException("common.message.sessionExpired");
 
 		return {
 			accessToken,

@@ -220,6 +220,11 @@ export class UserService {
 		const user = await this.findOne(input.userId);
 		if (!user) throw new BadRequestException("common.message.tryAgain");
 
+		const token = await this.tokenService.verifyOrThrow({
+			id: input.tokenId,
+			value: input.token,
+		});
+
 		const emailExists = await this.findOneByEmail(input.email, {
 			include: { inactive: true, unverifiedEmail: true },
 		});
@@ -229,11 +234,6 @@ export class UserService {
 				message: [{ field: "email", error: ["common.validation.emailTaken"] }],
 			});
 		}
-
-		const token = await this.tokenService.verifyOrThrow({
-			id: input.tokenId,
-			value: input.token,
-		});
 
 		await this.tokenService.remove({
 			type: token.type,

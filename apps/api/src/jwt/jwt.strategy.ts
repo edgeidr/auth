@@ -39,7 +39,7 @@ export class JwtRefreshStrategy extends PassportStrategy(Strategy, "jwt-refresh"
 		const refreshToken = <string>request.cookies["refreshToken"] || null;
 
 		if (!sessionId || !refreshToken) {
-			throw new UnauthorizedException("common.message.tokenExpired");
+			throw new UnauthorizedException("common.message.sessionExpired");
 		}
 
 		const session = await this.sessionService.findOne({
@@ -48,7 +48,7 @@ export class JwtRefreshStrategy extends PassportStrategy(Strategy, "jwt-refresh"
 			refreshToken,
 		});
 
-		if (!session) throw new UnauthorizedException("common.message.tokenExpired");
+		if (!session) throw new UnauthorizedException("common.message.sessionExpired");
 
 		return { userId: payload.userId };
 	}
