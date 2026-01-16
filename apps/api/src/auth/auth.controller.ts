@@ -21,6 +21,7 @@ import { GoogleOauthGuard } from "./guards/google-oauth.guard";
 import { GithubOauthGuard } from "./guards/github-oauth.guard";
 import { PasswordResetRequestDto } from "./dto/password-reset-request";
 import { Profile as GithubProfile } from "passport-github2";
+import { Profile as GoogleProfile } from "passport-google-oauth20";
 
 @Controller("auth")
 export class AuthController {
@@ -124,21 +125,12 @@ export class AuthController {
 	@Get("google/callback")
 	async googleCallback(@Req() request: Request, @Res() response: Response) {
 		const redirectUrl = this.configService.get<string>("OAUTH_REDIRECT_URL")!;
-		const { error, provider, userId } = request.user as {
-			error?: string;
-			provider?: string;
-			userId: string;
-		};
+		const { profile } = request.user as { profile: GoogleProfile };
 
-		if (error) {
-			if (provider) {
-				return response.redirect(`${redirectUrl}?error=${error}&provider=${provider}`);
-			}
+		const result = await this.authService.loginWithGoogle(profile);
+		if ("error" in result) return response.redirect(`${redirectUrl}?error=${result.error}`);
 
-			return response.redirect(`${redirectUrl}?error=${error}`);
-		}
-
-		const { accessToken, refreshToken, sessionId } = await this.authService.socialLogin(userId);
+		const { accessToken, refreshToken, sessionId } = result;
 
 		response.cookie("isLoggedIn", true, this.getCookieOptions({ httpOnly: false }));
 		response.cookie(

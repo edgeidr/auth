@@ -15,6 +15,7 @@ import { RotateTokensInput } from "./inputs/rotate-tokens.input";
 import { OtpService } from "../otp/otp.service";
 import { OtpType, TokenType } from "../generated/prisma/enums";
 import { Profile as GithubProfile } from "passport-github2";
+import { Profile as GoogleProfile } from "passport-google-oauth20";
 
 @Injectable()
 export class AuthService {
@@ -135,6 +136,46 @@ export class AuthService {
 		});
 
 		return { accessToken, refreshToken, sessionId: session.id };
+	}
+
+	async loginWithGoogle(profile: GoogleProfile) {
+		const { id: googleSub, emails, photos, name } = profile;
+		const email = emails?.find((item) => item.verified)?.value ?? null;
+		const firstName = name?.givenName ?? "New";
+		const lastName = name?.familyName ?? "User";
+		const photoUrl = photos?.[0].value ?? undefined;
+
+		if (!email) return { error: "common.message.noVerifiedEmail" };
+
+		let user = await this.userService.findOneByGoogleSub(googleSub, {
+			scope: { inactive: true },
+		});
+
+		if (!user) {
+			user = await this.userService.findOneByEmail(email, {
+				scope: { unverifiedEmail: true, inactive: true },
+			});
+
+			if (!user) {
+				const now = new Date();
+
+				user = await this.userService.create({
+					email,
+					emailUpdatedAt: now,
+					emailVerifiedAt: now,
+					firstName,
+					lastName,
+					photoUrl,
+					googleSub,
+				});
+			} else {
+				return { error: "common.message.googleAccountNotLinked" };
+			}
+		}
+
+		if (!user.isActive) return { error: "common.message.accountInactive" };
+
+		return this.socialLogin(user.id);
 	}
 
 	async loginWithGithub(profile: GithubProfile) {
