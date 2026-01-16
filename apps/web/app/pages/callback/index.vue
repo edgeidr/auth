@@ -3,7 +3,6 @@
 <script setup lang="ts">
 	const route = useRoute();
 	const error = route.query.error as string | undefined;
-	const provider = route.query.provider as string | undefined;
 	const toast = useToast();
 	const config = useRuntimeConfig();
 	const { t } = useI18n();
@@ -13,9 +12,7 @@
 
 		if (error) {
 			const summary = t("common.status.error");
-			let detail = t(error);
-
-			if (provider) detail = t(error, { provider });
+			const detail = t(error);
 
 			toast.add({
 				summary,

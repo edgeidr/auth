@@ -14,6 +14,7 @@ import { LogoutInput } from "./inputs/logout.input";
 import { RotateTokensInput } from "./inputs/rotate-tokens.input";
 import { OtpService } from "../otp/otp.service";
 import { OtpType, TokenType } from "../generated/prisma/enums";
+import { Profile as GithubProfile } from "passport-github2";
 
 @Injectable()
 export class AuthService {
@@ -134,6 +135,32 @@ export class AuthService {
 		});
 
 		return { accessToken, refreshToken, sessionId: session.id };
+	}
+
+	async loginWithGithub(profile: GithubProfile) {
+		const { id: githubId, displayName, photos } = profile;
+		const safeName = displayName?.trim() ?? "";
+		const [first, ...last] = safeName.split(/\s+/);
+		const firstName = first || "New";
+		const lastName = last.length ? last.join(" ") : "User";
+		const photoUrl = photos?.[0].value ?? undefined;
+
+		let user = await this.userService.findOneByGithubId(githubId, {
+			scope: { inactive: true },
+		});
+
+		if (!user) {
+			user = await this.userService.create({
+				firstName,
+				lastName,
+				photoUrl,
+				githubId,
+			});
+		}
+
+		if (!user.isActive) return { error: "common.message.accountInactive" };
+
+		return this.socialLogin(user.id);
 	}
 
 	async requestPasswordChange(userId: string) {

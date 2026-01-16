@@ -20,6 +20,7 @@ import { JwtAccessGuard, JwtRefreshGuard } from "../jwt/jwt.guard";
 import { GoogleOauthGuard } from "./guards/google-oauth.guard";
 import { GithubOauthGuard } from "./guards/github-oauth.guard";
 import { PasswordResetRequestDto } from "./dto/password-reset-request";
+import { Profile as GithubProfile } from "passport-github2";
 
 @Controller("auth")
 export class AuthController {
@@ -167,8 +168,12 @@ export class AuthController {
 	@Get("github/callback")
 	async githubCallback(@Req() request: Request, @Res() response: Response) {
 		const redirectUrl = this.configService.get<string>("OAUTH_REDIRECT_URL")!;
-		const { userId } = request.user as { userId: string };
-		const { accessToken, refreshToken, sessionId } = await this.authService.socialLogin(userId);
+		const { profile } = request.user as { profile: GithubProfile };
+
+		const result = await this.authService.loginWithGithub(profile);
+		if ("error" in result) return response.redirect(`${redirectUrl}?error=${result.error}`);
+
+		const { accessToken, refreshToken, sessionId } = result;
 
 		response.cookie("isLoggedIn", true, this.getCookieOptions({ httpOnly: false }));
 		response.cookie(
